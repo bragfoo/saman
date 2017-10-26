@@ -12,3 +12,11 @@
 
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
 .glide/
+
+#osx 
+.DS_Store
+
+#vendor
+vendor/github.com/
+vendor/golang.org/
+vendor/gopkg.in/
