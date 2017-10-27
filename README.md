@@ -5,14 +5,15 @@ Saman is a growth platform
 .
 ├── LICENSE
 ├── README.md
-├── api         # api server source code
-├── docs        # documents
-├── master      # master server source code, read es and write influxdb
-├── plugin      # plugin for master
-├── res         # resource file
-├── util        # util package
-├── conf        # default config
-└── web         # front web site
+├── backend   
+│   ├── api ------------ # api server source code
+│   └── master --------- # master server source code, read es and write influxdb
+├── docs --------------- # documents
+├── plugin ------------- # plugin for master
+├── res ---------------- # resource file
+├── util --------------- # util package
+├── conf --------------- # default config
+└── web ---------------- # front web site
 ```
 ## Start
 
@@ -34,10 +35,10 @@ Saman is a growth platform
     govendor sync
     ```
 
-4. start
+4. start backend
 
     ```shell
     go run api/main.go
     ```
-
+5. start fron
 

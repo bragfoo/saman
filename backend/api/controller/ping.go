@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/bragfoo/saman/api/global"
+	"github.com/bragfoo/saman/backend/api/global"
 )
 
 func GetPing(g *global.G) func(*gin.Context) {

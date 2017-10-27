@@ -3,8 +3,8 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/bragfoo/saman/api/controller"
-	"github.com/bragfoo/saman/api/global"
+	"github.com/bragfoo/saman/backend/api/controller"
+	"github.com/bragfoo/saman/backend/api/global"
 )
 
 func Server(router *gin.RouterGroup, g *global.G) {

@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/koding/multiconfig"
 
-	"github.com/bragfoo/saman/api/global"
-	api "github.com/bragfoo/saman/api/router"
+	"github.com/bragfoo/saman/backend/api/global"
+	api "github.com/bragfoo/saman/backend/api/router"
 	"github.com/bragfoo/saman/util/config"
 )
 
