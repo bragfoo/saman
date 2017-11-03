@@ -5,13 +5,13 @@
       <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
     </div>
     <div class="echarts">
-      <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
+      <IEcharts :option="line" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
     </div>
     <div class="echarts">
-      <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
+      <IEcharts :option="line" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
     </div>
     <div class="echarts">
-      <IEcharts :option="bar" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
+      <IEcharts :option="line" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
       <button @click="doRandom">Random</button>
     </div>
   </el-card>

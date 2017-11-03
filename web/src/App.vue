@@ -7,7 +7,7 @@
           <i class="el-icon-menu"></i>
           <span slot="title">Dashboard</span>
         </el-menu-item>
-        <el-menu-item index="1" :route="{'name':'dashboard'}">
+        <el-menu-item index="1" :route="{'name':'gain'}">
           <i class="el-icon-news"></i>
           <span slot="title">获取</span>
         </el-menu-item>
