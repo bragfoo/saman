@@ -20,8 +20,8 @@
             <i class="el-icon-view"></i>
             <span slot="title">留存</span>
           </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-share" :route="{'name':'referral'}"></i>
+          <el-menu-item index="4" :route="{'name':'referral'}">
+            <i class="el-icon-share"></i>
             <span slot="title">转化</span>
           </el-menu-item>
           <el-menu-item index="5" :route="{'name':'revenue'}">

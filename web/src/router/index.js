@@ -8,8 +8,10 @@ import AcqSummary from '@/views/acquisition_views/Summary.vue'
 import Activation from '@/views/Activation.vue'
 // Retention
 import Retention from '@/views/Retention.vue'
+import RetSummary from '@/views/retention_views/Summary.vue'
 // Referral
 import Referral from '@/views/Referral.vue'
+import RefSummary from '@/views/referral_views/Summary.vue'
 // Revenue
 import Revenue from '@/views/Revenue.vue'
 // ModifyData
@@ -50,11 +52,25 @@ export default new Router({
     }, {
       path: '/Retention',
       name: 'retention',
-      component: Retention
+      component: Retention,
+      children: [
+        {
+          path: '/ret/summary',
+          name: 'ret_aummary',
+          component: RetSummary
+        }
+      ]
     }, {
       path: '/Referral',
       name: 'referral',
-      component: Referral
+      component: Referral,
+      children: [
+        {
+          path: '/ref/summary',
+          name: 'ref_summary',
+          component: RefSummary
+        }
+      ]
     }, {
       path: '/Revenue',
       name: 'revenue',

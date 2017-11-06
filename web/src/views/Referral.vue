@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane label="转化传播" name="modify_plat_fans"></el-tab-pane>
+      <el-tab-pane label="转化传播" name="ref_summary"></el-tab-pane>
       <el-tab-pane label="UGC" name="modify_app_ugc"></el-tab-pane>
       <el-tab-pane label="达人" name="modify_talent"></el-tab-pane>
     </el-tabs>
@@ -14,7 +14,7 @@
     name: 'Referral',
     data () {
       return {
-        activeName: 'modify_plat_fans'
+        activeName: 'ref_summary'
       }
     },
     created () {
@@ -26,9 +26,9 @@
       },
       parseRoute () {
         let name = this.$route.name
-        if (name === 'modify') {
-          this.activeName = 'modify_plat_fans'
-          this.$router.replace({'name': 'modify_plat_fans'})
+        if (name === 'referral') {
+          this.activeName = 'ref_summary'
+          this.$router.replace({'name': 'ref_summary'})
         } else {
           this.activeName = name
         }
