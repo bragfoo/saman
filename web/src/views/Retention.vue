@@ -12,7 +12,7 @@
 
 <script>
   export default {
-    name: 'Main',
+    name: 'Retention',
     data () {
       return {
         activeName: 'modify_plat_fans'

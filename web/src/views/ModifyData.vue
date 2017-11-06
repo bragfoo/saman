@@ -15,7 +15,7 @@
 
 <script>
   export default {
-    name: 'Main',
+    name: 'ModifyData',
     data () {
       return {
         activeName: 'modify_plat_fans'
@@ -36,7 +36,6 @@
         } else {
           this.activeName = name
         }
-        console.log(this.$route)
       }
     },
     watch: {

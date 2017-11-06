@@ -9,7 +9,7 @@
 
 <script>
   export default {
-    name: 'Main',
+    name: 'Revenue',
     data () {
       return {
         activeName: 'modify_plat_fans'

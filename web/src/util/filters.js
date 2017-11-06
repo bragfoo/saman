@@ -16,6 +16,17 @@ export function timeAgo (time) {
   }
 }
 
+export function timeToDay (timestamp) {
+  let a = new Date(timestamp * 1000)
+  let year = a.getFullYear()
+  let month = a.getMonth() + 1
+  let date = a.getDate()
+  // let hour = a.getHours()
+  // let min = a.getMinutes()
+  // let sec = a.getSeconds()
+  return year + '年 ' + month + '月 ' + date + '日 '
+}
+
 function pluralize (time, label) {
   if (time === 1) {
     return time + label

@@ -112,7 +112,7 @@
 
 <script>
   export default {
-    name: 'Main',
+    name: 'ModifyAppUGC',
     data () {
       return {
         url: '/api/ugc',
@@ -123,7 +123,7 @@
       }
     },
     created () {
-
+      this.fetchList()
     },
     methods: {
       // net io
@@ -161,9 +161,9 @@
       },
 
       // dialog control
-      showDialog () {
-        if (this.isCreate) {
-          this.rowData = this.getRowData()
+      showDialog (id) {
+        if (!this.isCreate) {
+          this.rowData = this.getRowData(id)
         }
         this.fetchData()
         this.dialogVisible = true
@@ -177,9 +177,9 @@
         this.isCreate = true
         this.showDialog()
       },
-      editRow () {
+      editRow (id) {
         this.isCreate = false
-        this.showDialog()
+        this.showDialog(id)
       },
       saveRow () {
         this.saveData((response) => {

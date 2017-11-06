@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Main from '@/components/Main.vue'
 // Acquisition
 import Acquisition from '@/views/Acquisition.vue'
+import AcqSummary from '@/views/acquisition_views/Summary.vue'
 // Activation
 import Activation from '@/views/Activation.vue'
 // Retention
@@ -14,7 +15,7 @@ import Revenue from '@/views/Revenue.vue'
 // ModifyData
 /* eslint-disable */
 import ModifyData from '@/views/ModifyData.vue'
-import ModifyPlatFans from '@/views/modify_views/ModifyAppUGC.vue'
+import ModifyPlatFans from '@/views/modify_views/ModifyPlatFans.vue'
 import ModifyVideoPlat from '@/views/modify_views/ModifyAppUGC.vue'
 import ModifyVideoPlatAmount from '@/views/modify_views/ModifyAppUGC.vue'
 import ModifyMobileData from '@/views/modify_views/ModifyAppUGC.vue'
@@ -34,22 +35,29 @@ export default new Router({
     }, {
       path: '/acquisition',
       name: 'acquisition',
-      component: Acquisition
+      component: Acquisition,
+      children: [
+        {
+          path: '/acq/summary',
+          name: 'acq_aummary',
+          component: AcqSummary
+        }
+      ]
     }, {
       path: '/activation',
       name: 'activation',
       component: Activation
     }, {
       path: '/Retention',
-      name: 'Retention',
+      name: 'retention',
       component: Retention
     }, {
       path: '/Referral',
-      name: 'Referral',
+      name: 'referral',
       component: Referral
     }, {
       path: '/Revenue',
-      name: 'Revenue',
+      name: 'revenue',
       component: Revenue
     }, {
       path: '/modify',

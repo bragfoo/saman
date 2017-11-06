@@ -11,7 +11,7 @@
 
 <script>
   export default {
-    name: 'Main',
+    name: 'Referral',
     data () {
       return {
         activeName: 'modify_plat_fans'

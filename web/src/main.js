@@ -8,7 +8,6 @@ import ElementUI from 'element-ui'
 import './assets/element/index.css'
 
 import axios from 'axios'
-import VueAxios from 'vue-axios'
 
 import VCharts from 'v-charts'
 
@@ -18,7 +17,12 @@ Vue.config.productionTip = false
 
 Vue.use(ElementUI)
 
-Vue.use(VueAxios, axios)
+// Vue.use(VueAxios, axios)
+Vue.prototype.$http = axios.create({
+  baseURL: 'http://localhost:8080/api/v1/',
+  timeout: 1000,
+  headers: {'X-Custom-Header': 'foobar'}
+})
 
 Vue.use(VCharts)
 
