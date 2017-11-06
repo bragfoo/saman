@@ -125,7 +125,11 @@
         })
       },
       saveData (func) {
-        this.$http.post(this.url, this.rowData).then(func)
+        if (this.isCreate) {
+          this.$http.post(this.url, this.rowData).then(func)
+        } else {
+          this.$http.put(this.url, this.rowData).then(func)
+        }
       },
       deleteData (id) {
         this.$http.delete(this.url).then(this.reload())
