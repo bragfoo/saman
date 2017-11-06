@@ -3,3 +3,14 @@ enable=true
 prefix="api"
 port=8233
 version="v1"
+[db]
+username="root"
+password="123..com"
+protocol="tcp"
+address="127.0.0.1"
+port="3306"
+dbname="saman"
+maxConnections=20
+maxIdleConns=5
+[constant]
+idGeneratorURL="http://127.0.0.1:1273/id"
