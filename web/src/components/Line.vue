@@ -1,18 +1,7 @@
 <template>
   <el-card class="box-card">
-    <div slot="header" class="clearfix">
-      <span>Dashboard</span>
-      <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-    </div>
     <div class="echarts">
-      <IEcharts :option="line" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
-    </div>
-    <div class="echarts">
-      <IEcharts :option="line" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
-    </div>
-    <div class="echarts">
-      <IEcharts :option="line" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
-      <button @click="doRandom">Random</button>
+      <ve-line :data="chartData" :settings="chartSettings"></ve-line>
     </div>
   </el-card>
 </template>
@@ -27,41 +16,25 @@
       IEcharts
     },
     props: {},
-    data: () => ({
-      loading: true,
-      bar: {
-        title: {
-          text: '测试'
+    data: () => (
+      {
+        chartData: {
+          columns: ['日期', '成本', '利润', '占比', '其他'],
+          rows: [
+            {'成本': 1523, '日期': '1月1日', '利润': 1523, '占比': 0.12, '其他': 100},
+            {'成本': 1223, '日期': '1月2日', '利润': 1523, '占比': 0.345, '其他': 100},
+            {'成本': 2123, '日期': '1月3日', '利润': 1523, '占比': 0.7, '其他': 100},
+            {'成本': 4123, '日期': '1月4日', '利润': 1523, '占比': 0.31, '其他': 100},
+            {'成本': 3123, '日期': '1月5日', '利润': 1523, '占比': 0.12, '其他': 100},
+            {'成本': 7123, '日期': '1月6日', '利润': 1523, '占比': 0.65, '其他': 100}
+          ]
         },
-        tooltip: {},
-        xAxis: {
-          data: ['Shirt', 'Sweater', 'Chiffon Shirt', 'Pants', 'High Heels', 'Socks']
-        },
-        yAxis: {},
-        series: [{
-          name: 'Sales',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
-        }]
-      }
-    }),
-    methods: {
-      doRandom () {
-        const that = this
-        let data = []
-        for (let i = 0, min = 5, max = 99; i < 6; i++) {
-          data.push(Math.floor(Math.random() * (max + 1 - min) + min))
+        chartSettings: {
+          metrics: ['成本', '利润'],
+          dimension: ['日期']
         }
-        that.loading = !that.loading
-        that.bar.series[0].data = data
-      },
-      onReady (instance) {
-        console.log(instance)
-      },
-      onClick (event, instance, echarts) {
-        console.log(arguments)
-      }
-    }
+      }),
+    methods: {}
   }
 </script>
 
