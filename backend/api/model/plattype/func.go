@@ -6,6 +6,8 @@ import (
 	"database/sql"
 )
 
+var postPlatformFansQuery string = "INSERT INTO platformFans (ids, createTime, sum, decrease, increase, type) VALUES (?,?,?,?,?,?);"
+
 func GetPlatformTypeStmt() (*sql.Stmt, error) {
 	stm, err := db.Prepare("SELECT p.ids AS ids,p.name AS name,p.nameChinese AS nameChinese FROM saman.platformType p")
 	if nil != err {
@@ -29,6 +31,15 @@ func GetPlatformFansStmt() (*sql.Stmt, error) {
 	stm, err := db.Prepare(query)
 	if nil != err {
 		log.Fatal(err)
+		return nil, err
+	} else {
+		return stm, nil
+	}
+}
+
+func PostPlatformFans() (*sql.Stmt, error) {
+	stm, err := db.Prepare(postPlatformFansQuery)
+	if nil != err {
 		return nil, err
 	} else {
 		return stm, nil

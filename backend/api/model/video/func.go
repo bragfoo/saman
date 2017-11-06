@@ -6,6 +6,10 @@ import (
 	"log"
 )
 
+var postVideoQuery string = "INSERT INTO video (ids, videoIds, platIds, title, link) VALUES (?,?,?,?,?)"
+
+var postVideoPlayAmountQuery string = "INSERT INTO playAmount (ids, videoIds, createTime, sum) VALUES (?,?,?,?);"
+var getVideoPlayAmount string ="SELECT p.ids AS ids,p.videoIds AS videoIds,p.createTime AS createtime,p.videoIds AS videoIds FROM playAmount p ;"
 func GetVideo() (*sql.Stmt, error) {
 	var query string
 	query = "SELECT" +
@@ -23,5 +27,32 @@ func GetVideo() (*sql.Stmt, error) {
 		return nil, err
 	} else {
 		return stm, nil
+	}
+}
+
+func PostVideo() (*sql.Stmt, error) {
+	stm, err := db.Prepare(postVideoQuery)
+	if nil != err {
+		return nil, err
+	} else {
+		return stm, nil
+	}
+}
+
+func PostVideoPlayAmount() (*sql.Stmt, error) {
+	stm, err := db.Prepare(postVideoPlayAmountQuery)
+	if nil != err {
+		return nil, err
+	} else {
+		return stm, nil
+	}
+}
+
+func GetVideoPlayAmount() (*sql.Stmt, error) {
+	stm,err:=db.Prepare(getVideoPlayAmount)
+	if nil !=err {
+		return nil,err
+	}else {
+		return stm,nil
 	}
 }

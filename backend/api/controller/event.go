@@ -23,14 +23,16 @@ func GetEvents(g *global.G) func(context *gin.Context) {
 			var result []model.Event
 			for rows.Next() {
 				var model = model.Event{}
-				rows.Scan(&model.Ids,
+				err := rows.Scan(&model.Ids,
 					&model.Name,
 					&model.StartDate,
 					&model.EndDate,
 					&model.TotalPeople,
 					&model.TotalWork,
 					&model.UploadPeople)
-				result = append(result, model)
+				if nil == err {
+					result = append(result, model)
+				}
 			}
 			context.JSON(http.StatusOK, result)
 		}

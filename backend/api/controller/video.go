@@ -6,6 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/bragfoo/saman/backend/api/model"
 	"github.com/bragfoo/saman/backend/api/model/video"
+	"io/ioutil"
+	"github.com/json-iterator/go"
+	"github.com/siddontang/go/log"
+	"github.com/bragfoo/saman/util"
 )
 
 func GetVideoPlayAmount(g *global.G) func(context *gin.Context) {
@@ -19,16 +23,71 @@ func GetVideoPlayAmount(g *global.G) func(context *gin.Context) {
 			var result []model.VideoPlayAmount
 			for rows.Next() {
 				var model = model.VideoPlayAmount{}
-				rows.Scan(&model.Ids,
+				err := rows.Scan(&model.Ids,
 					&model.Title,
 					&model.Link,
 					&model.CreateTime,
 					&model.Sum,
 					&model.NameChinese,
 				)
-				result = append(result, model)
+				if nil == err {
+					result = append(result, model)
+				}
 			}
 			context.JSON(http.StatusOK, result)
+		}
+	}
+}
+
+func PostVideo(g global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		body := c.Request.Body
+		defer body.Close()
+		b, _ := ioutil.ReadAll(body)
+		var m = model.Video{}
+		jsoniter.ConfigCompatibleWithStandardLibrary.Unmarshal(b, &m)
+		log.Info(m)
+		stm, err := video.PostVideo()
+		if nil != err {
+			c.Status(http.StatusInternalServerError)
+		} else {
+			_, err := stm.Exec(util.GetObjectId(),
+				m.VideoIds,
+				m.PlatIds,
+				m.Title,
+				m.Link)
+			if nil != err {
+				log.Error(err)
+				c.Status(http.StatusInternalServerError)
+			} else {
+				c.Status(http.StatusOK)
+			}
+		}
+	}
+}
+
+func PostVideoPlayAmount(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		body := c.Request.Body
+		defer body.Close()
+		b, _ := ioutil.ReadAll(body)
+		var m = model.PlayAmount{}
+		jsoniter.ConfigCompatibleWithStandardLibrary.Unmarshal(b, &m)
+		log.Info(m)
+		stm, err := video.PostVideoPlayAmount()
+		if nil != err {
+			c.Status(http.StatusInternalServerError)
+		} else {
+			_, err := stm.Exec(util.GetObjectId(),
+				m.VideoIds,
+				m.CreateTime,
+				m.Sum)
+			if nil != err {
+				log.Error(err)
+				c.Status(http.StatusInternalServerError)
+			} else {
+				c.Status(http.StatusOK)
+			}
 		}
 	}
 }
