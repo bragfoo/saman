@@ -15,27 +15,32 @@ import (
 
 func GetMobileData(g *global.G) func(context *gin.Context) {
 	return func(context *gin.Context) {
-		stm, err := mobile.GetMobileData()
-		if nil != err {
-			context.Status(http.StatusInternalServerError)
+		ids := context.Query("ids")
+		if "" != ids {
+
 		} else {
-			rows, _ := stm.Query()
-			defer rows.Close()
-			var result []model.MobileData
-			for rows.Next() {
-				var model = model.MobileData{}
-				err := rows.Scan(&model.Ids,
-					&model.CreateTime,
-					&model.Active,
-					&model.Launch,
-					&model.Channel,
-					&model.SystemType,
-				)
-				if nil == err {
-					result = append(result, model)
+			stm, err := mobile.GetMobileData()
+			if nil != err {
+				context.Status(http.StatusInternalServerError)
+			} else {
+				rows, _ := stm.Query()
+				defer rows.Close()
+				var result []model.MobileData
+				for rows.Next() {
+					var model = model.MobileData{}
+					err := rows.Scan(&model.Ids,
+						&model.CreateTime,
+						&model.Active,
+						&model.Launch,
+						&model.Channel,
+						&model.SystemType,
+					)
+					if nil == err {
+						result = append(result, model)
+					}
 				}
+				context.JSON(http.StatusOK, result)
 			}
-			context.JSON(http.StatusOK, result)
 		}
 	}
 }

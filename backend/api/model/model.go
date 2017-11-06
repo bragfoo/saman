@@ -8,13 +8,13 @@ type PlatformType struct {
 
 type PlatformFans struct {
 	Ids        string
-	CreateTime int
+	CreateTime int64
 	Sum        int
 	Decrease   int
 	Increase   int
 	Type       string
+	PlatIds    string
 }
-
 
 type Video struct {
 	Ids      string
@@ -30,7 +30,7 @@ type VideoPlayAmount struct {
 	PlatIds     string
 	Title       string
 	Link        string
-	CreateTime  string
+	CreateTime  int64
 	Sum         int
 	NameChinese string
 }
@@ -38,13 +38,13 @@ type VideoPlayAmount struct {
 type PlayAmount struct {
 	Ids        string
 	VideoIds   string
-	CreateTime int
+	CreateTime int64
 	Sum        int
 }
 
 type MobileData struct {
 	Ids        string
-	CreateTime int
+	CreateTime int64
 	Active     int
 	Launch     int
 	Channel    string
@@ -58,7 +58,7 @@ type Channel struct {
 
 type AppUGC struct {
 	Ids        string
-	CreateTime int
+	CreateTime int64
 	Like       int
 	CommentSum int
 	ShareSum   int
@@ -69,8 +69,8 @@ type AppUGC struct {
 type Event struct {
 	Ids          string
 	Name         string
-	StartDate    int
-	EndDate      int
+	StartDate    int64
+	EndDate      int64
 	TotalPeople  int
 	TotalWork    int
 	UploadPeople int

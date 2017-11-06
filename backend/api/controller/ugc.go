@@ -10,20 +10,20 @@ import (
 	"github.com/json-iterator/go"
 	"github.com/bragfoo/saman/util"
 	"github.com/siddontang/go/log"
+	"github.com/bragfoo/saman/backend/api/common"
 )
 
 func GetUGC(g *global.G) func(context *gin.Context) {
 	return func(context *gin.Context) {
-		stm, err := ugc.GetUGC()
-		if nil != err {
-			context.Status(http.StatusInternalServerError)
-		} else {
-			rows, _ := stm.Query()
-			defer rows.Close()
-			var result []model.AppUGC
-			for rows.Next() {
+		ids := context.Query("ids")
+		if "" != ids {
+			stm, err := ugc.GetUGCByIds()
+			if nil != err {
+				log.Error(err)
+				common.StandardError(context)
+			} else {
 				var model = model.AppUGC{}
-				err := rows.Scan(&model.Ids,
+				err := stm.QueryRow(ids).Scan(&model.Ids,
 					&model.CreateTime,
 					&model.Like,
 					&model.CommentSum,
@@ -31,11 +31,37 @@ func GetUGC(g *global.G) func(context *gin.Context) {
 					&model.PicSum,
 					&model.VideoSum,
 				)
-				if nil == err {
-					result = append(result, model)
+				if nil != err {
+					log.Error(err)
+					common.StandardNotFound(context)
+				} else {
+					common.StandardOk(context, model)
 				}
 			}
-			context.JSON(http.StatusOK, result)
+		} else {
+			stm, err := ugc.GetUGC()
+			if nil != err {
+				context.Status(http.StatusInternalServerError)
+			} else {
+				rows, _ := stm.Query()
+				defer rows.Close()
+				var result []model.AppUGC
+				for rows.Next() {
+					var model = model.AppUGC{}
+					err := rows.Scan(&model.Ids,
+						&model.CreateTime,
+						&model.Like,
+						&model.CommentSum,
+						&model.ShareSum,
+						&model.PicSum,
+						&model.VideoSum,
+					)
+					if nil == err {
+						result = append(result, model)
+					}
+				}
+				context.JSON(http.StatusOK, result)
+			}
 		}
 	}
 }
