@@ -6,6 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/bragfoo/saman/backend/api/model"
 	"github.com/bragfoo/saman/backend/api/model/ugc"
+	"io/ioutil"
+	"github.com/json-iterator/go"
+	"github.com/bragfoo/saman/util"
+	"github.com/siddontang/go/log"
 )
 
 func GetUGC(g *global.G) func(context *gin.Context) {
@@ -19,7 +23,7 @@ func GetUGC(g *global.G) func(context *gin.Context) {
 			var result []model.AppUGC
 			for rows.Next() {
 				var model = model.AppUGC{}
-				rows.Scan(&model.Ids,
+				err := rows.Scan(&model.Ids,
 					&model.CreateTime,
 					&model.Like,
 					&model.CommentSum,
@@ -27,9 +31,40 @@ func GetUGC(g *global.G) func(context *gin.Context) {
 					&model.PicSum,
 					&model.VideoSum,
 				)
-				result = append(result, model)
+				if nil == err {
+					result = append(result, model)
+				}
 			}
 			context.JSON(http.StatusOK, result)
+		}
+	}
+}
+
+func PostUGC(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		body := c.Request.Body
+		defer body.Close()
+		b, _ := ioutil.ReadAll(body)
+		var m = model.AppUGC{}
+		jsoniter.ConfigCompatibleWithStandardLibrary.Unmarshal(b, &m)
+		log.Info(m)
+		stm, err := ugc.PostUGC()
+		if nil != err {
+			c.Status(http.StatusInternalServerError)
+		} else {
+			_, err := stm.Exec(util.GetObjectId(),
+				m.CreateTime,
+				m.Like,
+				m.CommentSum,
+				m.ShareSum,
+				m.PicSum,
+				m.VideoSum)
+			if nil != err {
+				log.Error(err)
+				c.Status(http.StatusInternalServerError)
+			} else {
+				c.Status(http.StatusOK)
+			}
 		}
 	}
 }

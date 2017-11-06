@@ -24,14 +24,16 @@ func GetMobileData(g *global.G) func(context *gin.Context) {
 			var result []model.MobileData
 			for rows.Next() {
 				var model = model.MobileData{}
-				rows.Scan(&model.Ids,
+				err := rows.Scan(&model.Ids,
 					&model.CreateTime,
 					&model.Active,
 					&model.Launch,
 					&model.Channel,
 					&model.SystemType,
 				)
-				result = append(result, model)
+				if nil == err {
+					result = append(result, model)
+				}
 			}
 			context.JSON(http.StatusOK, result)
 		}
@@ -44,7 +46,7 @@ func PostMobileData(g *global.G) func(c *gin.Context) {
 		defer body.Close()
 		b, _ := ioutil.ReadAll(body)
 		var json = jsoniter.ConfigCompatibleWithStandardLibrary
-		var m = model.Event{}
+		var m = model.MobileData{}
 		log.Info(m)
 		json.Unmarshal(b, &m)
 
@@ -53,12 +55,11 @@ func PostMobileData(g *global.G) func(c *gin.Context) {
 			c.Status(http.StatusInternalServerError)
 		} else {
 			_, err := stm.Exec(util.GetObjectId(),
-				m.Name,
-				m.StartDate,
-				m.EndDate,
-				m.TotalPeople,
-				m.TotalWork,
-				m.UploadPeople)
+				m.CreateTime,
+				m.Active,
+				m.Launch,
+				m.Channel,
+				m.SystemType)
 			if nil != err {
 				log.Error(err)
 				c.Status(http.StatusInternalServerError)
