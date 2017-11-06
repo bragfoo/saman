@@ -10,31 +10,55 @@ import (
 	"io/ioutil"
 	"github.com/json-iterator/go"
 	"github.com/bragfoo/saman/util"
+	"github.com/bragfoo/saman/backend/api/common"
 )
 
 func GetEvents(g *global.G) func(context *gin.Context) {
 	return func(context *gin.Context) {
-		stm, err := event.GetEvent()
-		if nil != err {
-			context.Status(http.StatusInternalServerError)
-		} else {
-			rows, _ := stm.Query()
-			defer rows.Close()
-			var result []model.Event
-			for rows.Next() {
+		ids := context.Query("ids")
+		if "" != ids {
+			stm, err := event.GetEventById()
+			if nil != err {
+				common.StandardError(context)
+			} else {
 				var model = model.Event{}
-				err := rows.Scan(&model.Ids,
+				err := stm.QueryRow(ids).Scan(&model.Ids,
 					&model.Name,
 					&model.StartDate,
 					&model.EndDate,
 					&model.TotalPeople,
 					&model.TotalWork,
 					&model.UploadPeople)
-				if nil == err {
-					result = append(result, model)
+				if nil != err {
+					log.Error(err)
+					common.StandardNotFound(context)
+				} else {
+					common.StandardOk(context, model)
 				}
 			}
-			context.JSON(http.StatusOK, result)
+		} else {
+			stm, err := event.GetEvent()
+			if nil != err {
+				common.StandardError(context)
+			} else {
+				rows, _ := stm.Query()
+				defer rows.Close()
+				var result []model.Event
+				for rows.Next() {
+					var model = model.Event{}
+					err := rows.Scan(&model.Ids,
+						&model.Name,
+						&model.StartDate,
+						&model.EndDate,
+						&model.TotalPeople,
+						&model.TotalWork,
+						&model.UploadPeople)
+					if nil == err {
+						result = append(result, model)
+					}
+				}
+				context.JSON(http.StatusOK, result)
+			}
 		}
 	}
 }

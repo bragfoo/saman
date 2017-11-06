@@ -8,54 +8,103 @@ import (
 	"github.com/bragfoo/saman/backend/api/model/plattype"
 	"github.com/bragfoo/saman/util"
 	"github.com/siddontang/go/log"
-	"github.com/bragfoo/saman/backend/api/model/event"
 	"io/ioutil"
 	"github.com/json-iterator/go"
+	"github.com/bragfoo/saman/backend/api/common"
 )
 
 func GetPlatType(g *global.G) func(context *gin.Context) {
 	return func(context *gin.Context) {
-		stm, err := plat.GetPlatformTypeStmt()
-		if nil != err {
-			context.Status(http.StatusInternalServerError)
-		} else {
-			rows, _ := stm.Query()
-			defer rows.Close()
-			var result []model.PlatformType
-			for rows.Next() {
-				var model = model.PlatformType{}
-				err := rows.Scan(&model.Ids, &model.Name, &model.NameChinese)
-				if nil == err {
-					result = append(result, model)
+		ids := context.Query("ids")
+		if "" != ids {
+			log.Info(ids)
+		} else
+		{
+			stm, err := plat.GetPlatformTypeStmt()
+			if nil != err {
+				log.Error(err)
+				context.Status(http.StatusInternalServerError)
+			} else {
+				rows, err := stm.Query()
+				if err != nil {
+					log.Error(err)
+					common.StandardJoke(context)
 				}
+				defer rows.Close()
+				var result []model.PlatformType
+				for rows.Next() {
+					var model = model.PlatformType{}
+					err := rows.Scan(&model.Ids, &model.Name, &model.NameChinese)
+					if nil == err {
+						result = append(result, model)
+					}
+				}
+				context.JSON(http.StatusOK, result)
 			}
-			context.JSON(http.StatusOK, result)
 		}
 	}
 }
 
 func GetPlatFans(g *global.G) func(context *gin.Context) {
 	return func(context *gin.Context) {
-		stm, err := plat.GetPlatformFansStmt()
-		if nil != err {
-			context.Status(http.StatusInternalServerError)
-		} else {
-			rows, _ := stm.Query()
-			defer rows.Close()
-			var result []model.PlatformFans
-			for rows.Next() {
-				var model = model.PlatformFans{}
-				err := rows.Scan(&model.Ids,
-					&model.CreateTime,
-					&model.Sum,
-					&model.Decrease,
-					&model.Increase,
-					&model.Type)
+		platIds := context.Query("platIds")
+		if "" != platIds {
+			stm, err := plat.GetPlatformFansByPlatIds()
+			if nil != err {
+				log.Error(err)
+				common.StandardError(context)
+			} else {
+				rows, err := stm.Query(platIds)
 				if nil != err {
 					log.Error(err)
+					common.StandardError(context)
+				} else {
+					var result []model.PlatformFans
+					for rows.Next() {
+						var model = model.PlatformFans{}
+						err := rows.Scan(&model.Ids,
+							&model.CreateTime,
+							&model.Sum,
+							&model.Decrease,
+							&model.Increase,
+							&model.Type,
+							&model.PlatIds)
+						if nil == err {
+							result = append(result, model)
+						}
+					}
+					context.JSON(http.StatusOK, result)
 				}
 			}
-			context.JSON(http.StatusOK, result)
+		} else {
+			stm, err := plat.GetPlatformFansStmt()
+			if nil != err {
+				log.Error(err)
+				context.Status(http.StatusInternalServerError)
+			} else {
+				rows, err := stm.Query()
+				defer rows.Close()
+				if nil != err {
+					log.Error(err)
+					common.StandardError(context)
+				} else {
+					var result []model.PlatformFans
+					for rows.Next() {
+						var model = model.PlatformFans{}
+						err := rows.Scan(&model.Ids,
+							&model.CreateTime,
+							&model.Sum,
+							&model.Decrease,
+							&model.Increase,
+							&model.Type,
+							&model.PlatIds)
+						if nil == err {
+							result = append(result, model)
+						}
+					}
+					context.JSON(http.StatusOK, result)
+				}
+			}
 		}
 	}
 }
@@ -69,8 +118,9 @@ func PostPlatFans(g *global.G) func(context *gin.Context) {
 
 		jsoniter.ConfigCompatibleWithStandardLibrary.Unmarshal(b, &m)
 		log.Info(m)
-		stm, err := event.PostEvents()
+		stm, err := plat.PostPlatformFans()
 		if nil != err {
+			log.Error(err)
 			c.Status(http.StatusInternalServerError)
 		} else {
 			_, err := stm.Exec(util.GetObjectId(),
@@ -78,7 +128,7 @@ func PostPlatFans(g *global.G) func(context *gin.Context) {
 				m.Sum,
 				m.Decrease,
 				m.Increase,
-				m.Type)
+				m.PlatIds)
 			if nil != err {
 				log.Error(err)
 				c.Status(http.StatusInternalServerError)
