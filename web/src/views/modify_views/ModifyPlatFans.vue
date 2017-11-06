@@ -2,6 +2,7 @@
   <div>
     <el-row>
       <el-col :span="24" style="padding-bottom: 15px">
+        <PlatTypeSelect v-model="playType" @change="fetchList"></PlatTypeSelect>
         <el-button size="mini" type="primary" plain @click="createRow">添加</el-button>
         <el-button size="mini" type="primary" plain @click="reload">刷新</el-button>
       </el-col>
@@ -77,9 +78,6 @@
         <el-form-item label="总数">
           <el-input v-model="rowData.Sum"></el-input>
         </el-form-item>
-        <el-form-item label="平台">
-          <el-input v-model="rowData.Type"></el-input>
-        </el-form-item>
         <el-form-item>
           <el-button @click="closeDialog">取 消</el-button>
           <el-button type="primary" @click="saveRow">确 定</el-button>
@@ -92,14 +90,18 @@
 </template>
 
 <script>
+  import PlatTypeSelect from '../../components/PlatTypeSelect.vue'
+
   export default {
     name: 'ModifyPlatFans',
+    components: {PlatTypeSelect},
     data () {
       return {
         url: 'platformFans',
         tableData: [],
         rowData: {},
         dialogVisible: false,
+        playType: '59fae20cef2d1314e0ea2a55',
         isCreate: true,
         timeOption: {
           disabledDate (time) {
@@ -113,8 +115,12 @@
     },
     methods: {
       // net io
-      fetchList () {
-        this.$http.get(this.url).then((response) => {
+      fetchList (value) {
+        this.$http.get(this.url, {
+          params: {
+            'platIds': this.playType
+          }
+        }).then((response) => {
           this.tableData = response.data
         })
       },
@@ -135,7 +141,7 @@
           Increase: 0,
           Decrease: 0,
           Sum: 0,
-          Type: '平台'
+          PlatIds: this.playType
         }
       },
       reload () {
@@ -148,14 +154,14 @@
           this.rowData = this.getRowData()
         } else {
           this.rowData = this.getRowData(id)
-          this.rowData.CreateTime = new Date(this.rowData.CreateTime)
+          this.rowData.CreateTime = new Date(this.rowData.CreateTime * 1000)
         }
         this.dialogVisible = true
       },
       closeDialog () {
         this.dialogVisible = false
         this.isCreate = false
-        this.rowData = this.getRowData()
+//        this.rowData = this.getRowData()
       },
       createRow () {
         this.isCreate = true
@@ -166,7 +172,7 @@
         this.showDialog(id)
       },
       saveRow () {
-        this.rowData.CreateTime = new Date(this.rowData.CreateTime).getTime()
+        this.rowData.CreateTime = Math.floor(new Date(this.rowData.CreateTime).getTime() / 1000)
         this.saveData((response) => {
           this.closeDialog()
         })

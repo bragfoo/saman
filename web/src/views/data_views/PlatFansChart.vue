@@ -1,28 +1,34 @@
 <template>
-  <ve-line :data="chartData" :settings="chartSettings"></ve-line>
+  <el-row>
+    <PlatTypeSelect v-model="playType" @change="fetchList"></PlatTypeSelect>
+    <ve-line :data="chartData" :settings="chartSettings"></ve-line>
+  </el-row>
 </template>
 
 <script>
+  import PlatTypeSelect from '../../components/PlatTypeSelect.vue'
+
   export default {
     name: 'PlatFansChart',
+    components: {PlatTypeSelect},
     data () {
       return {
         loading: false,
+        url: 'platformFans',
+        playType: '59fae20cef2d1314e0ea2a55',
         chartData: {
-          columns: ['date', 'balance', 'age'],
+          columns: ['CreateTime', 'Decrease', 'Increase', 'Sum'],
           rows: [
-            {'date': '1月1日', 'balance': 123, 'age': 3},
-            {'date': '1月2日', 'balance': 1223, 'age': 6},
-            {'date': '1月3日', 'balance': 2123, 'age': 9},
-            {'date': '1月4日', 'balance': 4123, 'age': 12},
-            {'date': '1月5日', 'balance': 3123, 'age': 15},
-            {'date': '1月6日', 'balance': 7123, 'age': 20}
+            {'CreateTime': '1月1日', 'Decrease': 123, 'Increase': 3, 'Sum': 0, 'Type': ''}
           ]
         },
         chartSettings: {
           labelMap: {
-            balance: '余额',
-            age: '年龄'
+            CreateTime: '事件',
+            Decrease: '减少',
+            Increase: '增加',
+            Sum: '总数',
+            Type: '平台'
           }
         }
       }
@@ -34,11 +40,16 @@
       // net io
       fetchList () {
         this.$http.get(this.url, {
-//          params: {
-//            ID: 12345
-//          }
+          params: {
+            platIds: this.playType
+          }
         }).then((response) => {
-          this.chartData.rows = response.data
+          this.chartData.rows = []
+          response.data.forEach((row) => {
+            let time = new Date(row.CreateTime)
+            row.CreateTime = (time.getMonth() + 1) + '月' + time.getDate() + '日'
+            this.chartData.rows.push(row)
+          })
         }).then()
       },
       reload () {
