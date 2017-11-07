@@ -11,6 +11,7 @@ import (
 	"github.com/bragfoo/saman/backend/api/model/event"
 	"github.com/bragfoo/saman/util"
 	"github.com/siddontang/go/log"
+	"github.com/bragfoo/saman/backend/api/common"
 )
 
 func GetMobileData(g *global.G) func(context *gin.Context) {
@@ -34,6 +35,7 @@ func GetMobileData(g *global.G) func(context *gin.Context) {
 						&model.Launch,
 						&model.Channel,
 						&model.SystemType,
+						&model.ChannelIds,
 					)
 					if nil == err {
 						result = append(result, model)
@@ -70,6 +72,54 @@ func PostMobileData(g *global.G) func(c *gin.Context) {
 				c.Status(http.StatusInternalServerError)
 			} else {
 				c.Status(http.StatusOK)
+			}
+		}
+	}
+}
+
+func PutMobileData(g *global.G) func(context *gin.Context) {
+	return func(context *gin.Context) {
+		var m = model.MobileData{}
+		common.ReadJSON(context, &m)
+		stm, err := mobile.PutMobileData()
+		if nil != err {
+			log.Error(err)
+			common.StandardError(context)
+		} else {
+			_, err := stm.Exec(m.CreateTime,
+				m.ChannelIds,
+				m.SystemType,
+				m.Launch,
+				m.Active,
+				m.Ids)
+			if nil != err {
+				log.Error(err)
+				common.StandardError(context)
+			} else {
+				common.StandardSuccess(context)
+			}
+		}
+	}
+}
+
+func DelMobileData(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		ids := c.Param("ids")
+		if "" == ids {
+			common.StandardBadRequest(c)
+		} else {
+			stm, err := mobile.DelMObileData()
+			if nil != err {
+				log.Error(err)
+				common.StandardError(c)
+			} else {
+				_, err := stm.Exec(ids)
+				if nil != err {
+					log.Error(err)
+					common.StandardError(c)
+				} else {
+					common.StandardSuccess(c)
+				}
 			}
 		}
 	}

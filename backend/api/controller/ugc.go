@@ -94,3 +94,46 @@ func PostUGC(g *global.G) func(context *gin.Context) {
 		}
 	}
 }
+
+func PutUGC(g *global.G) func(context *gin.Context) {
+	return func(context *gin.Context) {
+		var m = model.AppUGC{}
+		common.ReadJSON(context, &m)
+		stm, err := ugc.PutUGC()
+		if nil != err {
+			log.Error(err)
+			common.StandardError(context)
+		} else {
+			_, err := stm.Exec()
+			if nil != err {
+				log.Error(err)
+				common.StandardError(context)
+			} else {
+				common.StandardSuccess(context)
+			}
+		}
+	}
+}
+
+func DelUGC(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		ids := c.Param("ids")
+		if "" == ids {
+			common.StandardBadRequest(c)
+		} else {
+			stm, err := ugc.DelUGC()
+			if nil != err {
+				log.Error(err)
+				common.StandardError(c)
+			} else {
+				_, err := stm.Exec(ids)
+				if nil != err {
+					log.Error(err)
+					common.StandardError(c)
+				} else {
+					common.StandardSuccess(c)
+				}
+			}
+		}
+	}
+}

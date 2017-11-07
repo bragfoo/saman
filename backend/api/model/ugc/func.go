@@ -18,6 +18,17 @@ var getQuery = "SELECT" +
 	"  FROM saman.appUGC a"
 var getByIdsQuery = getQuery + " WHERE a.ids = ? "
 
+var putQuery = "UPDATE saman.appUGC a" +
+	"  SET a.createTime = ?," +
+	"  a.videoSum     = ?," +
+	"  a.picSum       = ?," +
+	"  a.shareSum     = ?," +
+	"  a.commentSum   = ?," +
+	"  a.`like`       = ?" +
+	"  WHERE a.ids = ?"
+
+var delQuery = "DELETE FROM appUGC WHERE ids = ?"
+
 func GetUGC() (*sql.Stmt, error) {
 	stm, err := db.Prepare(getQuery)
 	if nil != err {
@@ -46,4 +57,12 @@ func PostUGC() (*sql.Stmt, error) {
 	} else {
 		return stm, err
 	}
+}
+
+func PutUGC() (*sql.Stmt, error) {
+	return db.Prepare(putQuery)
+}
+
+func DelUGC() (*sql.Stmt, error) {
+	return db.Prepare(delQuery)
 }

@@ -49,6 +49,7 @@ type MobileData struct {
 	Launch     int
 	Channel    string
 	SystemType int
+	ChannelIds string
 }
 
 type Channel struct {
