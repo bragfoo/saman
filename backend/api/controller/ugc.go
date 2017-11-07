@@ -114,3 +114,26 @@ func PutUGC(g *global.G) func(context *gin.Context) {
 		}
 	}
 }
+
+func DelUGC(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		ids := c.Param("ids")
+		if "" == ids {
+			common.StandardBadRequest(c)
+		} else {
+			stm, err := ugc.DelUGC()
+			if nil != err {
+				log.Error(err)
+				common.StandardError(c)
+			} else {
+				_, err := stm.Exec(ids)
+				if nil != err {
+					log.Error(err)
+					common.StandardError(c)
+				} else {
+					common.StandardSuccess(c)
+				}
+			}
+		}
+	}
+}

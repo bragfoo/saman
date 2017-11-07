@@ -21,6 +21,8 @@ var updateQuery string = "UPDATE saman.event e" +
 	"  SET e.name = ?, e.uploadPeople = ?, e.totalWork = ?, e.totalPeople = ?, e.endDate = ?, e.startDate = ?" +
 	"  WHERE e.ids = ?"
 
+var delQuery string = "DELETE FROM saman.event WHERE ids = ?"
+
 func GetEvent() (*sql.Stmt, error) {
 	stm, err :=
 		db.Prepare(getEventQuery)
@@ -56,5 +58,8 @@ func PostEvents() (*sql.Stmt, error) {
 
 func PutEvents() (*sql.Stmt, error) {
 	return db.Prepare(updateQuery)
+}
 
+func DeleteEvents() (*sql.Stmt, error) {
+	return db.Prepare(delQuery)
 }

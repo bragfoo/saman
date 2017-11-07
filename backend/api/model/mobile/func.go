@@ -8,7 +8,15 @@ import (
 
 var postEventsQuery string = "INSERT INTO saman.mobileData (ids, createTime, active, launch, channel, systemType) VALUES (?, ?, ?, ?, ?, ?);"
 
-var putQuery string = ""
+var putQuery string = "UPDATE saman.mobileData m" +
+	"  SET m.createTime = ?," +
+	"  m.active       = ?," +
+	"  m.launch       = ?," +
+	"  m.systemType   = ?," +
+	"  m.channel      = ?" +
+	"  WHERE m.ids = ?;"
+
+var delQuery string = "DELETE FROM saman.mobileData WHERE ids = ?"
 
 var getMobileDataQuery string = "SELECT" +
 	"  m.ids        AS ids," +
@@ -53,4 +61,8 @@ func GetMobileData() (*sql.Stmt, error) {
 
 func PutMobileData() (*sql.Stmt, error) {
 	return db.Prepare(putQuery)
+}
+
+func DelMObileData() (*sql.Stmt, error) {
+	return db.Prepare(delQuery)
 }

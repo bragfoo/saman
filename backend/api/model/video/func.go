@@ -21,6 +21,9 @@ var putVideoQuery string = "UPDATE saman.video v" +
 	"  v.link       = ?" +
 	"  WHERE v.ids = ?;"
 
+var delVideoQuery string = "DELETE FROM saman.video WHERE ids = ?"
+var delVideoPlayAmount string = "DELETE FROM saman.playAmount WHERE ids = ?"
+
 func GetVideo() (*sql.Stmt, error) {
 	var query string
 	query = "SELECT" +
@@ -69,4 +72,11 @@ func PutVideo() (*sql.Stmt, error) {
 
 func PutVideoPlayAmount() (*sql.Stmt, error) {
 	return db.Prepare(putVideoPlayAmountQuery)
+}
+func DelVideo() (*sql.Stmt, error) {
+	return db.Prepare(delVideoQuery)
+}
+
+func DelVideoPlayAmount() (*sql.Stmt, error) {
+	return db.Prepare(delVideoPlayAmount)
 }

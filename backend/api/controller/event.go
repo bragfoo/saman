@@ -118,3 +118,26 @@ func PutEvents(g *global.G) func(context *gin.Context) {
 		}
 	}
 }
+
+func DelEvents(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		ids := c.Param("ids")
+		if "" == ids {
+			common.StandardBadRequest(c)
+		} else {
+			stm, err := event.DeleteEvents()
+			if nil != err {
+				log.Error(err)
+				common.StandardError(c)
+			} else {
+				_, err := stm.Exec(ids)
+				if nil != err {
+					log.Error(err)
+					common.StandardError(c)
+				} else {
+					common.StandardSuccess(c)
+				}
+			}
+		}
+	}
+}

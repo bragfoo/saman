@@ -40,7 +40,6 @@ func GetVideoPlayAmount(g *global.G) func(context *gin.Context) {
 	}
 }
 
-
 func PostVideo(g *global.G) func(context *gin.Context) {
 	return func(c *gin.Context) {
 		body := c.Request.Body
@@ -129,6 +128,52 @@ func PutVideo(g *global.G) func(context *gin.Context) {
 				common.StandardError(context)
 			} else {
 				common.StandardSuccess(context)
+			}
+		}
+	}
+}
+
+func DelVideo(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		ids := c.Param("ids")
+		if "" == ids {
+			common.StandardBadRequest(c)
+		} else {
+			stm, err := video.DelVideo()
+			if nil != err {
+				log.Error(err)
+				common.StandardError(c)
+			} else {
+				_, err := stm.Exec(ids)
+				if nil != err {
+					log.Error(err)
+					common.StandardError(c)
+				} else {
+					common.StandardSuccess(c)
+				}
+			}
+		}
+	}
+}
+
+func DelVideoPlayAmount(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		ids := c.Param("ids")
+		if "" == ids {
+			common.StandardBadRequest(c)
+		} else {
+			stm, err := video.DelVideoPlayAmount()
+			if nil != err {
+				log.Error(err)
+				common.StandardError(c)
+			} else {
+				_, err := stm.Exec(ids)
+				if nil != err {
+					log.Error(err)
+					common.StandardError(c)
+				} else {
+					common.StandardSuccess(c)
+				}
 			}
 		}
 	}

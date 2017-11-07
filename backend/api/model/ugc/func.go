@@ -27,6 +27,8 @@ var putQuery = "UPDATE saman.appUGC a" +
 	"  a.`like`       = ?" +
 	"  WHERE a.ids = ?"
 
+var delQuery = "DELETE FROM appUGC WHERE ids = ?"
+
 func GetUGC() (*sql.Stmt, error) {
 	stm, err := db.Prepare(getQuery)
 	if nil != err {
@@ -59,4 +61,8 @@ func PostUGC() (*sql.Stmt, error) {
 
 func PutUGC() (*sql.Stmt, error) {
 	return db.Prepare(putQuery)
+}
+
+func DelUGC() (*sql.Stmt, error) {
+	return db.Prepare(delQuery)
 }

@@ -21,13 +21,15 @@ var getFanQuery = "SELECT" +
 var getFanQueryByPlatIdsQuery = getFanQuery +
 	" WHERE p.ids = ?"
 
-var putQUery = "UPDATE saman.platformFans p " +
+var putQuery = "UPDATE saman.platformFans p " +
 	"  SET p.createTime = ?," +
 	"  p.sum          = ?," +
 	"  p.increase     = ?," +
 	"  p.decrease     = ?," +
 	"  p.platType     = ?" +
 	"  WHERE p.ids = ?"
+
+var delQuery = "DELETE FROM saman.platformFans WHERE ids = ?"
 
 func GetPlatformTypeStmt() (*sql.Stmt, error) {
 	stm, err := db.Prepare("SELECT p.ids AS ids,p.name AS name,p.nameChinese AS nameChinese FROM saman.platformType p")
@@ -69,5 +71,9 @@ func PostPlatformFans() (*sql.Stmt, error) {
 }
 
 func PutPlatformFans() (*sql.Stmt, error) {
-	return db.Prepare(putQUery)
+	return db.Prepare(putQuery)
+}
+
+func DelPlatformFans() (*sql.Stmt, error) {
+	return db.Prepare(delQuery)
 }

@@ -24,3 +24,7 @@ func StandardNotFound(context *gin.Context) {
 func StandardJoke(context *gin.Context) {
 	context.String(http.StatusInternalServerError, "are u kidding me?")
 }
+
+func StandardBadRequest(context *gin.Context)  {
+	context.Status(http.StatusBadRequest)
+}

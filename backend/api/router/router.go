@@ -37,12 +37,20 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.PUT("/video", controller.PutVideo(g))
 
 	//DELETE
-	v1.DELETE("/platformFans", controller.PostPlatFans(g))
-	v1.DELETE("/events", controller.PostEvents(g))
-	v1.DELETE("/mobileData", controller.PostMobileData(g))
-	v1.DELETE("/appUGC", controller.PostUGC(g))
-	v1.DELETE("/videoPlayAmount", controller.PostVideoPlayAmount(g))
-	v1.DELETE("/video", controller.PostVideo(g))
+	v1.DELETE("/platformFans", controller.GetPing(g))
+	v1.DELETE("/events", controller.GetPing(g))
+	v1.DELETE("/mobileData", controller.GetPing(g))
+	v1.DELETE("/appUGC", controller.GetPing(g))
+	v1.DELETE("/videoPlayAmount", controller.GetPing(g))
+	v1.DELETE("/video", controller.GetPing(g))
+
+	//DELETE_BY_ID
+	v1.DELETE("/platformFans/:ids", controller.DelPlatFans(g))
+	v1.DELETE("/events/:ids", controller.DelEvents(g))
+	v1.DELETE("/mobileData/:ids", controller.DelMobileData(g))
+	v1.DELETE("/appUGC/:ids", controller.DelUGC(g))
+	v1.DELETE("/videoPlayAmount/:ids", controller.DelVideoPlayAmount(g))
+	v1.DELETE("/video/:ids", controller.DelVideo(g))
 
 	//test
 	test := router.Group("/test")
