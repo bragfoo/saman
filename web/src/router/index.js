@@ -18,12 +18,13 @@ import Revenue from '@/views/Revenue.vue'
 /* eslint-disable */
 import ModifyData from '@/views/ModifyData.vue'
 import ModifyPlatFans from '@/views/modify_views/ModifyPlatFans.vue'
-import ModifyVideoPlat from '@/views/modify_views/ModifyAppUGC.vue'
-import ModifyVideoPlatAmount from '@/views/modify_views/ModifyAppUGC.vue'
-import ModifyMobileData from '@/views/modify_views/ModifyAppUGC.vue'
+import ModifyVideoPlat from '@/views/modify_views/ModifyVideo.vue'
+import ModifyVideoPlayAmount from '@/views/modify_views/ModifyVideoPlayAmount.vue'
+import ModifyMobileData from '@/views/modify_views/ModifyMobileData.vue'
 import ModifyAppUGC from '@/views/modify_views/ModifyAppUGC.vue'
 import ModifyTalent from '@/views/modify_views/ModifyAppUGC.vue'
 import ModifyAppData from '@/views/modify_views/ModifyAppUGC.vue'
+import ModifyEvents from '@/views/modify_views/ModifyEvents.vue'
 /* eslint-enable */
 
 Vue.use(Router)
@@ -174,27 +175,31 @@ export default new Router({
           name: 'modify_plat_fans',
           component: ModifyPlatFans
         }, {
-          path: 'video_plat',
+          path: '/modify/video_plat',
           name: 'modify_video_plat',
           component: ModifyVideoPlat
         }, {
-          path: 'video_plat_amount',
+          path: '/modify/video_plat_amount',
           name: 'modify_video_plat_amount',
-          component: ModifyVideoPlatAmount
+          component: ModifyVideoPlayAmount
         }, {
-          path: 'mobile_data',
+          path: '/modify/mobile_data',
           name: 'modify_mobile_data',
           component: ModifyMobileData
         }, {
-          path: 'app_ugc',
+          path: '/modify/app_ugc',
           name: 'modify_app_ugc',
           component: ModifyAppUGC
         }, {
-          path: 'talent',
+          path: '/modify/events',
+          name: 'modify_events',
+          component: ModifyEvents
+        }, {
+          path: '/modify/talent',
           name: 'modify_talent',
           component: ModifyTalent
         }, {
-          path: 'app_data',
+          path: '/modify/app_data',
           name: 'modify_app_data',
           component: ModifyAppData
         }

@@ -2,6 +2,7 @@
   <div>
     <el-row>
       <el-col :span="24" style="padding-bottom: 15px">
+        <PlatTypeSelect v-model="playType" @change="fetchList"></PlatTypeSelect>
         <el-button size="mini" type="primary" plain @click="createRow">添加</el-button>
         <el-button size="mini" type="primary" plain @click="reload">刷新</el-button>
       </el-col>
@@ -15,35 +16,30 @@
           <el-table-column
             fixed
             label="日期"
-            width="180">
+            width="150">
             <template slot-scope="scope">
               <i class="el-icon-time"></i>
               <span style="margin-left: 10px">{{ scope.row.CreateTime | timeToDay}}</span>
             </template>
           </el-table-column>
           <el-table-column
-            prop="Like"
-            label="赞数"
+            prop="Increase"
+            label="增加"
             width="120">
           </el-table-column>
           <el-table-column
-            prop="CommentSum"
-            label="评论"
+            prop="Decrease"
+            label="降低"
             width="120">
           </el-table-column>
           <el-table-column
-            prop="ShareSum"
-            label="分享"
+            prop="Sum"
+            label="总数"
             width="120">
           </el-table-column>
           <el-table-column
-            prop="PicSum"
-            label="图片"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="VideoSum"
-            label="视频"
+            prop="Type"
+            label="平台"
             width="120">
           </el-table-column>
           <el-table-column
@@ -73,20 +69,14 @@
             </el-date-picker>
           </div>
         </el-form-item>
-        <el-form-item label="点赞">
-          <el-input-number v-model="rowData.Like"></el-input-number>
+        <el-form-item label="减少">
+          <el-input v-model="rowData.Decrease"></el-input>
         </el-form-item>
-        <el-form-item label="评论">
-          <el-input-number v-model="rowData.CommentSum"></el-input-number>
+        <el-form-item label="增加">
+          <el-input v-model="rowData.Increase"></el-input>
         </el-form-item>
-        <el-form-item label="分享">
-          <el-input-number v-model="rowData.ShareSum"></el-input-number>
-        </el-form-item>
-        <el-form-item label="图片">
-          <el-input-number v-model="rowData.PicSum"></el-input-number>
-        </el-form-item>
-        <el-form-item label="视频">
-          <el-input-number v-model="rowData.VideoSum"></el-input-number>
+        <el-form-item label="总数">
+          <el-input v-model="rowData.Sum"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button @click="closeDialog">取 消</el-button>
@@ -100,14 +90,18 @@
 </template>
 
 <script>
+  import PlatTypeSelect from '../../components/PlatTypeSelect.vue'
+
   export default {
-    name: 'AppUGC',
+    name: 'ModifyPlatFans',
+    components: {PlatTypeSelect},
     data () {
       return {
-        url: 'appUGC',
+        url: 'platformFans',
         tableData: [],
         rowData: {},
         dialogVisible: false,
+        playType: '59fae20cef2d1314e0ea2a55',
         isCreate: true,
         timeOption: {
           disabledDate (time) {
@@ -122,7 +116,11 @@
     methods: {
       // net io
       fetchList (value) {
-        this.$http.get(this.url).then((response) => {
+        this.$http.get(this.url, {
+          params: {
+            'platIds': this.playType
+          }
+        }).then((response) => {
           this.tableData = response.data
         })
       },
@@ -144,11 +142,10 @@
         }
         return {
           CreateTime: (new Date()).getTime(),
-          Like: 0,
-          CommentSum: 0,
-          ShareSum: 0,
-          PicSum: 0,
-          VideoSum: 0
+          Increase: 0,
+          Decrease: 0,
+          Sum: 0,
+          PlatIds: this.playType
         }
       },
       reload () {

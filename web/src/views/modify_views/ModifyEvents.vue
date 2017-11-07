@@ -14,36 +14,40 @@
           style="width: 100%">
           <el-table-column
             fixed
-            label="日期"
-            width="180">
+            label="开始日期"
+            width="150">
             <template slot-scope="scope">
               <i class="el-icon-time"></i>
-              <span style="margin-left: 10px">{{ scope.row.CreateTime | timeToDay}}</span>
+              <span style="margin-left: 10px">{{ scope.row.StartDate | timeToDay}}</span>
             </template>
           </el-table-column>
           <el-table-column
-            prop="Like"
-            label="赞数"
+            fixed
+            label="结束日期"
+            width="150">
+            <template slot-scope="scope">
+              <i class="el-icon-time"></i>
+              <span style="margin-left: 10px">{{ scope.row.EndDate | timeToDay}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="Name"
+            label="活动名"
             width="120">
           </el-table-column>
           <el-table-column
-            prop="CommentSum"
-            label="评论"
+            prop="TotalPeople"
+            label="全部人数"
             width="120">
           </el-table-column>
           <el-table-column
-            prop="ShareSum"
-            label="分享"
+            prop="TotalWork"
+            label="全部工作人员"
             width="120">
           </el-table-column>
           <el-table-column
-            prop="PicSum"
-            label="图片"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="VideoSum"
-            label="视频"
+            prop="UploadPeople"
+            label="上传视频人数"
             width="120">
           </el-table-column>
           <el-table-column
@@ -63,30 +67,37 @@
       width="30%"
       center>
       <el-form ref="form" :model="rowData" label-width="80px">
-        <el-form-item label="时间">
+        <el-form-item label="开始时间">
           <div class="block">
             <el-date-picker
-              v-model="rowData.CreateTime"
+              v-model="rowData.StartDate"
               type="date"
               placeholder="选择日期"
               :picker-options="timeOption">
             </el-date-picker>
           </div>
         </el-form-item>
-        <el-form-item label="点赞">
-          <el-input-number v-model="rowData.Like"></el-input-number>
+        <el-form-item label="结束时间">
+          <div class="block">
+            <el-date-picker
+              v-model="rowData.EndDate"
+              type="date"
+              placeholder="选择日期"
+              :picker-options="timeOption">
+            </el-date-picker>
+          </div>
         </el-form-item>
-        <el-form-item label="评论">
-          <el-input-number v-model="rowData.CommentSum"></el-input-number>
+        <el-form-item label="活动名">
+          <el-input v-model="rowData.Name"></el-input>
         </el-form-item>
-        <el-form-item label="分享">
-          <el-input-number v-model="rowData.ShareSum"></el-input-number>
+        <el-form-item label="全部人数">
+          <el-input-number v-model="rowData.TotalPeople"></el-input-number>
         </el-form-item>
-        <el-form-item label="图片">
-          <el-input-number v-model="rowData.PicSum"></el-input-number>
+        <el-form-item label="全部工作人员">
+          <el-input-number v-model="rowData.TotalWork"></el-input-number>
         </el-form-item>
-        <el-form-item label="视频">
-          <el-input-number v-model="rowData.VideoSum"></el-input-number>
+        <el-form-item label="上传视频人数">
+          <el-input-number v-model="rowData.UploadPeople"></el-input-number>
         </el-form-item>
         <el-form-item>
           <el-button @click="closeDialog">取 消</el-button>
@@ -101,13 +112,14 @@
 
 <script>
   export default {
-    name: 'AppUGC',
+    name: 'ModifyEvents',
     data () {
       return {
-        url: 'appUGC',
+        url: 'events',
         tableData: [],
         rowData: {},
         dialogVisible: false,
+        playType: '59fae20cef2d1314e0ea2a55',
         isCreate: true,
         timeOption: {
           disabledDate (time) {
@@ -143,12 +155,12 @@
           })))
         }
         return {
-          CreateTime: (new Date()).getTime(),
-          Like: 0,
-          CommentSum: 0,
-          ShareSum: 0,
-          PicSum: 0,
-          VideoSum: 0
+          StartDate: (new Date()).getTime(),
+          EndDate: (new Date()).getTime(),
+          totalPeople: 0,
+          totalWork: 0,
+          uploadPeople: 0,
+          name: ''
         }
       },
       reload () {
@@ -161,7 +173,8 @@
           this.rowData = this.getRowData()
         } else {
           this.rowData = this.getRowData(id)
-          this.rowData.CreateTime = new Date(this.rowData.CreateTime * 1000)
+          this.rowData.StartDate = new Date(this.rowData.StartDate * 1000)
+          this.rowData.EntTime = new Date(this.rowData.EndDate * 1000)
         }
         this.dialogVisible = true
       },
@@ -179,7 +192,8 @@
         this.showDialog(id)
       },
       saveRow () {
-        this.rowData.CreateTime = Math.floor(new Date(this.rowData.CreateTime).getTime() / 1000)
+        this.rowData.StartDate = Math.floor(new Date(this.rowData.StartDate).getTime() / 1000)
+        this.rowData.EndDate = Math.floor(new Date(this.rowData.EndDate).getTime() / 1000)
         this.saveData((response) => {
           this.closeDialog()
           this.reload()

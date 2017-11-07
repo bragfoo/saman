@@ -70,13 +70,13 @@
           </div>
         </el-form-item>
         <el-form-item label="减少">
-          <el-input v-model="rowData.Decrease"></el-input>
+          <el-input-number v-model="rowData.Decrease"></el-input-number>
         </el-form-item>
         <el-form-item label="增加">
-          <el-input v-model="rowData.Increase"></el-input>
+          <el-input-number v-model="rowData.Increase"></el-input-number>
         </el-form-item>
         <el-form-item label="总数">
-          <el-input v-model="rowData.Sum"></el-input>
+          <el-input-number v-model="rowData.Sum"></el-input-number>
         </el-form-item>
         <el-form-item>
           <el-button @click="closeDialog">取 消</el-button>
@@ -179,6 +179,7 @@
         this.rowData.CreateTime = Math.floor(new Date(this.rowData.CreateTime).getTime() / 1000)
         this.saveData((response) => {
           this.closeDialog()
+          this.reload()
         })
       },
       handleClick (row) {
