@@ -17,7 +17,9 @@ var getEventQuery string = "SELECT" +
 	"  FROM saman.event e"
 var getEventByIdQuery string = getEventQuery + " WHERE e.ids = ?"
 
-var updateQuery string = ""
+var updateQuery string = "UPDATE saman.event e" +
+	"  SET e.name = ?, e.uploadPeople = ?, e.totalWork = ?, e.totalPeople = ?, e.endDate = ?, e.startDate = ?" +
+	"  WHERE e.ids = ?"
 
 func GetEvent() (*sql.Stmt, error) {
 	stm, err :=
@@ -50,4 +52,9 @@ func PostEvents() (*sql.Stmt, error) {
 	} else {
 		return stm, nil
 	}
+}
+
+func PutEvents() (*sql.Stmt, error) {
+	return db.Prepare(updateQuery)
+
 }

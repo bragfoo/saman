@@ -28,7 +28,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 
 	//PUT
 	v1.PUT("/platformFans", controller.PostPlatFans(g))
-	v1.PUT("/events", controller.PostEvents(g))
+	v1.PUT("/events", controller.PutEvents(g))
 	v1.PUT("/mobileData", controller.PostMobileData(g))
 	v1.PUT("/appUGC", controller.PostUGC(g))
 	v1.PUT("/videoPlayAmount", controller.PostVideoPlayAmount(g))

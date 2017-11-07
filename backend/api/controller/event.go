@@ -92,3 +92,29 @@ func PostEvents(g *global.G) func(c *gin.Context) {
 		}
 	}
 }
+
+func PutEvents(g *global.G) func(context *gin.Context) {
+	return func(context *gin.Context) {
+		var m = model.Event{}
+		common.ReadJSON(context, &m)
+		stm, err := event.PutEvents()
+		if nil != err {
+			log.Error(err)
+			common.StandardError(context)
+		} else {
+			_, err := stm.Exec(m.Name,
+				m.UploadPeople,
+				m.TotalWork,
+				m.TotalPeople,
+				m.EndDate,
+				m.StartDate,
+				m.Ids,
+			)
+			if nil != err {
+				common.StandardError(context)
+			} else {
+				common.StandardSuccess(context)
+			}
+		}
+	}
+}
