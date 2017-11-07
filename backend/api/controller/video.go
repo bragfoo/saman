@@ -10,6 +10,7 @@ import (
 	"github.com/json-iterator/go"
 	"github.com/siddontang/go/log"
 	"github.com/bragfoo/saman/util"
+	"github.com/bragfoo/saman/backend/api/common"
 )
 
 func GetVideoPlayAmount(g *global.G) func(context *gin.Context) {
@@ -39,7 +40,8 @@ func GetVideoPlayAmount(g *global.G) func(context *gin.Context) {
 	}
 }
 
-func PostVideo(g global.G) func(context *gin.Context) {
+
+func PostVideo(g *global.G) func(context *gin.Context) {
 	return func(c *gin.Context) {
 		body := c.Request.Body
 		defer body.Close()
@@ -87,6 +89,46 @@ func PostVideoPlayAmount(g *global.G) func(context *gin.Context) {
 				c.Status(http.StatusInternalServerError)
 			} else {
 				c.Status(http.StatusOK)
+			}
+		}
+	}
+}
+
+func PutVideoPlayAmount(g *global.G) func(context *gin.Context) {
+	return func(context *gin.Context) {
+		var m = model.VideoPlayAmount{}
+		common.ReadJSON(context, &m)
+		stm, err := video.PutVideoPlayAmount()
+		if nil != err {
+			log.Error(err)
+			common.StandardError(context)
+		} else {
+			_, err := stm.Exec()
+			if nil != err {
+				log.Error(err)
+				common.StandardError(context)
+			} else {
+				common.StandardSuccess(context)
+			}
+		}
+	}
+}
+
+func PutVideo(g *global.G) func(context *gin.Context) {
+	return func(context *gin.Context) {
+		var m = model.Video{}
+		common.ReadJSON(context, &m)
+		stm, err := video.PutVideo()
+		if nil != err {
+			log.Error(err)
+			common.StandardError(context)
+		} else {
+			_, err := stm.Exec()
+			if nil != err {
+				log.Error(err)
+				common.StandardError(context)
+			} else {
+				common.StandardSuccess(context)
 			}
 		}
 	}

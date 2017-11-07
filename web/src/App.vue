@@ -6,30 +6,26 @@
                  :collapse="true">
           <el-menu-item index="0" :route="{'name':'dashboard'}">
             <i class="el-icon-menu"></i>
-            <span slot="title">Dashboard</span>
+            <span slot="title">用户画像</span>
           </el-menu-item>
           <el-menu-item index="1" :route="{'name':'acquisition'}">
             <i class="el-icon-news"></i>
-            <span slot="title">获取</span>
+            <span slot="title">渠道投放</span>
           </el-menu-item>
           <el-menu-item index="2" :route="{'name':'activation'}">
             <i class="el-icon-mobile-phone"></i>
-            <span slot="title">激活</span>
+            <span slot="title">活动检测</span>
           </el-menu-item>
-          <el-menu-item index="3" :route="{'name':'retention'}">
-            <i class="el-icon-view"></i>
-            <span slot="title">留存</span>
+          <el-menu-item index="3" :route="{'name':'activation'}">
+            <i class="el-icon-mobile-phone"></i>
+            <span slot="title">产品数据</span>
           </el-menu-item>
-          <el-menu-item index="4" :route="{'name':'referral'}">
-            <i class="el-icon-share"></i>
-            <span slot="title">转化</span>
+          <el-menu-item index="4" :route="{'name':'activation'}">
+            <i class="el-icon-mobile-phone"></i>
+            <span slot="title">用户转化</span>
           </el-menu-item>
-          <el-menu-item index="5" :route="{'name':'revenue'}">
-            <i class="el-icon-sold-out"></i>
-            <span slot="title">付费</span>
-          </el-menu-item>
-          <el-menu-item index="6" :route="{'name':'modify'}">
-            <i class="el-icon-setting"></i>
+          <el-menu-item index="5" :route="{'name':'activation'}">
+            <i class="el-icon-mobile-phone"></i>
             <span slot="title">数据修改</span>
           </el-menu-item>
         </el-menu>

@@ -138,3 +138,28 @@ func PostPlatFans(g *global.G) func(context *gin.Context) {
 		}
 	}
 }
+
+func PutPlatFans(g *global.G) func(context *gin.Context) {
+	return func(context *gin.Context) {
+		var m = model.PlatformFans{}
+		common.ReadJSON(context, &m)
+		stm, err := plat.PutPlatformFans()
+		if nil != err {
+			log.Error(err)
+			common.StandardError(context)
+		} else {
+			_, err := stm.Exec(m.CreateTime,
+				m.Sum,
+				m.Increase,
+				m.Decrease,
+				m.PlatIds,
+				m.Ids)
+			if nil != err {
+				log.Error(err)
+				common.StandardError(context)
+			} else {
+				common.StandardSuccess(context)
+			}
+		}
+	}
+}

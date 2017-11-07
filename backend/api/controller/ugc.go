@@ -94,3 +94,23 @@ func PostUGC(g *global.G) func(context *gin.Context) {
 		}
 	}
 }
+
+func PutUGC(g *global.G) func(context *gin.Context) {
+	return func(context *gin.Context) {
+		var m = model.AppUGC{}
+		common.ReadJSON(context, &m)
+		stm, err := ugc.PutUGC()
+		if nil != err {
+			log.Error(err)
+			common.StandardError(context)
+		} else {
+			_, err := stm.Exec()
+			if nil != err {
+				log.Error(err)
+				common.StandardError(context)
+			} else {
+				common.StandardSuccess(context)
+			}
+		}
+	}
+}
