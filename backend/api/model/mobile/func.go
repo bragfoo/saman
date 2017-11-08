@@ -36,17 +36,6 @@ var updateQuery = "UPDATE saman.mobileData m" +
 	"  m.active       = ?" +
 	"  WHERE m.ids = ? "
 
-func GetChannel() (*sql.Stmt, error) {
-	var query string
-	query = "SELECT c.ids AS ids,c.name AS name FROM saman.channel c"
-	stm, err := db.Prepare(query)
-	if nil != err {
-		log.Fatal(err)
-		return nil, err
-	} else {
-		return stm, nil
-	}
-}
 
 func GetMobileData() (*sql.Stmt, error) {
 

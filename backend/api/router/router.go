@@ -19,6 +19,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.GET("/appUGC", controller.GetUGC(g))
 	v1.GET("/videoPlayAmount", controller.GetVideoPlayAmount(g))
 	v1.GET("/video", controller.GetVideoPlayAmount(g))
+	v1.GET("/channel", controller.GetChannel(g))
 
 	// POST
 	v1.POST("/platformFans", controller.PostPlatFans(g))
