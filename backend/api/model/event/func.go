@@ -43,7 +43,7 @@ func GetEventById() (*sql.Stmt, error) {
 	}
 }
 
-func PostEvents() (*sql.Stmt, error) {
+func PostEvent() (*sql.Stmt, error) {
 	var query string
 	query = "INSERT INTO saman.event (ids, name, startDate, endDate, totalPeople, totalWork, uploadPeople)" +
 		"VALUES (?, ?, ?, ?, ?, ?, ?);"
@@ -56,10 +56,10 @@ func PostEvents() (*sql.Stmt, error) {
 	}
 }
 
-func PutEvents() (*sql.Stmt, error) {
+func PutEvent() (*sql.Stmt, error) {
 	return db.Prepare(updateQuery)
 }
 
-func DeleteEvents() (*sql.Stmt, error) {
+func DeleteEvent() (*sql.Stmt, error) {
 	return db.Prepare(delQuery)
 }

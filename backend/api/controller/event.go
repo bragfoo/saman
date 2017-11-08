@@ -13,7 +13,7 @@ import (
 	"github.com/bragfoo/saman/backend/api/common"
 )
 
-func GetEvents(g *global.G) func(context *gin.Context) {
+func GetEvent(g *global.G) func(context *gin.Context) {
 	return func(context *gin.Context) {
 		ids := context.Query("ids")
 		if "" != ids {
@@ -63,7 +63,7 @@ func GetEvents(g *global.G) func(context *gin.Context) {
 	}
 }
 
-func PostEvents(g *global.G) func(c *gin.Context) {
+func PostEvent(g *global.G) func(c *gin.Context) {
 	return func(c *gin.Context) {
 		body := c.Request.Body
 		defer body.Close()
@@ -72,7 +72,7 @@ func PostEvents(g *global.G) func(c *gin.Context) {
 
 		jsoniter.ConfigCompatibleWithStandardLibrary.Unmarshal(b, &m)
 		log.Info(m)
-		stm, err := event.PostEvents()
+		stm, err := event.PostEvent()
 		if nil != err {
 			c.Status(http.StatusInternalServerError)
 		} else {
@@ -93,11 +93,11 @@ func PostEvents(g *global.G) func(c *gin.Context) {
 	}
 }
 
-func PutEvents(g *global.G) func(context *gin.Context) {
+func PutEvent(g *global.G) func(context *gin.Context) {
 	return func(context *gin.Context) {
 		var m = model.Event{}
 		common.ReadJSON(context, &m)
-		stm, err := event.PutEvents()
+		stm, err := event.PutEvent()
 		if nil != err {
 			log.Error(err)
 			common.StandardError(context)
@@ -119,13 +119,13 @@ func PutEvents(g *global.G) func(context *gin.Context) {
 	}
 }
 
-func DelEvents(g *global.G) func(context *gin.Context) {
+func DelEvent(g *global.G) func(context *gin.Context) {
 	return func(c *gin.Context) {
 		ids := c.Param("ids")
 		if "" == ids {
 			common.StandardBadRequest(c)
 		} else {
-			stm, err := event.DeleteEvents()
+			stm, err := event.DeleteEvent()
 			if nil != err {
 				log.Error(err)
 				common.StandardError(c)
