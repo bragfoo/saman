@@ -7,6 +7,7 @@ import (
 	"github.com/siddontang/go/log"
 	"github.com/bragfoo/saman/backend/api/common"
 	"github.com/bragfoo/saman/backend/api/model"
+	"github.com/bragfoo/saman/util"
 )
 
 func GetChannel(g *global.G) func(context *gin.Context) {
@@ -31,5 +32,46 @@ func GetChannel(g *global.G) func(context *gin.Context) {
 			}
 			common.StandardOk(c, result)
 		}
+	}
+}
+
+func PostChannel(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		var m = model.Channel{}
+		common.ReadJSON(c, &m)
+		stm, err := channel.PostChannel()
+		if nil != err {
+			log.Error(err)
+			common.StandardError(c)
+		} else {
+			_, err := stm.Exec(util.GetObjectId(), m.Name)
+			if nil != err {
+				log.Error(err)
+				common.StandardError(c)
+			} else {
+				common.StandardSuccess(c)
+			}
+		}
+	}
+}
+
+func PutChannel(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		var m = model.Channel{}
+		common.ReadJSON(c, &m)
+		stm, err := channel.PutChannel()
+		if nil != err {
+			log.Error(err)
+			common.StandardError(c)
+		} else {
+			_, err := stm.Exec(m.Name, m.Ids)
+			common.CheckError(err, c)
+		}
+	}
+}
+
+func DelChannel(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		common.StandardSuccess(c)
 	}
 }

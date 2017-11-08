@@ -28,6 +28,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.POST("/appUGC", controller.PostUGC(g))
 	v1.POST("/videoPlayAmount", controller.PostVideoPlayAmount(g))
 	v1.POST("/video", controller.PostVideo(g))
+	v1.POST("/channel", controller.PostChannel(g))
 
 	//PUT
 	v1.PUT("/platformFans", controller.PutPlatFans(g))
@@ -36,6 +37,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.PUT("/appUGC", controller.PutUGC(g))
 	v1.PUT("/videoPlayAmount", controller.PutVideoPlayAmount(g))
 	v1.PUT("/video", controller.PutVideo(g))
+	v1.PUT("/channel", controller.PutChannel(g))
 
 	//DELETE
 	v1.DELETE("/platformFans", controller.GetPing(g))
@@ -44,6 +46,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.DELETE("/appUGC", controller.GetPing(g))
 	v1.DELETE("/videoPlayAmount", controller.GetPing(g))
 	v1.DELETE("/video", controller.GetPing(g))
+	v1.DELETE("/channel", controller.GetPing(g))
 
 	//DELETE_BY_ID
 	v1.DELETE("/platformFans/:ids", controller.DelPlatFans(g))
@@ -52,7 +55,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.DELETE("/appUGC/:ids", controller.DelUGC(g))
 	v1.DELETE("/videoPlayAmount/:ids", controller.DelVideoPlayAmount(g))
 	v1.DELETE("/video/:ids", controller.DelVideo(g))
-
+	v1.DELETE("/channel/:ids", controller.DelChannel(g))
 	//test
 	test := router.Group("/test")
 	test.GET("/one", controller.GetPlatType(g))
