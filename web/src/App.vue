@@ -10,14 +10,14 @@
           </el-menu-item>
 
           <!--new menu -->
-          <el-menu-item index="1" :route="{'name':'operation_weekly'}">
-            <i class="el-icon-date"></i>
-            <span slot="title">运营周报</span>
-          </el-menu-item>
-          <el-menu-item index="2" :route="{'name':'users_portrayal'}">
-            <i class="el-icon-edit-outline"></i>
-            <span slot="title">用户画像</span>
-          </el-menu-item>
+          <!--<el-menu-item index="1" :route="{'name':'operation_weekly'}">-->
+            <!--<i class="el-icon-date"></i>-->
+            <!--<span slot="title">运营周报</span>-->
+          <!--</el-menu-item>-->
+          <!--<el-menu-item index="2" :route="{'name':'users_portrayal'}">-->
+            <!--<i class="el-icon-edit-outline"></i>-->
+            <!--<span slot="title">用户画像</span>-->
+          <!--</el-menu-item>-->
           <el-menu-item index="3" :route="{'name':'users_click'}">
             <i class="el-icon-plus"></i>
             <span slot="title">用户点击</span>
@@ -42,10 +42,10 @@
             <i class="el-icon-circle-check"></i>
             <span slot="title">活动检测</span>
           </el-menu-item>
-          <el-menu-item index="9" :route="{'name':'weekly'}">
-            <i class="el-icon-document"></i>
-            <span slot="title">周报</span>
-          </el-menu-item>
+          <!--<el-menu-item index="9" :route="{'name':'weekly'}">-->
+            <!--<i class="el-icon-document"></i>-->
+            <!--<span slot="title">周报</span>-->
+          <!--</el-menu-item>-->
           <!--new menu end-->
 
           <!--old menu-->
