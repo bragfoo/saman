@@ -57,7 +57,7 @@ func PostMobileData(g *global.G) func(c *gin.Context) {
 		log.Info(m)
 		json.Unmarshal(b, &m)
 
-		stm, err := event.PostEvents()
+		stm, err := event.PostEvent()
 		if nil != err {
 			c.Status(http.StatusInternalServerError)
 		} else {
