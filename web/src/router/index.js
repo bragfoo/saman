@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/components/Main.vue'
 
-
 import ProductData from '@/views/ProductData.vue'
 // Acquisition
 import Acquisition from '@/views/Acquisition.vue'
