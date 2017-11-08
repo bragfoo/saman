@@ -76,3 +76,12 @@ type Event struct {
 	TotalWork    int
 	UploadPeople int
 }
+
+type AppData struct {
+	Ids         string
+	CreateTime  int64
+	PicUpload   int
+	VideoUpload int
+	TalentSum   int
+	ActiveUser  int
+}
