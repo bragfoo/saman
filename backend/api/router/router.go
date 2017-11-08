@@ -60,7 +60,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.DELETE("/videoPlayAmount/:ids", controller.DelVideoPlayAmount(g))
 	v1.DELETE("/video/:ids", controller.DelVideo(g))
 	v1.DELETE("/channel/:ids", controller.DelChannel(g))
-	v1.DELETE("/appData", controller.DelAppData(g))
+	v1.DELETE("/appData/:ids", controller.DelAppData(g))
 	//test
 	test := router.Group("/test")
 	test.GET("/one", controller.GetPlatType(g))

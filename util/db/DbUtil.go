@@ -35,12 +35,16 @@ func GetInstance() *Db {
 	return instance
 }
 
+func getPasswd(p string) string {
+	return p
+}
+
 func getDataSource(dbConf *config.DbType) string {
 	var buffer bytes.Buffer
 	//  username:password@protocol(address:port)/dbname
 	buffer.WriteString(dbConf.Username)
 	buffer.WriteString(":")
-	buffer.WriteString(dbConf.Password)
+	buffer.WriteString(getPasswd(dbConf.Password))
 	buffer.WriteString("@")
 	buffer.WriteString(dbConf.Protocol)
 	buffer.WriteString("(")
@@ -82,23 +86,23 @@ func QueryRow(query string, args interface{}) (*sql.Row, error) {
 	}
 }
 
-func Exec(query string,args ...interface{})  (sql.Result,error){
+func Exec(query string, args ...interface{}) (sql.Result, error) {
 	pool := GetInstance()
 	errPing := pool.Handle.Ping()
-	if nil!=errPing {
+	if nil != errPing {
 		log.Fatal(errPing)
-		return nil,errPing
+		return nil, errPing
 	} else {
-		return pool.Handle.Exec(query,args)
+		return pool.Handle.Exec(query, args)
 	}
 }
 
-func Prepare(query string) (*sql.Stmt,error) {
+func Prepare(query string) (*sql.Stmt, error) {
 	pool := GetInstance()
 	errPing := pool.Handle.Ping()
-	if nil!=errPing {
+	if nil != errPing {
 		log.Fatal(errPing)
-		return nil,errPing
+		return nil, errPing
 	} else {
 		return pool.Handle.Prepare(query)
 	}
