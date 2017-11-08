@@ -7,8 +7,6 @@ import (
 	"github.com/bragfoo/saman/backend/api/model"
 	"github.com/bragfoo/saman/backend/api/model/event"
 	"github.com/siddontang/go/log"
-	"io/ioutil"
-	"github.com/json-iterator/go"
 	"github.com/bragfoo/saman/util"
 	"github.com/bragfoo/saman/backend/api/common"
 )
@@ -65,12 +63,8 @@ func GetEvent(g *global.G) func(context *gin.Context) {
 
 func PostEvent(g *global.G) func(c *gin.Context) {
 	return func(c *gin.Context) {
-		body := c.Request.Body
-		defer body.Close()
-		b, _ := ioutil.ReadAll(body)
 		var m = model.Event{}
-
-		jsoniter.ConfigCompatibleWithStandardLibrary.Unmarshal(b, &m)
+		common.ReadJSON(c, &m)
 		log.Info(m)
 		stm, err := event.PostEvent()
 		if nil != err {

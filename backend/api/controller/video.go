@@ -42,12 +42,8 @@ func GetVideoPlayAmount(g *global.G) func(context *gin.Context) {
 
 func PostVideo(g *global.G) func(context *gin.Context) {
 	return func(c *gin.Context) {
-		body := c.Request.Body
-		defer body.Close()
-		b, _ := ioutil.ReadAll(body)
 		var m = model.Video{}
-		jsoniter.ConfigCompatibleWithStandardLibrary.Unmarshal(b, &m)
-		log.Info(m)
+		common.ReadJSON(c, &m)
 		stm, err := video.PostVideo()
 		if nil != err {
 			c.Status(http.StatusInternalServerError)
@@ -69,12 +65,8 @@ func PostVideo(g *global.G) func(context *gin.Context) {
 
 func PostVideoPlayAmount(g *global.G) func(context *gin.Context) {
 	return func(c *gin.Context) {
-		body := c.Request.Body
-		defer body.Close()
-		b, _ := ioutil.ReadAll(body)
 		var m = model.PlayAmount{}
-		jsoniter.ConfigCompatibleWithStandardLibrary.Unmarshal(b, &m)
-		log.Info(m)
+		common.ReadJSON(c,&m)
 		stm, err := video.PostVideoPlayAmount()
 		if nil != err {
 			c.Status(http.StatusInternalServerError)

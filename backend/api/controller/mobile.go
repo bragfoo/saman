@@ -6,8 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/bragfoo/saman/backend/api/model"
 	"github.com/bragfoo/saman/backend/api/model/mobile"
-	"io/ioutil"
-	"github.com/json-iterator/go"
 	"github.com/bragfoo/saman/backend/api/model/event"
 	"github.com/bragfoo/saman/util"
 	"github.com/siddontang/go/log"
@@ -49,14 +47,8 @@ func GetMobileData(g *global.G) func(context *gin.Context) {
 
 func PostMobileData(g *global.G) func(c *gin.Context) {
 	return func(c *gin.Context) {
-		body := c.Request.Body
-		defer body.Close()
-		b, _ := ioutil.ReadAll(body)
-		var json = jsoniter.ConfigCompatibleWithStandardLibrary
 		var m = model.MobileData{}
-		log.Info(m)
-		json.Unmarshal(b, &m)
-
+		common.ReadJSON(c, &m)
 		stm, err := event.PostEvent()
 		if nil != err {
 			c.Status(http.StatusInternalServerError)

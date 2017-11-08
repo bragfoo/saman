@@ -8,8 +8,6 @@ import (
 	"github.com/bragfoo/saman/backend/api/model/plattype"
 	"github.com/bragfoo/saman/util"
 	"github.com/siddontang/go/log"
-	"io/ioutil"
-	"github.com/json-iterator/go"
 	"github.com/bragfoo/saman/backend/api/common"
 )
 
@@ -111,13 +109,8 @@ func GetPlatFans(g *global.G) func(context *gin.Context) {
 
 func PostPlatFans(g *global.G) func(context *gin.Context) {
 	return func(c *gin.Context) {
-		body := c.Request.Body
-		defer body.Close()
-		b, _ := ioutil.ReadAll(body)
 		var m = model.PlatformFans{}
-
-		jsoniter.ConfigCompatibleWithStandardLibrary.Unmarshal(b, &m)
-		log.Info(m)
+		common.ReadJSON(c, &m)
 		stm, err := plat.PostPlatformFans()
 		if nil != err {
 			log.Error(err)

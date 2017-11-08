@@ -6,8 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/bragfoo/saman/backend/api/model"
 	"github.com/bragfoo/saman/backend/api/model/ugc"
-	"io/ioutil"
-	"github.com/json-iterator/go"
 	"github.com/bragfoo/saman/util"
 	"github.com/siddontang/go/log"
 	"github.com/bragfoo/saman/backend/api/common"
@@ -68,12 +66,8 @@ func GetUGC(g *global.G) func(context *gin.Context) {
 
 func PostUGC(g *global.G) func(context *gin.Context) {
 	return func(c *gin.Context) {
-		body := c.Request.Body
-		defer body.Close()
-		b, _ := ioutil.ReadAll(body)
 		var m = model.AppUGC{}
-		jsoniter.ConfigCompatibleWithStandardLibrary.Unmarshal(b, &m)
-		log.Info(m)
+		common.ReadJSON(c, &m)
 		stm, err := ugc.PostUGC()
 		if nil != err {
 			c.Status(http.StatusInternalServerError)
