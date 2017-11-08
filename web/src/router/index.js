@@ -38,16 +38,16 @@ export default new Router({
       path: '/',
       name: 'dashboard',
       component: Main
-    }, {
+      // }, {
       // 运营周报
-      path: '/operation_weekly',
-      name: 'operation_weekly',
-      component: Main
-    }, {
+      // path: '/operation_weekly',
+      // name: 'operation_weekly',
+      // component: Main
+      // }, {
       // 用户画像
-      path: '/users_portrayal',
-      name: 'users_portrayal',
-      component: Main
+      // path: '/users_portrayal',
+      // name: 'users_portrayal',
+      // component: Main
     }, {
       // 视频点击
       path: '/users_click',
@@ -114,11 +114,11 @@ export default new Router({
       path: '/event_check',
       name: 'event_check',
       component: Main
-    }, {
+      // }, {
       // 周报
-      path: '/weekly',
-      name: 'weekly',
-      component: Main
+      // path: '/weekly',
+      // name: 'weekly',
+      // component: Main
     }, {
       // 获取
       path: '/acquisition',
