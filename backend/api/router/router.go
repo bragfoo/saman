@@ -14,7 +14,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	// GET
 	v1.GET("/platformFans", controller.GetPlatFans(g))
 	v1.GET("platformType", controller.GetPlatType(g))
-	v1.GET("/events", controller.GetEvent(g))
+	v1.GET("/event", controller.GetEvent(g))
 	v1.GET("/mobileData", controller.GetMobileData(g))
 	v1.GET("/appUGC", controller.GetUGC(g))
 	v1.GET("/videoPlayAmount", controller.GetVideoPlayAmount(g))
@@ -22,7 +22,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 
 	// POST
 	v1.POST("/platformFans", controller.PostPlatFans(g))
-	v1.POST("/events", controller.PostEvent(g))
+	v1.POST("/event", controller.PostEvent(g))
 	v1.POST("/mobileData", controller.PostMobileData(g))
 	v1.POST("/appUGC", controller.PostUGC(g))
 	v1.POST("/videoPlayAmount", controller.PostVideoPlayAmount(g))
@@ -38,7 +38,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 
 	//DELETE
 	v1.DELETE("/platformFans", controller.GetPing(g))
-	v1.DELETE("/events", controller.GetPing(g))
+	v1.DELETE("/event", controller.GetPing(g))
 	v1.DELETE("/mobileData", controller.GetPing(g))
 	v1.DELETE("/appUGC", controller.GetPing(g))
 	v1.DELETE("/videoPlayAmount", controller.GetPing(g))
@@ -46,7 +46,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 
 	//DELETE_BY_ID
 	v1.DELETE("/platformFans/:ids", controller.DelPlatFans(g))
-	v1.DELETE("/events/:ids", controller.DelEvent(g))
+	v1.DELETE("/event/:ids", controller.DelEvent(g))
 	v1.DELETE("/mobileData/:ids", controller.DelMobileData(g))
 	v1.DELETE("/appUGC/:ids", controller.DelUGC(g))
 	v1.DELETE("/videoPlayAmount/:ids", controller.DelVideoPlayAmount(g))
