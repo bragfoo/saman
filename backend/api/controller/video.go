@@ -54,6 +54,34 @@ func GetVideo(g *global.G) func(context *gin.Context) {
 					&model.Title,
 					&model.Link,
 					&model.CreateTime,
+					&model.PlatIds,
+					&model.VideoIds,
+				)
+				if nil == err {
+					result = append(result, model)
+				}
+			}
+			context.JSON(http.StatusOK, result)
+		}
+	}
+}
+
+func GetVideoSource(g *global.G) func(context *gin.Context) {
+	return func(context *gin.Context) {
+		stm, err := video.GetVideoSource()
+		if nil != err {
+			context.Status(http.StatusInternalServerError)
+		} else {
+			rows, _ := stm.Query()
+			defer rows.Close()
+			var result []model.VideoPlayAmount
+			for rows.Next() {
+				var model = model.VideoPlayAmount{}
+				err := rows.Scan(&model.Ids,
+					&model.Title,
+					&model.Link,
+					&model.CreateTime,
+					&model.PlatIds,
 				)
 				if nil == err {
 					result = append(result, model)
@@ -140,7 +168,7 @@ func PutVideo(g *global.G) func(context *gin.Context) {
 			log.Error(err)
 			common.StandardError(context)
 		} else {
-			_, err := stm.Exec(m.PlatIds, m.Title, m.Link, m.CreateTime, m.Ids)
+			_, err := stm.Exec(m.PlatIds, m.Title, m.Link, m.CreateTime, m.PlatIds, m.Ids)
 			if nil != err {
 				log.Error(err)
 				common.StandardError(context)

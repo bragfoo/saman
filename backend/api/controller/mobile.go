@@ -10,51 +10,36 @@ import (
 	"github.com/bragfoo/saman/util"
 	"github.com/siddontang/go/log"
 	"github.com/bragfoo/saman/backend/api/common"
+	"github.com/bragfoo/saman/util/db"
 )
 
 func GetMobileData(g *global.G) func(context *gin.Context) {
 	return func(context *gin.Context) {
-		ids := context.Query("ids")
 		channelIds := context.Query("channelIds")
-		if "" != ids {
+		systemType := context.Query("systemType")
 
-		} else if "" == ids && "" != channelIds {
-			stm, err := mobile.GetMobileDataByChannel()
+		var con []interface{}
+		sql := mobile.GetMobileDataQuery
+		if "" != channelIds {
+			sql += mobile.GetByChannelQuery
+			con = append(con, channelIds)
+		}
+
+		if "" != systemType {
+			sql += mobile.GetBySystemType
+			con = append(con, systemType)
+		}
+		stm, err := db.Prepare(sql)
+		defer stm.Close()
+		if nil != err {
+			log.Error(err)
+			common.StandardError(context)
+		} else {
+			rows, err := stm.Query(con...)
 			if nil != err {
 				log.Error(err)
 				common.StandardError(context)
 			} else {
-				rows, err := stm.Query(channelIds)
-				defer rows.Close()
-				if nil != err {
-					log.Error(err)
-					common.StandardError(context)
-				} else {
-					var result []model.MobileData
-					for rows.Next() {
-						var model = model.MobileData{}
-						err := rows.Scan(&model.Ids,
-							&model.CreateTime,
-							&model.Active,
-							&model.Launch,
-							&model.Channel,
-							&model.SystemType,
-							&model.ChannelIds,
-						)
-						if nil == err {
-							result = append(result, model)
-						}
-					}
-					context.JSON(http.StatusOK, result)
-				}
-			}
-		} else {
-			stm, err := mobile.GetMobileData()
-			if nil != err {
-				context.Status(http.StatusInternalServerError)
-			} else {
-				rows, _ := stm.Query()
-				defer rows.Close()
 				var result []model.MobileData
 				for rows.Next() {
 					var model = model.MobileData{}
@@ -73,6 +58,64 @@ func GetMobileData(g *global.G) func(context *gin.Context) {
 				context.JSON(http.StatusOK, result)
 			}
 		}
+
+		//if "" != ids {
+		//
+		//} else if "" == ids && "" != channelIds {
+		//	stm, err := mobile.GetMobileDataByChannel()
+		//	if nil != err {
+		//		log.Error(err)
+		//		common.StandardError(context)
+		//	} else {
+		//		rows, err := stm.Query(channelIds)
+		//		defer rows.Close()
+		//		if nil != err {
+		//			log.Error(err)
+		//			common.StandardError(context)
+		//		} else {
+		//			var result []model.MobileData
+		//			for rows.Next() {
+		//				var model = model.MobileData{}
+		//				err := rows.Scan(&model.Ids,
+		//					&model.CreateTime,
+		//					&model.Active,
+		//					&model.Launch,
+		//					&model.Channel,
+		//					&model.SystemType,
+		//					&model.ChannelIds,
+		//				)
+		//				if nil == err {
+		//					result = append(result, model)
+		//				}
+		//			}
+		//			context.JSON(http.StatusOK, result)
+		//		}
+		//	}
+		//} else {
+		//	stm, err := mobile.GetMobileData()
+		//	if nil != err {
+		//		context.Status(http.StatusInternalServerError)
+		//	} else {
+		//		rows, _ := stm.Query()
+		//		defer rows.Close()
+		//		var result []model.MobileData
+		//		for rows.Next() {
+		//			var model = model.MobileData{}
+		//			err := rows.Scan(&model.Ids,
+		//				&model.CreateTime,
+		//				&model.Active,
+		//				&model.Launch,
+		//				&model.Channel,
+		//				&model.SystemType,
+		//				&model.ChannelIds,
+		//			)
+		//			if nil == err {
+		//				result = append(result, model)
+		//			}
+		//		}
+		//		context.JSON(http.StatusOK, result)
+		//	}
+		//}
 	}
 }
 

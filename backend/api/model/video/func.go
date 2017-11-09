@@ -19,7 +19,8 @@ var putVideoQuery string = "UPDATE saman.video v" +
 	"  v.platIds    = ?," +
 	"  v.title      = ?," +
 	"  v.link       = ?," +
-	"  v.createTime = ?" +
+	"  v.createTime = ?," +
+	"  v.platIds    = ?" +
 	"  WHERE v.ids = ?;"
 
 var delVideoQuery string = "DELETE FROM saman.video WHERE ids = ?"
@@ -29,8 +30,20 @@ var getVideoQuery string = "SELECT" +
 	"  v.ids          AS ids," +
 	"  v.title        AS title," +
 	"  v.link         AS link," +
-	"  v.createTime   AS createTime" +
-	"  FROM saman.video v"
+	"  v.createTime   AS createTime," +
+	"  v.platIds      AS platIds," +
+	"  v.videoIds     AS videoIds" +
+	"  FROM saman.video v" +
+	"  WHERE v.videoIds !=''"
+
+var getVideoSourceQuery string = "SELECT" +
+	"  v.ids          AS ids," +
+	"  v.title        AS title," +
+	"  v.link         AS link," +
+	"  v.createTime   AS createTime," +
+	"  v.platIds      AS platIds" +
+	"  FROM saman.video v" +
+	"  WHERE v.videoIds = ''"
 
 func GetVideoPlayAmount() (*sql.Stmt, error) {
 	var query string
@@ -55,6 +68,10 @@ func GetVideoPlayAmount() (*sql.Stmt, error) {
 
 func GetVideo() (*sql.Stmt, error) {
 	return db.Prepare(getVideoQuery)
+}
+
+func GetVideoSource() (*sql.Stmt, error) {
+	return db.Prepare(getVideoSourceQuery)
 }
 
 func PostVideo() (*sql.Stmt, error) {
