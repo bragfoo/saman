@@ -2,7 +2,6 @@
   <div>
     <el-row>
       <el-col :span="24" style="padding-bottom: 15px">
-        <PlatTypeSelect v-model="playType" @change="fetchList"></PlatTypeSelect>
         <el-button size="mini" type="primary" plain @click="createRow">添加</el-button>
         <el-button size="mini" type="primary" plain @click="reload">刷新</el-button>
       </el-col>
@@ -16,25 +15,31 @@
           <el-table-column
             fixed
             label="日期"
-            width="150">
+            width="180">
             <template slot-scope="scope">
               <i class="el-icon-time"></i>
               <span style="margin-left: 10px">{{ scope.row.CreateTime | timeToDay}}</span>
             </template>
           </el-table-column>
           <el-table-column
-            prop="Title"
-            label="名称"
+            prop="PicUpload"
+            label="图片上传"
             width="120">
           </el-table-column>
           <el-table-column
-            label="Url"
-            width="320">
-            <template slot-scope="scope">
-              <a :href="scop.row.Link" target="_blank">
-                 <span style="margin-left: 10px">{{ scope.row.Link | shortText }}</span>
-              </a>
-            </template>
+            prop="VideoUpload"
+            label="视频上传"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="TalentSum"
+            label="达人总数"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="ActiveUser"
+            label="活跃用户"
+            width="120">
           </el-table-column>
           <el-table-column
             fixed="right"
@@ -63,11 +68,17 @@
             </el-date-picker>
           </div>
         </el-form-item>
-        <el-form-item label="名称">
-          <el-input v-model="rowData.Title"></el-input>
+        <el-form-item label="点赞">
+          <el-input-number v-model="rowData.PicUpload"></el-input-number>
         </el-form-item>
-        <el-form-item label="URL">
-          <el-input v-model="rowData.Link"></el-input>
+        <el-form-item label="评论">
+          <el-input-number v-model="rowData.VideoUpload"></el-input-number>
+        </el-form-item>
+        <el-form-item label="分享">
+          <el-input-number v-model="rowData.TalentSum"></el-input-number>
+        </el-form-item>
+        <el-form-item label="图片">
+          <el-input-number v-model="rowData.ActiveUser"></el-input-number>
         </el-form-item>
         <el-form-item>
           <el-button @click="closeDialog">取 消</el-button>
@@ -81,18 +92,14 @@
 </template>
 
 <script>
-  import PlatTypeSelect from '../../components/PlatTypeSelect.vue'
-
   export default {
-    name: 'ModifyVideo',
-    components: {PlatTypeSelect},
+    name: 'AppData',
     data () {
       return {
-        url: 'video',
+        url: 'appData',
         tableData: [],
         rowData: {},
         dialogVisible: false,
-        playType: '59fae20cef2d1314e0ea2a55',
         isCreate: true,
         timeOption: {
           disabledDate (time) {
@@ -107,11 +114,7 @@
     methods: {
       // net io
       fetchList (value) {
-        this.$http.get(this.url, {
-          params: {
-            'platIds': this.playType
-          }
-        }).then((response) => {
+        this.$http.get(this.url).then((response) => {
           this.tableData = response.data
         })
       },
@@ -133,9 +136,10 @@
         }
         return {
           TCreateTime: (new Date()).getTime(),
-          Title: '',
-          Link: '',
-          PlatIds: this.playType
+          PicUpload: 0,
+          VideoUpload: 0,
+          TalentSum: 0,
+          ActiveUser: 0
         }
       },
       reload () {

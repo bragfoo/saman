@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/components/Main.vue'
-
+// 产品数据
 import ProductData from '@/views/ProductData.vue'
+// 用户转化
+import UserReferral from '@/views/UserReferral.vue'
 // Acquisition
 import Acquisition from '@/views/Acquisition.vue'
 import AcqSummary from '@/views/acquisition_views/Summary.vue'
@@ -25,7 +27,7 @@ import ModifyVideoPlayAmount from '@/views/modify_views/ModifyVideoPlayAmount.vu
 import ModifyMobileData from '@/views/modify_views/ModifyMobileData.vue'
 import ModifyAppUGC from '@/views/modify_views/ModifyAppUGC.vue'
 import ModifyTalent from '@/views/modify_views/ModifyAppUGC.vue'
-import ModifyAppData from '@/views/modify_views/ModifyAppUGC.vue'
+import ModifyAppData from '@/views/modify_views/ModifyAppData.vue'
 import ModifyEvents from '@/views/modify_views/ModifyEvents.vue'
 /* eslint-enable */
 
@@ -100,12 +102,17 @@ export default new Router({
       // 用户转化
       path: '/user_referral',
       name: 'user_referral',
-      component: Main,
+      component: UserReferral,
       children: [
         {
-          // 获取总结
+          // 下载
           path: '/useref/download',
           name: 'useref_download',
+          component: Main
+        }, {
+          // 留存
+          path: '/useref/retention',
+          name: 'useref_retention',
           component: Main
         }
       ]
