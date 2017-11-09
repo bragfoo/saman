@@ -6,24 +6,18 @@
 
 <script>
   export default {
-    name: 'AppTalent',
+    name: 'UserSumLineChart',
     data () {
       return {
         loading: false,
         url: 'appData',
         chartData: {
           columns: ['CreateTime', 'ActiveUser'],
-          rows: [
-            {
-              CreateTime: (new Date()).getTime(),
-              Like: 0,
-              ActiveUser: '用户总数'
-            }
-          ]
+          rows: []
         },
         chartSettings: {
           labelMap: {
-            CreateTime: '事件',
+            CreateTime: '时间',
             ActiveUser: '用户总数'
           }
         }
@@ -41,8 +35,14 @@
           }
         }).then((response) => {
           this.chartData.rows = []
+          response.data.sort((r1, r2) => {
+            if (r1.CreateTime === r2.CreateTime) {
+              return 0
+            }
+            return r1.CreateTime > r2.CreateTime ? 1 : -1
+          })
           response.data.forEach((row) => {
-            let time = new Date(row.CreateTime)
+            let time = new Date(row.CreateTime * 1000)
             row.CreateTime = (time.getMonth() + 1) + '月' + time.getDate() + '日'
             this.chartData.rows.push(row)
           })

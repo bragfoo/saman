@@ -18,17 +18,14 @@
         playType: '59fae20cef2d1314e0ea2a55',
         chartData: {
           columns: ['CreateTime', 'Decrease', 'Increase', 'Sum'],
-          rows: [
-            {'CreateTime': '1月1日', 'Decrease': 123, 'Increase': 3, 'Sum': 0, 'Type': ''}
-          ]
+          rows: []
         },
         chartSettings: {
           labelMap: {
-            CreateTime: '事件',
+            CreateTime: '时间',
             Decrease: '减少',
             Increase: '增加',
-            Sum: '总数',
-            Type: '平台'
+            Sum: '总数'
           }
         }
       }
@@ -45,8 +42,14 @@
           }
         }).then((response) => {
           this.chartData.rows = []
+          response.data.sort((r1, r2) => {
+            if (r1.CreateTime === r2.CreateTime) {
+              return 0
+            }
+            return r1.CreateTime > r2.CreateTime ? 1 : -1
+          })
           response.data.forEach((row) => {
-            let time = new Date(row.CreateTime)
+            let time = new Date(row.CreateTime * 1000)
             row.CreateTime = (time.getMonth() + 1) + '月' + time.getDate() + '日'
             this.chartData.rows.push(row)
           })

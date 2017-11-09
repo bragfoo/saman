@@ -6,21 +6,14 @@
 
 <script>
   export default {
-    name: 'UGCSoc',
+    name: 'SocDataLineChart',
     data () {
       return {
         loading: false,
         url: 'appUGC',
         chartData: {
           columns: ['CreateTime', 'Like', 'CommentSum', 'ShareSum'],
-          rows: [
-            {
-              CreateTime: (new Date()).getTime(),
-              Like: 0,
-              CommentSum: 0,
-              ShareSum: 0
-            }
-          ]
+          rows: []
         },
         chartSettings: {
           labelMap: {
@@ -44,8 +37,14 @@
           }
         }).then((response) => {
           this.chartData.rows = []
+          response.data.sort((r1, r2) => {
+            if (r1.CreateTime === r2.CreateTime) {
+              return 0
+            }
+            return r1.CreateTime > r2.CreateTime ? 1 : -1
+          })
           response.data.forEach((row) => {
-            let time = new Date(row.CreateTime)
+            let time = new Date(row.CreateTime * 1000)
             row.CreateTime = (time.getMonth() + 1) + '月' + time.getDate() + '日'
             this.chartData.rows.push(row)
           })
@@ -57,24 +56,3 @@
     }
   }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  h1, h2 {
-    font-weight: normal;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-
-  a {
-    color: #42b983;
-  }
-</style>
