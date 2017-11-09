@@ -10,17 +10,16 @@
   </el-select>
 </template>
 
-
 <script>
   export default {
     name: 'SystemTypeSelect',
     props: ['value'],
     data () {
       return {
-        propValue: 'ios',
+        propValue: 0,
         options: [
-          {value: 'ios', label: 'ios'},
-          {value: 'android', label: 'android'},
+          {value: 0, label: 'ios'},
+          {value: 1, label: 'android'}
         ]
       }
     },

@@ -2,7 +2,8 @@
   <div>
     <el-row>
       <el-col :span="24" style="padding-bottom: 15px">
-        <PlatTypeSelect v-model="playType" @change="fetchList"></PlatTypeSelect>
+        <ChannelTypeSelect v-model="channelType" @change="fetchList"></ChannelTypeSelect>
+        <SystemTypeSelect v-model="systemType" @change="fetchList"></SystemTypeSelect>
         <el-button size="mini" type="primary" plain @click="createRow">添加</el-button>
         <el-button size="mini" type="primary" plain @click="reload">刷新</el-button>
       </el-col>
@@ -23,23 +24,13 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="Increase"
-            label="增加"
+            prop="Active"
+            label="活跃"
             width="120">
           </el-table-column>
           <el-table-column
-            prop="Decrease"
-            label="降低"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Sum"
-            label="总数"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Type"
-            label="平台"
+            prop="Launch"
+            label="启动"
             width="120">
           </el-table-column>
           <el-table-column
@@ -69,14 +60,11 @@
             </el-date-picker>
           </div>
         </el-form-item>
-        <el-form-item label="减少">
-          <el-input v-model="rowData.Decrease"></el-input>
+        <el-form-item label="活跃">
+          <el-input-number v-model="rowData.Active"></el-input-number>
         </el-form-item>
-        <el-form-item label="增加">
-          <el-input v-model="rowData.Increase"></el-input>
-        </el-form-item>
-        <el-form-item label="总数">
-          <el-input v-model="rowData.Sum"></el-input>
+        <el-form-item label="启动">
+          <el-input-number v-model="rowData.Launch"></el-input-number>
         </el-form-item>
         <el-form-item>
           <el-button @click="closeDialog">取 消</el-button>
@@ -90,18 +78,23 @@
 </template>
 
 <script>
-  import PlatTypeSelect from '../../components/PlatTypeSelect.vue'
+  import ChannelTypeSelect from '../../components/ChannelTypeSelect.vue'
+  import SystemTypeSelect from '../../components/SystemTypeSelect.vue'
 
   export default {
-    name: 'ModifyPlatFans',
-    components: {PlatTypeSelect},
+    name: 'ModifyMobileData',
+    components: {
+      ChannelTypeSelect,
+      SystemTypeSelect
+    },
     data () {
       return {
-        url: 'platformFans',
+        url: 'mobileData',
         tableData: [],
         rowData: {},
         dialogVisible: false,
-        playType: '59fae20cef2d1314e0ea2a55',
+        channelType: '',
+        systemType: 0,
         isCreate: true,
         timeOption: {
           disabledDate (time) {
@@ -116,13 +109,16 @@
     methods: {
       // net io
       fetchList (value) {
-        this.$http.get(this.url, {
-          params: {
-            'platIds': this.playType
-          }
-        }).then((response) => {
-          this.tableData = response.data
-        })
+        if (this.channelType) {
+          this.$http.get(this.url, {
+            params: {
+              'channelIds': this.channelType,
+              'systemType': this.systemType
+            }
+          }).then((response) => {
+            this.tableData = response.data
+          })
+        }
       },
       saveData (func) {
         if (this.isCreate) {
@@ -142,10 +138,10 @@
         }
         return {
           CreateTime: (new Date()).getTime(),
-          Increase: 0,
-          Decrease: 0,
-          Sum: 0,
-          PlatIds: this.playType
+          Active: 0,
+          Launch: 0,
+          ChannelIds: this.channelType,
+          SystemType: this.systemType
         }
       },
       reload () {
