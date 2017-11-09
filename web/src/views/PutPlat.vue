@@ -15,9 +15,7 @@
     data () {
       return {}
     },
-    created () {
-      this.fetchList()
-    },
+    created () {},
     methods: {}
   }
 </script>

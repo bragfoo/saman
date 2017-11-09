@@ -37,6 +37,9 @@
           }
         }).then((response) => {
           this.chartData.rows = []
+          if (response.data === null) {
+            response.data = []
+          }
           response.data.sort((r1, r2) => {
             if (r1.CreateTime === r2.CreateTime) {
               return 0
