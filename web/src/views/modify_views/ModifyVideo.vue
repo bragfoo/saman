@@ -23,24 +23,18 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="Increase"
-            label="增加"
+            prop="Title"
+            label="名称"
             width="120">
           </el-table-column>
           <el-table-column
-            prop="Decrease"
-            label="降低"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Sum"
-            label="总数"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Type"
-            label="平台"
-            width="120">
+            label="Url"
+            width="320">
+            <template slot-scope="scope">
+              <a :href="scop.row.Link" target="_blank">
+                 <span style="margin-left: 10px">{{ scope.row.Link | shortText }}</span>
+              </a>
+            </template>
           </el-table-column>
           <el-table-column
             fixed="right"
@@ -69,14 +63,11 @@
             </el-date-picker>
           </div>
         </el-form-item>
-        <el-form-item label="减少">
-          <el-input v-model="rowData.Decrease"></el-input>
+        <el-form-item label="名称">
+          <el-input v-model="rowData.Title"></el-input>
         </el-form-item>
-        <el-form-item label="增加">
-          <el-input v-model="rowData.Increase"></el-input>
-        </el-form-item>
-        <el-form-item label="总数">
-          <el-input v-model="rowData.Sum"></el-input>
+        <el-form-item label="URL">
+          <el-input v-model="rowData.Link"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button @click="closeDialog">取 消</el-button>
@@ -93,11 +84,11 @@
   import PlatTypeSelect from '../../components/PlatTypeSelect.vue'
 
   export default {
-    name: 'ModifyPlatFans',
+    name: 'ModifyVideo',
     components: {PlatTypeSelect},
     data () {
       return {
-        url: 'platformFans',
+        url: 'video',
         tableData: [],
         rowData: {},
         dialogVisible: false,
@@ -142,9 +133,8 @@
         }
         return {
           CreateTime: (new Date()).getTime(),
-          Increase: 0,
-          Decrease: 0,
-          Sum: 0,
+          Title: '',
+          Link: '',
           PlatIds: this.playType
         }
       },
