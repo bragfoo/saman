@@ -15,7 +15,7 @@
           <el-table-column
             fixed
             label="开始日期"
-            width="150">
+            width="180">
             <template slot-scope="scope">
               <i class="el-icon-time"></i>
               <span style="margin-left: 10px">{{ scope.row.StartDate | timeToDay}}</span>
@@ -24,7 +24,7 @@
           <el-table-column
             fixed
             label="结束日期"
-            width="150">
+            width="180">
             <template slot-scope="scope">
               <i class="el-icon-time"></i>
               <span style="margin-left: 10px">{{ scope.row.EndDate | timeToDay}}</span>
@@ -70,7 +70,7 @@
         <el-form-item label="开始时间">
           <div class="block">
             <el-date-picker
-              v-model="rowData.StartDate"
+              v-model="rowData.TStartDate"
               type="date"
               placeholder="选择日期"
               :picker-options="timeOption">
@@ -80,7 +80,7 @@
         <el-form-item label="结束时间">
           <div class="block">
             <el-date-picker
-              v-model="rowData.EndDate"
+              v-model="rowData.TEndDate"
               type="date"
               placeholder="选择日期"
               :picker-options="timeOption">
@@ -115,7 +115,7 @@
     name: 'ModifyEvents',
     data () {
       return {
-        url: 'events',
+        url: 'event',
         tableData: [],
         rowData: {},
         dialogVisible: false,
@@ -150,13 +150,16 @@
       },
       getRowData (id) {
         if (id) {
-          return JSON.parse(JSON.stringify(this.tableData.find((row) => {
+          let row = JSON.parse(JSON.stringify(this.tableData.find((row) => {
             return row.Ids === id
           })))
+          row.TStartDate = new Date(row.StartDate * 1000)
+          row.TEndDate = new Date(row.EndDate * 1000)
+          return row
         }
         return {
-          StartDate: (new Date()).getTime(),
-          EndDate: (new Date()).getTime(),
+          TStartDate: new Date(),
+          TEndDate: new Date(),
           totalPeople: 0,
           totalWork: 0,
           uploadPeople: 0,
@@ -166,15 +169,14 @@
       reload () {
         this.fetchList()
       },
-
       // dialog control
       showDialog (id) {
         if (this.isCreate) {
           this.rowData = this.getRowData()
         } else {
           this.rowData = this.getRowData(id)
-          this.rowData.StartDate = new Date(this.rowData.StartDate * 1000)
-          this.rowData.EntTime = new Date(this.rowData.EndDate * 1000)
+          this.rowData.TStartDate = new Date(this.rowData.StartDate * 1000)
+          this.rowData.TEntDate = new Date(this.rowData.EndDate * 1000)
         }
         this.dialogVisible = true
       },
@@ -192,8 +194,8 @@
         this.showDialog(id)
       },
       saveRow () {
-        this.rowData.StartDate = Math.floor(new Date(this.rowData.StartDate).getTime() / 1000)
-        this.rowData.EndDate = Math.floor(new Date(this.rowData.EndDate).getTime() / 1000)
+        this.rowData.StartDate = Math.floor(new Date(this.rowData.TStartDate).getTime() / 1000)
+        this.rowData.EndDate = Math.floor(new Date(this.rowData.TEndDate).getTime() / 1000)
         this.saveData((response) => {
           this.closeDialog()
           this.reload()
