@@ -25,7 +25,7 @@ import ModifyVideoPlayAmount from '@/views/modify_views/ModifyVideoPlayAmount.vu
 import ModifyMobileData from '@/views/modify_views/ModifyMobileData.vue'
 import ModifyAppUGC from '@/views/modify_views/ModifyAppUGC.vue'
 import ModifyTalent from '@/views/modify_views/ModifyAppUGC.vue'
-import ModifyAppData from '@/views/modify_views/ModifyAppUGC.vue'
+import ModifyAppData from '@/views/modify_views/ModifyAppData.vue'
 import ModifyEvents from '@/views/modify_views/ModifyEvents.vue'
 /* eslint-enable */
 
