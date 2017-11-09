@@ -1,80 +1,22 @@
 <template>
-  <el-row>
-    <ve-line :data="chartData" :settings="chartSettings"></ve-line>
-  </el-row>
+  <el-card class="box-card">
+    <video-sum-line-chart></video-sum-line-chart>
+  </el-card>
 </template>
 
 <script>
+  import VideoSumLineChart from '../data_views/VideoSumLineChart.vue'
+
   export default {
-    name: 'UGCVideo',
+    name: 'VideoPosted',
+    components: {
+      VideoSumLineChart
+    },
     data () {
-      return {
-        loading: false,
-        url: 'appUGC',
-        chartData: {
-          columns: ['CreateTime', 'VideoSum'],
-          rows: [
-            {
-              CreateTime: (new Date()).getTime(),
-              Like: 0,
-              CommentSum: 0,
-              ShareSum: 0,
-              PicSum: 0,
-              VideoSum: 0
-            }
-          ]
-        },
-        chartSettings: {
-          labelMap: {
-            CreateTime: '事件',
-            VideoSum: '视频'
-          }
-        }
-      }
+      return {}
     },
     created () {
-      this.fetchList()
     },
-    methods: {
-      // net io
-      fetchList () {
-        this.$http.get(this.url, {
-          params: {
-            platIds: this.playType
-          }
-        }).then((response) => {
-          this.chartData.rows = []
-          response.data.forEach((row) => {
-            let time = new Date(row.CreateTime)
-            row.CreateTime = (time.getMonth() + 1) + '月' + time.getDate() + '日'
-            this.chartData.rows.push(row)
-          })
-        }).then()
-      },
-      reload () {
-        this.fetchList()
-      }
-    }
+    methods: {}
   }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  h1, h2 {
-    font-weight: normal;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-
-  a {
-    color: #42b983;
-  }
-</style>
