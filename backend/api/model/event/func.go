@@ -24,23 +24,11 @@ var updateQuery string = "UPDATE saman.event e" +
 var delQuery string = "DELETE FROM saman.event WHERE ids = ?"
 
 func GetEvent() (*sql.Stmt, error) {
-	stm, err :=
-		db.Prepare(getEventQuery)
-	if nil != err {
-		log.Fatal(err)
-		return nil, err
-	} else {
-		return stm, nil
-	}
+	return db.Prepare(getEventQuery)
 }
 
 func GetEventById() (*sql.Stmt, error) {
-	stm, err := db.Prepare(getEventByIdQuery)
-	if nil != err {
-		return nil, err
-	} else {
-		return stm, nil
-	}
+	return db.Prepare(getEventByIdQuery)
 }
 
 func PostEvent() (*sql.Stmt, error) {

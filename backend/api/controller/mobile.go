@@ -15,8 +15,39 @@ import (
 func GetMobileData(g *global.G) func(context *gin.Context) {
 	return func(context *gin.Context) {
 		ids := context.Query("ids")
+		channelIds := context.Query("channelIds")
 		if "" != ids {
 
+		} else if "" == ids && "" != channelIds {
+			stm, err := mobile.GetMobileDataByChannel()
+			if nil != err {
+				log.Error(err)
+				common.StandardError(context)
+			} else {
+				rows, err := stm.Query(channelIds)
+				defer rows.Close()
+				if nil != err {
+					log.Error(err)
+					common.StandardError(context)
+				} else {
+					var result []model.MobileData
+					for rows.Next() {
+						var model = model.MobileData{}
+						err := rows.Scan(&model.Ids,
+							&model.CreateTime,
+							&model.Active,
+							&model.Launch,
+							&model.Channel,
+							&model.SystemType,
+							&model.ChannelIds,
+						)
+						if nil == err {
+							result = append(result, model)
+						}
+					}
+					context.JSON(http.StatusOK, result)
+				}
+			}
 		} else {
 			stm, err := mobile.GetMobileData()
 			if nil != err {
