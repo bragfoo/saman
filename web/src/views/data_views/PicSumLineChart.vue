@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <ve-line :data="chartData" :settings="chartSettings"></ve-line>
+    <ve-line :data="chartData" :settings="chartSettings" height="300px"></ve-line>
   </el-row>
 </template>
 
@@ -44,9 +44,12 @@
             }
             return r1.CreateTime > r2.CreateTime ? 1 : -1
           })
+          let sum = 0
           response.data.forEach((row) => {
             let time = new Date(row.CreateTime * 1000)
             row.CreateTime = (time.getMonth() + 1) + '月' + time.getDate() + '日'
+            sum += row.PicSum
+            row.PicSum = sum
             this.chartData.rows.push(row)
           })
         }).then()

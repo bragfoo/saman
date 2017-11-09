@@ -1,0 +1,78 @@
+<template>
+  <el-row>
+    <ve-radar :data="chartData" :settings="chartSettings"></ve-radar>
+  </el-row>
+</template>
+
+<script>
+  export default {
+    name: 'AppUGCChart',
+    data () {
+      return {
+        loading: false,
+        url: 'event',
+        chartData: {
+          columns: ['名称', '参加人数', '工作人数', '上传人数', '开始', '结束'],
+          rows: []
+        },
+        chartSettings: {
+          dimension: ['名称'],
+          metrics: ['参加人数', '工作人数', '上传人数'],
+//          dataType: {'参加人数': 'normal'},
+          label: {
+            normal: {
+              position: 'top',
+              show: false,
+              formatter: function (params) {
+                console.log(params)
+              }
+            }
+          }
+        },
+        dataZoom: [
+          {
+            type: 'slider',
+            start: 0,
+            end: 20
+          }
+        ]
+      }
+    },
+    created () {
+      this.fetchList()
+    },
+    methods: {
+      // net io
+      fetchList () {
+        this.$http.get(this.url, {
+          params: {
+            platIds: this.playType
+          }
+        }).then((response) => {
+          this.chartData.rows = []
+          if (response.data === null) {
+            response.data = []
+          }
+          response.data.forEach((row) => {
+            let time = new Date(row.StartDate * 1000)
+            row.StartDate = (time.getMonth() + 1) + '月' + time.getDate() + '日'
+            time = new Date(row.EndDate * 1000)
+            row.EndDate = (time.getMonth() + 1) + '月' + time.getDate() + '日'
+            this.chartData.rows.push({
+              // CreateTime: '时间',
+              '名称': row.Name,
+              '参加人数': row.TotalPeople,
+              '工作人数': row.TotalWork,
+              '上传人数': row.UploadPeople,
+              '开始': row.StartDate,
+              '结束': row.EndDate
+            })
+          })
+        }).then()
+      },
+      reload () {
+        this.fetchList()
+      }
+    }
+  }
+</script>

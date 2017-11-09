@@ -1,16 +1,16 @@
 <template>
   <el-card class="box-card">
-    <plat-fans-chart></plat-fans-chart>
+    <event-rardar-chart></event-rardar-chart>
   </el-card>
 </template>
 
 <script>
-  import PlatFansChart from './data_views/PlatFansChart.vue'
+  import EventRardarChart from './data_views/EventRardarChart.vue'
 
   export default {
     name: 'Main',
     components: {
-      PlatFansChart
+      EventRardarChart
     },
     data () {
       return {}

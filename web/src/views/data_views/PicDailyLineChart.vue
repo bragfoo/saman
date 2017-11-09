@@ -6,19 +6,19 @@
 
 <script>
   export default {
-    name: 'VideoSumLineChart',
+    name: 'PicSumLineChart',
     data () {
       return {
         loading: false,
         url: 'appUGC',
         chartData: {
-          columns: ['CreateTime', 'VideoSum'],
+          columns: ['CreateTime', 'PicSum'],
           rows: []
         },
         chartSettings: {
           labelMap: {
             CreateTime: '时间',
-            VideoSum: '视频'
+            PicSum: '图片'
           }
         }
       }
@@ -44,12 +44,9 @@
             }
             return r1.CreateTime > r2.CreateTime ? 1 : -1
           })
-          let sum = 0
           response.data.forEach((row) => {
             let time = new Date(row.CreateTime * 1000)
             row.CreateTime = (time.getMonth() + 1) + '月' + time.getDate() + '日'
-            sum += row.VideoSum
-            row.VideoSum = sum
             this.chartData.rows.push(row)
           })
         }).then()
