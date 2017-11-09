@@ -56,7 +56,7 @@
         <el-form-item label="时间">
           <div class="block">
             <el-date-picker
-              v-model="rowData.CreateTime"
+              v-model="rowData.TCreateTime"
               type="date"
               placeholder="选择日期"
               :picker-options="timeOption">
@@ -132,7 +132,7 @@
           })))
         }
         return {
-          CreateTime: (new Date()).getTime(),
+          TCreateTime: (new Date()).getTime(),
           Title: '',
           Link: '',
           PlatIds: this.playType
@@ -148,7 +148,7 @@
           this.rowData = this.getRowData()
         } else {
           this.rowData = this.getRowData(id)
-          this.rowData.CreateTime = new Date(this.rowData.CreateTime * 1000)
+          this.rowData.TCreateTime = new Date(this.rowData.CreateTime * 1000)
         }
         this.dialogVisible = true
       },
@@ -166,7 +166,7 @@
         this.showDialog(id)
       },
       saveRow () {
-        this.rowData.CreateTime = Math.floor(new Date(this.rowData.CreateTime).getTime() / 1000)
+        this.rowData.CreateTime = Math.floor(new Date(this.rowData.TCreateTime).getTime() / 1000)
         this.saveData((response) => {
           this.closeDialog()
           this.reload()

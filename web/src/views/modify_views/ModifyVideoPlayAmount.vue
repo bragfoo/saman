@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span="24" style="padding-bottom: 15px">
-        <PlatTypeSelect v-model="playType" @change="fetchList"></PlatTypeSelect>
+        <VideoTypeSelect v-model="videoType" @change="fetchList"></VideoTypeSelect>
         <el-button size="mini" type="primary" plain @click="createRow">添加</el-button>
         <el-button size="mini" type="primary" plain @click="reload">刷新</el-button>
       </el-col>
@@ -23,23 +23,8 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="Increase"
-            label="增加"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Decrease"
-            label="降低"
-            width="120">
-          </el-table-column>
-          <el-table-column
             prop="Sum"
             label="总数"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="Type"
-            label="平台"
             width="120">
           </el-table-column>
           <el-table-column
@@ -69,13 +54,7 @@
             </el-date-picker>
           </div>
         </el-form-item>
-        <el-form-item label="减少">
-          <el-input v-model="rowData.Decrease"></el-input>
-        </el-form-item>
-        <el-form-item label="增加">
-          <el-input v-model="rowData.Increase"></el-input>
-        </el-form-item>
-        <el-form-item label="总数">
+        <el-form-item label="播放总数">
           <el-input v-model="rowData.Sum"></el-input>
         </el-form-item>
         <el-form-item>
@@ -90,18 +69,18 @@
 </template>
 
 <script>
-  import PlatTypeSelect from '../../components/PlatTypeSelect.vue'
+  import VideoTypeSelect from '../../components/VideoTypeSelect.vue'
 
   export default {
-    name: 'ModifyPlatFans',
-    components: {PlatTypeSelect},
+    name: 'ModifyPlayAmount',
+    components: {VideoTypeSelect},
     data () {
       return {
-        url: 'platformFans',
+        url: 'videoPlayAmount',
         tableData: [],
         rowData: {},
         dialogVisible: false,
-        playType: '59fae20cef2d1314e0ea2a55',
+        videoType: '',
         isCreate: true,
         timeOption: {
           disabledDate (time) {
@@ -116,13 +95,15 @@
     methods: {
       // net io
       fetchList (value) {
-        this.$http.get(this.url, {
-          params: {
-            'platIds': this.playType
-          }
-        }).then((response) => {
-          this.tableData = response.data
-        })
+        if (this.videoType) {
+          this.$http.get(this.url, {
+            params: {
+              'videoIds': this.videoType
+            }
+          }).then((response) => {
+            this.tableData = response.data
+          })
+        }
       },
       saveData (func) {
         if (this.isCreate) {
@@ -142,10 +123,8 @@
         }
         return {
           CreateTime: (new Date()).getTime(),
-          Increase: 0,
-          Decrease: 0,
           Sum: 0,
-          PlatIds: this.playType
+          VideoIds: this.videoType
         }
       },
       reload () {
