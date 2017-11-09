@@ -22,6 +22,7 @@ type Video struct {
 	PlatIds  string `json:"PlatIds"`
 	Title    string `json:"Title"`
 	Link     string `json:"Link"`
+	CreateTime int64 `json:"CreateTime"`
 }
 
 type VideoPlayAmount struct {
