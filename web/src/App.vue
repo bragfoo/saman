@@ -18,9 +18,9 @@
             <!--<i class="el-icon-edit-outline"></i>-->
             <!--<span slot="title">用户画像</span>-->
           <!--</el-menu-item>-->
-          <el-menu-item index="3" :route="{'name':'users_click'}">
+          <el-menu-item index="3" :route="{'name':'video_click'}">
             <i class="el-icon-plus"></i>
-            <span slot="title">用户点击</span>
+            <span slot="title">视频点击</span>
           </el-menu-item>
           <el-menu-item index="4" :route="{'name':'put_plat'}">
             <i class="el-icon-upload"></i>

@@ -1,10 +1,25 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/components/Main.vue'
+// 用户点击
+import VideoClick from '@/views/VideoClick.vue'
+// 投放渠道
+import PutPlat from '@/views/PutPlat.vue'
 // 产品数据
 import ProductData from '@/views/ProductData.vue'
+import PrdPicPosted from '@/views/product_data_views/PicPosted.vue'
+import PrdVideoPosted from '@/views/product_data_views/VideoPosted.vue'
+import PrdSoc from '@/views/product_data_views/Soc.vue'
+import PrdTalent from '@/views/product_data_views/Talent.vue'
+import PrdNewly from '@/views/product_data_views/Newly.vue'
+// 下载量
+import DownloadCount from '@/views/DownloadCount.vue'
 // 用户转化
 import UserReferral from '@/views/UserReferral.vue'
+import UserefDownload from '@/views/user_referral_views/Download.vue'
+import UserefRetention from '@/views/user_referral_views/Retention.vue'
+// 活动检测
+import EventCheck from '@/views/EventCheck.vue'
 // Acquisition
 import Acquisition from '@/views/Acquisition.vue'
 import AcqSummary from '@/views/acquisition_views/Summary.vue'
@@ -52,14 +67,14 @@ export default new Router({
       // component: Main
     }, {
       // 视频点击
-      path: '/users_click',
-      name: 'users_click',
-      component: Main
+      path: '/video_click',
+      name: 'video_click',
+      component: VideoClick
     }, {
       // 投放渠道
       path: '/put_plat',
       name: 'put_plat',
-      component: Main
+      component: PutPlat
     }, {
       // 产品数据
       path: '/product_data',
@@ -70,34 +85,34 @@ export default new Router({
           // 图片发布
           path: '/prd/pic_posted',
           name: 'prd_pic_posted',
-          component: Main
+          component: PrdPicPosted
         }, {
           // 视频发布
           path: '/prd/video_posted',
           name: 'prd_video_posted',
-          component: Main
+          component: PrdVideoPosted
         }, {
           // 社会化
           path: '/prd/socialization',
           name: 'prd_socialization',
-          component: Main
+          component: PrdSoc
         }, {
           // 达人
           path: '/prd/talent',
           name: 'prd_talent',
-          component: Main
+          component: PrdTalent
         }, {
           // 新增
           path: '/prd/newly',
           name: 'prd_newly',
-          component: Main
+          component: PrdNewly
         }
       ]
     }, {
       // 下载量
       path: '/download_count',
       name: 'download_count',
-      component: Main
+      component: DownloadCount
     }, {
       // 用户转化
       path: '/user_referral',
@@ -108,19 +123,19 @@ export default new Router({
           // 下载
           path: '/useref/download',
           name: 'useref_download',
-          component: Main
+          component: UserefDownload
         }, {
           // 留存
           path: '/useref/retention',
           name: 'useref_retention',
-          component: Main
+          component: UserefRetention
         }
       ]
     }, {
       // 活动检测
       path: '/event_check',
       name: 'event_check',
-      component: Main
+      component: EventCheck
       // }, {
       // 周报
       // path: '/weekly',
