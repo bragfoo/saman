@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-var postEventsQuery string = "INSERT INTO saman.mobileData (ids, createTime, active, launch, channel, systemType) VALUES (?, ?, ?, ?, ?, ?);"
+var postQuery string = "INSERT INTO saman.mobileData (ids, createTime, active, launch, channel, systemType) VALUES (?, ?, ?, ?, ?, ?);"
 
 var putQuery string = "UPDATE saman.mobileData m" +
 	"  SET m.createTime = ?," +
@@ -18,7 +18,7 @@ var putQuery string = "UPDATE saman.mobileData m" +
 
 var delQuery string = "DELETE FROM saman.mobileData WHERE ids = ?"
 
-var getMobileDataQuery string = "SELECT" +
+var GetMobileDataQuery string = "SELECT" +
 	"  m.ids        AS ids," +
 	"  m.createTime AS createTime," +
 	"  m.active     AS active," +
@@ -26,7 +26,8 @@ var getMobileDataQuery string = "SELECT" +
 	"  c.name       AS channel," +
 	"  m.systemType AS systemType," +
 	"  c.ids        AS channelIds" +
-	"  FROM saman.mobileData m LEFT JOIN saman.channel c ON m.channel = c.ids"
+	"  FROM saman.mobileData m LEFT JOIN saman.channel c ON m.channel = c.ids" +
+	"  WHERE 1=1"
 
 var updateQuery = "UPDATE saman.mobileData m" +
 	"  SET m.createTime = ?," +
@@ -36,11 +37,13 @@ var updateQuery = "UPDATE saman.mobileData m" +
 	"  m.active       = ?" +
 	"  WHERE m.ids = ? "
 
-var getByChannelQuery = getMobileDataQuery + "  WHERE m.channel = ?"
+var GetByChannelQuery =  "  AND m.channel = ?"
+
+var GetBySystemType = "  AND m.systemType = ?"
 
 func GetMobileData() (*sql.Stmt, error) {
 
-	stm, err := db.Prepare(getMobileDataQuery)
+	stm, err := db.Prepare(GetMobileDataQuery)
 	if nil != err {
 		log.Fatal(err)
 		return nil, err
@@ -50,7 +53,7 @@ func GetMobileData() (*sql.Stmt, error) {
 }
 
 func GetMobileDataByChannel() (*sql.Stmt, error) {
-	return db.Prepare(getByChannelQuery)
+	return db.Prepare(GetByChannelQuery)
 }
 
 func PutMobileData() (*sql.Stmt, error) {
@@ -60,3 +63,8 @@ func PutMobileData() (*sql.Stmt, error) {
 func DelMObileData() (*sql.Stmt, error) {
 	return db.Prepare(delQuery)
 }
+
+func PostMobileData() (*sql.Stmt, error) {
+	return db.Prepare(postQuery)
+}
+
