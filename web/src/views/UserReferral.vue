@@ -1,8 +1,8 @@
 <template>
   <el-card class="box-card">
     <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane label="图片发布" name="useref_download"></el-tab-pane>
-      <el-tab-pane label="视频发布" name="useref_retention"></el-tab-pane>
+      <el-tab-pane label="用户下载" name="useref_download"></el-tab-pane>
+      <el-tab-pane label="用户留存" name="useref_retention"></el-tab-pane>
     </el-tabs>
     <router-view></router-view>
   </el-card>

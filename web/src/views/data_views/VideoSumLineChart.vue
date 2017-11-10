@@ -35,17 +35,10 @@
           }
         }).then((response) => {
           this.chartData.rows = []
-          if (response.data === null) {
-            response.data = []
-          }
-          response.data.sort((r1, r2) => {
-            if (r1.CreateTime === r2.CreateTime) {
-              return 0
-            }
-            return r1.CreateTime > r2.CreateTime ? 1 : -1
-          })
+          let data = response.data === null ? response.data = [] : response.data
+          data.sort((r1, r2) => (r1.CreateTime === r2.CreateTime ? 0 : r1.CreateTime > r2.CreateTime ? 1 : -1)
           let sum = 0
-          response.data.forEach((row) => {
+          data.forEach((row) => {
             let time = new Date(row.CreateTime * 1000)
             row.CreateTime = (time.getMonth() + 1) + '月' + time.getDate() + '日'
             sum += row.VideoSum
