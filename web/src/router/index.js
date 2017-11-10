@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Main from '@/components/Main.vue'
+import Dashboard from '@/views/Dashboard.vue'
 // 用户点击
 import VideoClick from '@/views/VideoClick.vue'
 // 投放渠道
@@ -41,7 +41,7 @@ import ModifyVideoPlat from '@/views/modify_views/ModifyVideo.vue'
 import ModifyVideoPlayAmount from '@/views/modify_views/ModifyVideoPlayAmount.vue'
 import ModifyMobileData from '@/views/modify_views/ModifyMobileData.vue'
 import ModifyAppUGC from '@/views/modify_views/ModifyAppUGC.vue'
-import ModifyTalent from '@/views/modify_views/ModifyAppUGC.vue'
+import ModifyTalent from '@/views/modify_views/ModifyTalent.vue'
 import ModifyAppData from '@/views/modify_views/ModifyAppData.vue'
 import ModifyEvents from '@/views/modify_views/ModifyEvents.vue'
 /* eslint-enable */
@@ -54,7 +54,7 @@ export default new Router({
       // dashboard
       path: '/',
       name: 'dashboard',
-      component: Main
+      component: Dashboard
       // }, {
       // 运营周报
       // path: '/operation_weekly',

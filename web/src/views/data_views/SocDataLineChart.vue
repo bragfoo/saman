@@ -1,10 +1,12 @@
 <template>
   <el-row>
-    <ve-line :data="chartData" :settings="chartSettings"></ve-line>
+    <ve-line :data="chartData" :settings="chartSettings" height="300px" :title="title"></ve-line>
   </el-row>
 </template>
 
 <script>
+  import 'echarts/lib/component/title'
+
   export default {
     name: 'SocDataLineChart',
     data () {
@@ -22,6 +24,9 @@
             CommentSum: '评论',
             ShareSum: '分享'
           }
+        },
+        title: {
+          text: '每日点赞数'
         }
       }
     },

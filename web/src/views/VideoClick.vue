@@ -1,21 +1,22 @@
 <template>
   <el-card class="box-card">
-    <plat-fans-chart></plat-fans-chart>
+    <plat-video-data-line-chart></plat-video-data-line-chart>
   </el-card>
 </template>
 
 <script>
-  import PlatFansChart from './data_views/PlatFansChart.vue'
+  import PlatVideoDataLineChart from './data_views/PlatVideoDataLineChart.vue'
 
   export default {
     name: 'Main',
     components: {
-      PlatFansChart
+      PlatVideoDataLineChart
     },
     data () {
       return {}
     },
-    created () {},
+    created () {
+    },
     methods: {}
   }
 </script>

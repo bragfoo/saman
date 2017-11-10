@@ -1,10 +1,12 @@
 <template>
   <el-row>
-    <ve-line :data="chartData" :settings="chartSettings"></ve-line>
+    <ve-line :data="chartData" :settings="chartSettings" height="300px" :title="title"></ve-line>
   </el-row>
 </template>
 
 <script>
+  import 'echarts/lib/component/title'
+
   export default {
     name: 'UserSumLineChart',
     data () {
@@ -20,6 +22,9 @@
             CreateTime: '时间',
             ActiveUser: '用户总数'
           }
+        },
+        title: {
+          text: '每日活跃用户'
         }
       }
     },

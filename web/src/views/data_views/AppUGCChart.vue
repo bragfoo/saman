@@ -1,10 +1,12 @@
 <template>
   <el-row>
-    <ve-line :data="chartData" :settings="chartSettings"></ve-line>
+    <ve-line :data="chartData" :settings="chartSettings" :title="title"></ve-line>
   </el-row>
 </template>
 
 <script>
+  import 'echarts/lib/component/title'
+
   export default {
     name: 'AppUGCChart',
     data () {
@@ -24,6 +26,9 @@
             PicSum: '图片',
             VideoSum: '视频'
           }
+        },
+        title: {
+          text: 'test'
         }
       }
     },

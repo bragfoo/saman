@@ -1,10 +1,12 @@
 <template>
   <el-row>
-    <ve-radar :data="chartData" :settings="chartSettings"></ve-radar>
+    <ve-radar :data="chartData" :settings="chartSettings" :title="title"></ve-radar>
   </el-row>
 </template>
 
 <script>
+  import 'echarts/lib/component/title'
+
   export default {
     name: 'AppUGCChart',
     data () {
@@ -35,7 +37,10 @@
             start: 0,
             end: 20
           }
-        ]
+        ],
+        title: {
+          text: '活动检测'
+        }
       }
     },
     created () {

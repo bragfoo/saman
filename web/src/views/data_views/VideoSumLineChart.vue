@@ -1,10 +1,12 @@
 <template>
   <el-row>
-    <ve-line :data="chartData" :settings="chartSettings" height="300px"></ve-line>
+    <ve-line :data="chartData" :settings="chartSettings" height="300px" :title="title"></ve-line>
   </el-row>
 </template>
 
 <script>
+  import 'echarts/lib/component/title'
+
   export default {
     name: 'VideoSumLineChart',
     data () {
@@ -20,6 +22,9 @@
             CreateTime: '时间',
             VideoSum: '视频'
           }
+        },
+        title: {
+          text: '视频总数'
         }
       }
     },

@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <ve-line :data="chartData" :settings="chartSettings" height="300px" :title="title"></ve-line>
+    <ve-line :data="chartData" :settings="chartSettings" :title="title"></ve-line>
   </el-row>
 </template>
 
@@ -8,23 +8,27 @@
   import 'echarts/lib/component/title'
 
   export default {
-    name: 'VideoSumLineChart',
+    name: 'AppUGCChart',
     data () {
       return {
         loading: false,
         url: 'appUGC',
         chartData: {
-          columns: ['CreateTime', 'VideoSum'],
+          columns: ['CreateTime', 'Like', 'CommentSum', 'ShareSum', 'PicSum', 'VideoSum'],
           rows: []
         },
         chartSettings: {
           labelMap: {
             CreateTime: '时间',
+            Like: '点赞',
+            CommentSum: '评论',
+            ShareSum: '分享',
+            PicSum: '图片',
             VideoSum: '视频'
           }
         },
         title: {
-          text: '每日新增视频'
+          text: '平台视频数据'
         }
       }
     },

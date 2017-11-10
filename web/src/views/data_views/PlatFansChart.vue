@@ -1,12 +1,13 @@
 <template>
   <el-row>
     <PlatTypeSelect v-model="playType" @change="fetchList"></PlatTypeSelect>
-    <ve-line :data="chartData" :settings="chartSettings"></ve-line>
+    <ve-line :data="chartData" :settings="chartSettings" :title="title"></ve-line>
   </el-row>
 </template>
 
 <script>
   import PlatTypeSelect from '../../components/PlatTypeSelect.vue'
+  import 'echarts/lib/component/title'
 
   export default {
     name: 'PlatFansChart',
@@ -27,6 +28,9 @@
             Increase: '增加',
             Sum: '总数'
           }
+        },
+        title: {
+          text: '平台粉丝数'
         }
       }
     },

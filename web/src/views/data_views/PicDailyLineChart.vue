@@ -1,10 +1,12 @@
 <template>
   <el-row>
-    <ve-line :data="chartData" :settings="chartSettings" height="300px"></ve-line>
+    <ve-line :data="chartData" :settings="chartSettings" height="300px" :title="title"></ve-line>
   </el-row>
 </template>
 
 <script>
+  import 'echarts/lib/component/title'
+
   export default {
     name: 'PicSumLineChart',
     data () {
@@ -20,6 +22,9 @@
             CreateTime: '时间',
             PicSum: '图片'
           }
+        },
+        title: {
+          text: '每日新增图片'
         }
       }
     },
