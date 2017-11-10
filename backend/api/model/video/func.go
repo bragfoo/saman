@@ -3,7 +3,6 @@ package video
 import (
 	"database/sql"
 	"github.com/bragfoo/saman/util/db"
-	"log"
 )
 
 var getVideoPlayAmount string = "SELECT p.ids AS ids,p.videoIds AS videoIds,p.createTime AS createtime,p.videoIds AS videoIds FROM playAmount p ;"
@@ -33,8 +32,7 @@ var getVideoQuery string = "SELECT" +
 	"  v.createTime   AS createTime," +
 	"  v.platIds      AS platIds," +
 	"  v.videoIds     AS videoIds" +
-	"  FROM saman.video v" +
-	"  WHERE v.videoIds !=''"
+	"  FROM saman.video v"
 
 var getVideoSourceQuery string = "SELECT" +
 	"  v.ids          AS ids," +
@@ -45,25 +43,23 @@ var getVideoSourceQuery string = "SELECT" +
 	"  FROM saman.video v" +
 	"  WHERE v.videoIds = ''"
 
+var GetPlayAmountQuery = "SELECT" +
+	"  v.ids          AS ids," +
+	"  v.title        AS title," +
+	"  v.link         AS link," +
+	"  pA.createTime  AS createTime," +
+	"  pA.sum         AS sum," +
+	"  pt.nameChinese AS nameChinese," +
+	"  v.createTime   AS createTime" +
+	"  FROM saman.video v LEFT JOIN saman.platformType pt ON v.platIds = pt.ids" +
+	"  LEFT JOIN saman.playAmount pA ON pA.videoIds = v.ids " +
+	"  WHERE 1=1 "
+var WhereVideoIds = "  AND pA.videoIds = ?"
+
+var WherePlatIds = "  AND v.platIds = ?"
+
 func GetVideoPlayAmount() (*sql.Stmt, error) {
-	var query string
-	query = "SELECT" +
-		"  v.ids          AS ids," +
-		"  v.title        AS title," +
-		"  v.link         AS link," +
-		"  pA.createTime  AS createTime," +
-		"  pA.sum         AS sum," +
-		"  pt.nameChinese AS nameChinese," +
-		"  v.createTime   AS createTime" +
-		"  FROM saman.video v LEFT JOIN saman.platformType pt ON v.platIds = pt.ids" +
-		"  LEFT JOIN saman.playAmount pA ON pA.videoIds = v.videoIds;"
-	stm, err := db.Prepare(query)
-	if nil != err {
-		log.Fatal(err)
-		return nil, err
-	} else {
-		return stm, nil
-	}
+	return db.Prepare(GetPlayAmountQuery)
 }
 
 func GetVideo() (*sql.Stmt, error) {
