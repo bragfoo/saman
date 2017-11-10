@@ -88,11 +88,12 @@ type AppData struct {
 }
 
 type Talent struct {
-	Ids  string `json:"Ids"`
-	User string `json:"User"`
-	Type string `json:"Type"`
-	Name string `json:"Name"`
-	SkillName string `json:"SkillName"`
+	Ids        string `json:"Ids"`
+	User       string `json:"User"`
+	Type       string `json:"Type"`
+	CreateTime int64  `json:"CreateTime"`
+	Submitted  bool   `json:"Submitted"`
+	SkillName  string `json:"SkillName"`
 }
 
 type Skill struct {

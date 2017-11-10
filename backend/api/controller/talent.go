@@ -16,7 +16,7 @@ func GetTalent(g *global.G) func(context *gin.Context) {
 		ids := c.Query("ids")
 		user := c.Query("user")
 		skillType := c.Query("type")
-		name := c.Query("name")
+		submitted := c.Query("submitted")
 		var con []interface{}
 		sql := talent.GetQuery
 		if "" != ids {
@@ -32,10 +32,9 @@ func GetTalent(g *global.G) func(context *gin.Context) {
 			sql += talent.WhereType
 			con = append(con, skillType)
 		}
-
-		if "" != name {
-			sql += talent.WhereName
-			con = append(con, name)
+		if "" != submitted {
+			sql += talent.WhereSubmitted
+			con = append(con, submitted)
 		}
 
 		stm, err := db.Prepare(sql)
@@ -53,10 +52,11 @@ func GetTalent(g *global.G) func(context *gin.Context) {
 				for rows.Next() {
 					var m = model.Talent{}
 					err := rows.Scan(&m.Ids,
-						&m.Name,
 						&m.Type,
 						&m.User,
 						&m.SkillName,
+						&m.CreateTime,
+						&m.Submitted,
 					)
 					if nil == err {
 						result = append(result, m)
@@ -82,7 +82,8 @@ func PostTalent(g *global.G) func(context *gin.Context) {
 			_, err := stm.Exec(util.GetObjectId(),
 				m.User,
 				m.Type,
-				m.Name,
+				m.CreateTime,
+				m.Submitted,
 			)
 			common.CheckError(err, c)
 		}
@@ -100,7 +101,8 @@ func PutTalent(g *global.G) func(context *gin.Context) {
 		} else {
 			_, err := stm.Exec(m.Type,
 				m.User,
-				m.Name,
+				m.CreateTime,
+				m.Submitted,
 				m.Ids,
 			)
 			common.CheckError(err, c)
