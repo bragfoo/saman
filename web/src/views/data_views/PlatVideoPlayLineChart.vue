@@ -1,34 +1,40 @@
 <template>
   <el-row>
+    <PlatTypeSelect v-model="platType" @change="fetchList"></PlatTypeSelect>
+    <VideoTypeSelect v-model="videoType" @change="fetchList" :platIds="platType"></VideoTypeSelect>
     <ve-line :data="chartData" :settings="chartSettings" :title="title"></ve-line>
   </el-row>
 </template>
 
 <script>
   import 'echarts/lib/component/title'
+  import PlatTypeSelect from '../../components/PlatTypeSelect.vue'
+  import VideoTypeSelect from '../../components/VideoTypeSelect.vue'
 
   export default {
+    components: {
+      PlatTypeSelect,
+      VideoTypeSelect
+    },
     name: 'AppUGCChart',
     data () {
       return {
         loading: false,
-        url: 'appUGC',
+        url: 'playAmount',
+        platType: '59fae20cef2d1314e0ea2a55',
+        videoType: '',
         chartData: {
-          columns: ['CreateTime', 'Like', 'CommentSum', 'ShareSum', 'PicSum', 'VideoSum'],
+          columns: ['CreateTime', 'Sum'],
           rows: []
         },
         chartSettings: {
           labelMap: {
             CreateTime: '时间',
-            Like: '点赞',
-            CommentSum: '评论',
-            ShareSum: '分享',
-            PicSum: '图片',
-            VideoSum: '视频'
+            Sum: '总数'
           }
         },
         title: {
-          text: '平台视频数据'
+          text: '平台视频播放'
         }
       }
     },
@@ -40,7 +46,8 @@
       fetchList () {
         this.$http.get(this.url, {
           params: {
-            platIds: this.playType
+            platIds: this.playType,
+            videoIds: this.videoType
           }
         }).then((response) => {
           this.chartData.rows = []

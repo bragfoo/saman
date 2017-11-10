@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span="24" style="padding-bottom: 15px">
-        <PlatTypeSelect v-model="playType" @change="fetchList"></PlatTypeSelect>
+        <PlatTypeSelect v-model="platType" @change="fetchList"></PlatTypeSelect>
         <el-button size="mini" type="primary" plain @click="createRow">添加</el-button>
         <el-button size="mini" type="primary" plain @click="reload">刷新</el-button>
       </el-col>
@@ -31,8 +31,8 @@
             label="Url"
             width="320">
             <template slot-scope="scope">
-              <a :href="scop.row.Link" target="_blank">
-                 <span style="margin-left: 10px">{{ scope.row.Link | shortText }}</span>
+              <a :href="scope.row.Link" target="_blank">
+                <span style="margin-left: 10px">{{ scope.row.Link | shortText }}</span>
               </a>
             </template>
           </el-table-column>
@@ -92,7 +92,7 @@
         tableData: [],
         rowData: {},
         dialogVisible: false,
-        playType: '59fae20cef2d1314e0ea2a55',
+        platType: '59fae20cef2d1314e0ea2a55',
         isCreate: true,
         timeOption: {
           disabledDate (time) {
@@ -109,13 +109,14 @@
       fetchList (value) {
         this.$http.get(this.url, {
           params: {
-            'platIds': this.playType
+            'platIds': this.platType
           }
         }).then((response) => {
           this.tableData = response.data
         })
       },
       saveData (func) {
+        console.log(this.rowData)
         if (this.isCreate) {
           this.$http.post(this.url, this.rowData).then(func)
         } else {
@@ -135,7 +136,7 @@
           TCreateTime: (new Date()).getTime(),
           Title: '',
           Link: '',
-          PlatIds: this.playType
+          PlatIds: this.platType
         }
       },
       reload () {
@@ -155,7 +156,6 @@
       closeDialog () {
         this.dialogVisible = false
         this.isCreate = false
-//        this.rowData = this.getRowData()
       },
       createRow () {
         this.isCreate = true

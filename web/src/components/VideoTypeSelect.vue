@@ -13,7 +13,7 @@
 <script>
   export default {
     name: 'VideoTypeSelect',
-    props: ['value'],
+    props: ['value', 'platIds'],
     data () {
       return {
         url: 'video',
@@ -24,21 +24,33 @@
       }
     },
     created () {
-      this.$http.get(this.url).then((response) => {
-        this.options = []
-        response.data.forEach((row) => {
-          this.options.push({value: row.Ids, label: row.title})
-        })
-        if (response.data.length > 0) {
-          this.propValue = this.options[0].value
-        }
-        this.updateValue(this.propValue)
-      })
+      this.fetchList()
     },
     methods: {
       updateValue (value) {
         this.$emit('input', value)
         this.$emit('change', value)
+      },
+      fetchList () {
+        this.$http.get(this.url, {
+          params: {
+            platIds: this.platIds
+          }
+        }).then((response) => {
+          this.options = []
+          response.data.forEach((row) => {
+            this.options.push({value: row.Ids, label: row.Title})
+          })
+          if (response.data.length > 0) {
+            this.propValue = this.options[0].value
+          }
+          this.updateValue(this.propValue)
+        })
+      }
+    },
+    watch: {
+      'platIds': function (val, oldval) {
+        this.fetchList()
       }
     }
   }

@@ -2,7 +2,8 @@
   <div>
     <el-row>
       <el-col :span="24" style="padding-bottom: 15px">
-        <VideoTypeSelect v-model="videoType" @change="fetchList"></VideoTypeSelect>
+        <PlatTypeSelect v-model="platType" @change="fetchList"></PlatTypeSelect>
+        <VideoTypeSelect v-model="videoType" @change="fetchList" :platIds="platType"></VideoTypeSelect>
         <el-button size="mini" type="primary" plain @click="createRow">添加</el-button>
         <el-button size="mini" type="primary" plain @click="reload">刷新</el-button>
       </el-col>
@@ -47,7 +48,7 @@
         <el-form-item label="时间">
           <div class="block">
             <el-date-picker
-              v-model="rowData.CreateTime"
+              v-model="rowData.TCreateTime"
               type="date"
               placeholder="选择日期"
               :picker-options="timeOption">
@@ -55,7 +56,7 @@
           </div>
         </el-form-item>
         <el-form-item label="播放总数">
-          <el-input v-model="rowData.Sum"></el-input>
+          <el-input-number v-model="rowData.Sum"></el-input-number>
         </el-form-item>
         <el-form-item>
           <el-button @click="closeDialog">取 消</el-button>
@@ -69,18 +70,20 @@
 </template>
 
 <script>
+  import PlatTypeSelect from '../../components/PlatTypeSelect.vue'
   import VideoTypeSelect from '../../components/VideoTypeSelect.vue'
 
   export default {
     name: 'ModifyPlayAmount',
-    components: {VideoTypeSelect},
+    components: {VideoTypeSelect, PlatTypeSelect},
     data () {
       return {
-        url: 'videoPlayAmount',
+        url: 'playAmount',
         tableData: [],
         rowData: {},
         dialogVisible: false,
         videoType: '',
+        platType: '59fae20cef2d1314e0ea2a55',
         isCreate: true,
         timeOption: {
           disabledDate (time) {
@@ -98,7 +101,8 @@
         if (this.videoType) {
           this.$http.get(this.url, {
             params: {
-              'videoIds': this.videoType
+              'videoIds': this.videoType,
+              'platIds': this.platType
             }
           }).then((response) => {
             this.tableData = response.data
@@ -122,6 +126,7 @@
           })))
         }
         return {
+          TCreateTime: (new Date()).getTime(),
           CreateTime: (new Date()).getTime(),
           Sum: 0,
           VideoIds: this.videoType
@@ -137,7 +142,7 @@
           this.rowData = this.getRowData()
         } else {
           this.rowData = this.getRowData(id)
-          this.rowData.CreateTime = new Date(this.rowData.CreateTime * 1000)
+          this.rowData.TCreateTime = new Date(this.rowData.CreateTime * 1000)
         }
         this.dialogVisible = true
       },
@@ -155,7 +160,7 @@
         this.showDialog(id)
       },
       saveRow () {
-        this.rowData.CreateTime = Math.floor(new Date(this.rowData.CreateTime).getTime() / 1000)
+        this.rowData.CreateTime = Math.floor(new Date(this.rowData.TCreateTime).getTime() / 1000)
         this.saveData((response) => {
           this.closeDialog()
           this.reload()

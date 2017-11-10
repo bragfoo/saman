@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <el-tabs v-model="activeName" @tab-click="handleClick">
-      <!--<el-tab-pane label="平台视频" name="modify_video_plat"></el-tab-pane>-->
+      <el-tab-pane label="平台视频" name="modify_video_plat"></el-tab-pane>
       <el-tab-pane label="视频点击" name="modify_video_plat_amount"></el-tab-pane>
       <el-tab-pane label="投放渠道" name="modify_plat_fans"></el-tab-pane>
       <el-tab-pane label="应用数据" name="modify_app_data"></el-tab-pane>
@@ -19,7 +19,7 @@
     name: 'ModifyData',
     data () {
       return {
-        activeName: 'modify_plat_fans'
+        activeName: 'modify_video_plat'
       }
     },
     created () {
@@ -32,8 +32,8 @@
       parseRoute () {
         let name = this.$route.name
         if (name === 'modify') {
-          this.activeName = 'modify_plat_fans'
-          this.$router.replace({'name': 'modify_plat_fans'})
+          this.activeName = 'modify_video_plat'
+          this.$router.replace({'name': 'modify_video_plat'})
         } else {
           this.activeName = name
         }

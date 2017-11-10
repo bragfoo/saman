@@ -26,7 +26,7 @@
   import PicDailyLineChart from './data_views/PicDailyLineChart.vue'
   import PicSumLineChart from './data_views/PicSumLineChart.vue'
   import PlatFansChart from './data_views/PlatFansChart.vue'
-  import PlatVideoDataLineChart from './data_views/PlatVideoDataLineChart.vue'
+  import PlatVideoDataLineChart from './data_views/PlatVideoPlayLineChart.vue'
   import ShareChart from './data_views/ShareChart.vue'
   import SocDataLineChart from './data_views/SocDataLineChart.vue'
   import TalentSumLineChart from './data_views/TalentSumLineChart.vue'
