@@ -53,7 +53,7 @@ var GetPlayAmountQuery = "SELECT" +
 	"  pA.createTime  AS createTime," +
 	"  pA.sum         AS sum," +
 	"  pt.nameChinese AS nameChinese," +
-	"  v.createTime   AS createTime" +
+	"  pA.createTime   AS createTime" +
 	"  FROM saman.video v LEFT JOIN saman.platformType pt ON v.platIds = pt.ids" +
 	"  LEFT JOIN saman.playAmount pA ON pA.videoIds = v.ids " +
 	"  WHERE 1=1 "
