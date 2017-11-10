@@ -9,33 +9,47 @@ import (
 	"github.com/siddontang/go/log"
 	"github.com/bragfoo/saman/util"
 	"github.com/bragfoo/saman/backend/api/common"
+	"github.com/bragfoo/saman/util/db"
 )
-
-
 
 func GetVideo(g *global.G) func(context *gin.Context) {
 	return func(context *gin.Context) {
-		stm, err := video.GetVideo()
+
+		platIds := context.Query("platIds")
+
+		var con []interface{}
+		sql := video.GetVideoQuery
+		if "" != platIds {
+			sql += video.VideoWherePlatIds
+			con = append(con, platIds)
+		}
+		stm, err := db.Prepare(sql)
+		defer stm.Close()
 		if nil != err {
-			context.Status(http.StatusInternalServerError)
+			log.Error(err)
+			common.StandardError(context)
 		} else {
-			rows, _ := stm.Query()
-			defer rows.Close()
-			var result []model.VideoPlayAmount
-			for rows.Next() {
-				var model = model.VideoPlayAmount{}
-				err := rows.Scan(&model.Ids,
-					&model.Title,
-					&model.Link,
-					&model.CreateTime,
-					&model.PlatIds,
-					&model.VideoIds,
-				)
-				if nil == err {
-					result = append(result, model)
+			rows, err := stm.Query(con...)
+			if nil != err {
+				log.Error(err)
+				common.StandardError(context)
+			} else {
+				var result []model.Video
+				for rows.Next() {
+					var model = model.Video{}
+					err := rows.Scan(&model.Ids,
+						&model.Title,
+						&model.Link,
+						&model.CreateTime,
+						&model.PlatIds,
+						&model.VideoIds,
+					)
+					if nil == err {
+						result = append(result, model)
+					}
 				}
+				context.JSON(http.StatusOK, result)
 			}
-			context.JSON(http.StatusOK, result)
 		}
 	}
 }
@@ -91,10 +105,6 @@ func PostVideo(g *global.G) func(context *gin.Context) {
 	}
 }
 
-
-
-
-
 func PutVideo(g *global.G) func(context *gin.Context) {
 	return func(context *gin.Context) {
 		var m = model.Video{}
@@ -137,5 +147,3 @@ func DelVideo(g *global.G) func(context *gin.Context) {
 		}
 	}
 }
-
-
