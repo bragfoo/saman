@@ -19,9 +19,22 @@
             width="120">
           </el-table-column>
           <el-table-column
-            prop="Name"
-            label="姓名"
+            prop="Submitted"
+            label="状态"
             width="120">
+            <template slot-scope="scope">
+              <i class="el-icon-time"></i>
+              <span style="margin-left: 10px">{{ scope.row.Submitted | talentStatus}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            fixed
+            label="日期"
+            width="180">
+            <template slot-scope="scope">
+              <i class="el-icon-time"></i>
+              <span style="margin-left: 10px">{{ scope.row.CreateTime | timeToDay}}</span>
+            </template>
           </el-table-column>
           <el-table-column
             fixed="right"
@@ -40,8 +53,23 @@
       width="30%"
       center>
       <el-form ref="form" :model="rowData" label-width="80px">
-        <el-form-item label="姓名">
-          <el-input v-model="rowData.Name"></el-input>
+        <el-form-item label="时间">
+          <div class="block">
+            <el-date-picker
+              v-model="rowData.TCreateTime"
+              type="date"
+              placeholder="选择日期"
+              :picker-options="timeOption">
+            </el-date-picker>
+          </div>
+        </el-form-item>
+        <el-form-item label="状态">
+          <el-switch
+            v-model="rowData.Submitted"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            active-value=true     inactive-value=false>
+          </el-switch>
         </el-form-item>
         <el-form-item label="用户">
           <el-input v-model="rowData.User"></el-input>
@@ -69,7 +97,7 @@
         tableData: [],
         rowData: {},
         dialogVisible: false,
-        talentType: '59fae20cef2d1314e0ea2a55',
+        talentType: '5a055e14ef2d13f0054063ea',
         isCreate: true,
         timeOption: {
           disabledDate (time) {
@@ -86,7 +114,7 @@
       fetchList (value) {
         this.$http.get(this.url, {
           params: {
-            'talentIds': this.talentType
+            'type': this.talentType
           }
         }).then((response) => {
           this.tableData = response.data
@@ -109,9 +137,10 @@
           })))
         }
         return {
-          User: 0,
-          Name: 0,
-          PlatIds: this.playType
+          TCreateTime: (new Date()).getTime(),
+          User: '',
+          Submitted: false,
+          Type: this.talentType
         }
       },
       reload () {
@@ -124,6 +153,7 @@
           this.rowData = this.getRowData()
         } else {
           this.rowData = this.getRowData(id)
+          this.rowData.TCreateTime = new Date(this.rowData.CreateTime * 1000)
         }
         this.dialogVisible = true
       },
@@ -141,6 +171,8 @@
         this.showDialog(id)
       },
       saveRow () {
+        this.rowData.CreateTime = Math.floor(new Date(this.rowData.TCreateTime).getTime() / 1000)
+        this.rowData.Submitted = this.rowData.Submitted === 'true'
         this.saveData((response) => {
           this.closeDialog()
           this.reload()

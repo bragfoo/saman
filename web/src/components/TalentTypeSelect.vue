@@ -16,10 +16,12 @@
     props: ['value'],
     data () {
       return {
-        propValue: 0,
+        propValue: '5a055e14ef2d13f0054063ea',
         options: [
-          {value: '1', label: '滑板'},
-          {value: '2', label: '飞行'}
+          {value: '5a055e14ef2d13f0054063ea', label: 'Swag girl'},
+          {value: '5a055e22ef2d13f0054063eb', label: '潮人'},
+          {value: '5a055e2def2d13f0054063ec', label: '街舞'},
+          {value: '5a055e36ef2d13f0054063ed', label: '滑板'}
         ]
       }
     },

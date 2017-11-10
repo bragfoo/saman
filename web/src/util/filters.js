@@ -41,3 +41,11 @@ export function shortText (val) {
     return val.slice(0, 30) + '...'
   }
 }
+
+export function talentStatus (val) {
+  if (val) {
+    return '已推'
+  } else {
+    return '未推'
+  }
+}

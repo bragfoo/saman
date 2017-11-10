@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <ve-line :data="chartData" :settings="chartSettings" height="300px" :title="title"></ve-line>
+    <ve-line :data="chartData" :settings="chartSettings"></ve-line>
   </el-row>
 </template>
 
@@ -24,7 +24,7 @@
           }
         },
         title: {
-          text: '达人总数'
+          text: '每日数据'
         }
       }
     },
