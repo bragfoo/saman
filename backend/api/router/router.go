@@ -22,6 +22,8 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.GET("/videoSource", controller.GetVideoSource(g))
 	v1.GET("/channel", controller.GetChannel(g))
 	v1.GET("/appData", controller.GetAppData(g))
+	v1.GET("/talent", controller.GetTalent(g))
+	v1.GET("/skill", controller.GetSkill(g))
 
 	// POST
 	v1.POST("/platformFans", controller.PostPlatFans(g))
@@ -32,6 +34,8 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.POST("/video", controller.PostVideo(g))
 	v1.POST("/channel", controller.PostChannel(g))
 	v1.POST("/appData", controller.PostAppData(g))
+	v1.POST("/talent", controller.PostTalent(g))
+	v1.POST("/skill", controller.PostSkill(g))
 
 	//PUT
 	v1.PUT("/platformFans", controller.PutPlatFans(g))
@@ -42,6 +46,8 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.PUT("/video", controller.PutVideo(g))
 	v1.PUT("/channel", controller.PutChannel(g))
 	v1.PUT("/appData", controller.PutAppData(g))
+	v1.PUT("/talent", controller.PutTalent(g))
+	v1.PUT("/skill", controller.PutSkill(g))
 
 	//DELETE
 	v1.DELETE("/platformFans", controller.GetPing(g))
@@ -52,6 +58,8 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.DELETE("/video", controller.GetPing(g))
 	v1.DELETE("/channel", controller.GetPing(g))
 	v1.DELETE("/appData", controller.GetPing(g))
+	v1.DELETE("/talent", controller.GetPing(g))
+	v1.DELETE("/skill", controller.GetPing(g))
 
 	//DELETE_BY_ID
 	v1.DELETE("/platformFans/:ids", controller.DelPlatFans(g))
@@ -62,6 +70,8 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.DELETE("/video/:ids", controller.DelVideo(g))
 	v1.DELETE("/channel/:ids", controller.DelChannel(g))
 	v1.DELETE("/appData/:ids", controller.DelAppData(g))
+	v1.DELETE("/talent/:ids", controller.DelTalent(g))
+	v1.DELETE("/skill/:ids", controller.DelSkill(g))
 	//test
 	test := router.Group("/test")
 	test.GET("/one", controller.GetPlatType(g))

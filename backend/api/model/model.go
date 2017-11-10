@@ -17,12 +17,12 @@ type PlatformFans struct {
 }
 
 type Video struct {
-	Ids      string `json:"Ids"`
-	VideoIds string `json:"VideoIds"`
-	PlatIds  string `json:"PlatIds"`
-	Title    string `json:"Title"`
-	Link     string `json:"Link"`
-	CreateTime int64 `json:"CreateTime"`
+	Ids        string `json:"Ids"`
+	VideoIds   string `json:"VideoIds"`
+	PlatIds    string `json:"PlatIds"`
+	Title      string `json:"Title"`
+	Link       string `json:"Link"`
+	CreateTime int64  `json:"CreateTime"`
 }
 
 type VideoPlayAmount struct {
@@ -85,4 +85,18 @@ type AppData struct {
 	VideoUpload int    `json:"VideoUpload"`
 	TalentSum   int    `json:"TalentSum"`
 	ActiveUser  int    `json:"ActiveUser"`
+}
+
+type Talent struct {
+	Ids        string `json:"Ids"`
+	User       string `json:"User"`
+	Type       string `json:"Type"`
+	CreateTime int64  `json:"CreateTime"`
+	Submitted  bool   `json:"Submitted"`
+	SkillName  string `json:"SkillName"`
+}
+
+type Skill struct {
+	Ids  string `json:"Ids"`
+	Name string `json:"Name"`
 }
