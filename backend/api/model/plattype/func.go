@@ -16,7 +16,8 @@ var getFanQuery = "SELECT" +
 	"  pF.increase   AS increase," +
 	"  p.nameChinese AS nameChinese," +
 	"  p.ids         AS platIds" +
-	"  FROM saman.platformType p LEFT JOIN saman.platformFans pF ON pF.platType = p.ids"
+	"  FROM saman.platformType p LEFT JOIN saman.platformFans pF ON pF.platType = p.ids" +
+	"  WHERE 1=1 "
 
 var getFanQueryByPlatIdsQuery = getFanQuery +
 	" WHERE p.ids = ?"
@@ -30,6 +31,8 @@ var putQuery = "UPDATE saman.platformFans p " +
 	"  WHERE p.ids = ?"
 
 var delQuery = "DELETE FROM saman.platformFans WHERE ids = ?"
+
+var WherePeriod = "  AND pF.createTime >? AND pF.createTime < ?"
 
 func GetPlatformTypeStmt() (*sql.Stmt, error) {
 	stm, err := db.Prepare("SELECT p.ids AS ids,p.name AS name,p.nameChinese AS nameChinese FROM saman.platformType p")

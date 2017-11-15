@@ -30,6 +30,7 @@ var WhereUser = "  AND t.user = ? "
 var WhereType = "  AND t.type = ? "
 var WhereName = "  AND t.name = ? "
 var WhereSubmitted = "  AND t.submitted = ? "
+var WherePeriod = "  AND t.createTime > ? AND t.createTime < ?"
 
 func GetTalent() (*sql.Stmt, error) {
 	return db.Prepare(GetQuery)

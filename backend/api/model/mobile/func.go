@@ -41,6 +41,8 @@ var GetByChannelQuery =  "  AND m.channel = ?"
 
 var GetBySystemType = "  AND m.systemType = ?"
 
+var WherePeriod = "  AND m.createTime > ? AND m.createTime < ?"
+
 func GetMobileData() (*sql.Stmt, error) {
 
 	stm, err := db.Prepare(GetMobileDataQuery)

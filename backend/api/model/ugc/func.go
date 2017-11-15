@@ -15,7 +15,8 @@ var getQuery = "SELECT" +
 	"  a.shareSum   AS shareSum," +
 	"  a.picSum     AS picSum," +
 	"  a.videoSum   AS videoSUm" +
-	"  FROM saman.appUGC a"
+	"  FROM saman.appUGC a" +
+	"  WHERE 1=1 "
 var getByIdsQuery = getQuery + " WHERE a.ids = ? "
 
 var putQuery = "UPDATE saman.appUGC a" +
@@ -28,6 +29,7 @@ var putQuery = "UPDATE saman.appUGC a" +
 	"  WHERE a.ids = ?"
 
 var delQuery = "DELETE FROM appUGC WHERE ids = ?"
+var WherePeriod = "  AND a.createTime > ? AND a.createTime < ?"
 
 func GetUGC() (*sql.Stmt, error) {
 	stm, err := db.Prepare(getQuery)

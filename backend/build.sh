@@ -1,3 +1,6 @@
+#! /bin/bash
+
+echo 'building backend'
 rm -rf build
 echo 'removed previous build'
 cd api
@@ -27,3 +30,6 @@ tar czf ../build/saman_windows_amd64.tar.gz ../build/saman_windows_amd64.exe
 CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -o ../build/saman_windows_386.exe
 tar czf ../build/saman_windows_386.tar.gz ../build/saman_windows_386.exe
 echo 'build success'
+
+
+echo 'building frontend'
