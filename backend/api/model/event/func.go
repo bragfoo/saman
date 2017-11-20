@@ -3,7 +3,7 @@ package event
 import (
 	"github.com/bragfoo/saman/util/db"
 	"database/sql"
-	"log"
+	"github.com/siddontang/go/log"
 )
 
 var getEventQuery string = "SELECT" +
@@ -41,7 +41,7 @@ func PostEvent() (*sql.Stmt, error) {
 		"VALUES (?, ?, ?, ?, ?, ?, ?);"
 	stm, err := db.Prepare(query)
 	if nil != err {
-		log.Fatal(err)
+		log.Error(err)
 		return nil, err
 	} else {
 		return stm, nil

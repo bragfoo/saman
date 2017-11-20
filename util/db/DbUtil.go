@@ -4,10 +4,10 @@ import (
 	"sync"
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
-	"log"
 	"github.com/koding/multiconfig"
 	"github.com/bragfoo/saman/util/config"
 	"bytes"
+	"github.com/siddontang/go/log"
 )
 
 type Db struct {
@@ -23,7 +23,7 @@ func GetInstance() *Db {
 		dbConf := initDatabaseConfig()
 		db, err := sql.Open("mysql", getDataSource(dbConf))
 		if nil != err {
-			log.Fatal(err)
+			log.Error(err)
 		} else {
 			db.SetMaxOpenConns(dbConf.MaxConnections)
 			db.SetMaxIdleConns(dbConf.MaxConnections)
@@ -68,7 +68,7 @@ func Query(query string, args ...interface{}) (*sql.Rows, error) {
 	pool := GetInstance()
 	errPing := pool.Handle.Ping()
 	if nil != errPing {
-		log.Fatal(errPing)
+		log.Error(errPing)
 		return nil, errPing
 	} else {
 		return pool.Handle.Query(query, args...)
@@ -79,7 +79,7 @@ func QueryRow(query string, args interface{}) (*sql.Row, error) {
 	pool := GetInstance()
 	errPing := pool.Handle.Ping()
 	if nil != errPing {
-		log.Fatal(errPing)
+		log.Error(errPing)
 		return nil, errPing
 	} else {
 		return pool.Handle.QueryRow(query, args), nil
@@ -90,7 +90,7 @@ func Exec(query string, args ...interface{}) (sql.Result, error) {
 	pool := GetInstance()
 	errPing := pool.Handle.Ping()
 	if nil != errPing {
-		log.Fatal(errPing)
+		log.Error(errPing)
 		return nil, errPing
 	} else {
 		return pool.Handle.Exec(query, args)
@@ -101,7 +101,7 @@ func Prepare(query string) (*sql.Stmt, error) {
 	pool := GetInstance()
 	errPing := pool.Handle.Ping()
 	if nil != errPing {
-		log.Fatal(errPing)
+		log.Error(errPing)
 		return nil, errPing
 	} else {
 		return pool.Handle.Prepare(query)

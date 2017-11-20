@@ -3,7 +3,7 @@ package mobile
 import (
 	"database/sql"
 	"github.com/bragfoo/saman/util/db"
-	"log"
+	"github.com/siddontang/go/log"
 )
 
 var postQuery string = "INSERT INTO saman.mobileData (ids, createTime, active, launch, channel, systemType) VALUES (?, ?, ?, ?, ?, ?);"
@@ -47,7 +47,7 @@ func GetMobileData() (*sql.Stmt, error) {
 
 	stm, err := db.Prepare(GetMobileDataQuery)
 	if nil != err {
-		log.Fatal(err)
+		log.Error(err)
 		return nil, err
 	} else {
 		return stm, nil

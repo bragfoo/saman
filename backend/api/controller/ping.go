@@ -7,7 +7,7 @@ import (
 
 	"github.com/bragfoo/saman/backend/api/global"
 	"github.com/bragfoo/saman/util/db"
-	"log"
+	"github.com/siddontang/go/log"
 )
 
 func GetPing(g *global.G) func(*gin.Context) {
@@ -21,7 +21,7 @@ func GetDbTest(g *global.G) func(*gin.Context) {
 	return func(c *gin.Context) {
 		row, err := db.Query("SELECT * FROM platformFans;")
 		if nil != err {
-			log.Fatal(err)
+			log.Error(err)
 			c.String(http.StatusInternalServerError, "error")
 		} else {
 			str, _ := row.Columns()
@@ -35,10 +35,10 @@ func GetDbTest2(g *global.G) func(*gin.Context) {
 		Db := db.GetInstance()
 		err := Db.Handle.Ping()
 		if nil != err {
-			log.Fatal(err)
+			log.Error(err)
 		} else {
 			if nil != err {
-				log.Fatal(err)
+				log.Error(err)
 				c.String(http.StatusInternalServerError, "error")
 			} else {
 			}
