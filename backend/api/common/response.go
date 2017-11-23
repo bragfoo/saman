@@ -11,7 +11,7 @@ func StandardError(context *gin.Context) {
 }
 
 func StandardOk(context *gin.Context, obj interface{}) {
-	context.JSON(http.StatusOK, obj)
+	ResponseList(context,obj)
 }
 
 func StandardSuccess(context *gin.Context) {
@@ -36,5 +36,13 @@ func CheckError(err error, context *gin.Context) {
 		StandardError(context)
 	} else {
 		StandardSuccess(context)
+	}
+}
+
+func ResponseList(context *gin.Context, obj ...interface{}) {
+	if len(obj) > 0 {
+		context.JSON(http.StatusOK, struct{}{})
+	} else {
+		context.JSON(http.StatusOK, obj)
 	}
 }

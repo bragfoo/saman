@@ -101,6 +101,7 @@ func Prepare(query string) (*sql.Stmt, error) {
 	pool := GetInstance()
 	errPing := pool.Handle.Ping()
 	if nil != errPing {
+		log.Error("Database connection has gone dead!please check your database")
 		log.Error(errPing)
 		return nil, errPing
 	} else {

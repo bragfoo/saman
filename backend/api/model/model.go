@@ -100,3 +100,18 @@ type Skill struct {
 	Ids  string `json:"Ids"`
 	Name string `json:"Name"`
 }
+
+type AppStatistics struct {
+	Ids        string `json:"Ids"`
+	CreateTime int64  `json:"CreateTime"`
+	video      int    `json:"Video"`
+	Photo      int    `json:"Photo"`
+	Article    int    `json:"Article"`
+	Sqsp       int    `json:"Sqsp"`
+}
+
+type DayStatistics struct {
+	Type       int
+	CreateTime int64
+	Total      int
+}

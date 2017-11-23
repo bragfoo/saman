@@ -54,7 +54,7 @@ func GetVideoPlayAmount(g *global.G) func(context *gin.Context) {
 						result = append(result, model)
 					}
 				}
-				context.JSON(http.StatusOK, result)
+				common.ResponseList(context,result)
 			}
 		}
 	}
