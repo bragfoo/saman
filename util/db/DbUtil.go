@@ -17,6 +17,26 @@ type Db struct {
 var instance *Db
 var once sync.Once
 
+var extInstance *Db
+
+func GetInstanceByDbSource(dbType *config.DbType) *Db {
+	once.Do(func() {
+		d := Db{}
+		dbConf := initDatabaseConfig()
+		db, err := sql.Open("mysql", getDataSource(dbType))
+		if nil != err {
+			log.Error(err)
+		} else {
+			db.SetMaxOpenConns(dbConf.MaxConnections)
+			db.SetMaxIdleConns(dbConf.MaxConnections)
+			db.SetMaxIdleConns(dbConf.MaxIdleConns)
+			d.Handle = db
+		}
+		extInstance = &d
+	})
+	return extInstance
+}
+
 func GetInstance() *Db {
 	once.Do(func() {
 		d := Db{}
@@ -99,6 +119,18 @@ func Exec(query string, args ...interface{}) (sql.Result, error) {
 
 func Prepare(query string) (*sql.Stmt, error) {
 	pool := GetInstance()
+	errPing := pool.Handle.Ping()
+	if nil != errPing {
+		log.Error("Database connection has gone dead!please check your database")
+		log.Error(errPing)
+		return nil, errPing
+	} else {
+		return pool.Handle.Prepare(query)
+	}
+}
+
+func PrepareExt(query string, dbType *config.DbType) (*sql.Stmt, error) {
+	pool := GetInstanceByDbSource(dbType)
 	errPing := pool.Handle.Ping()
 	if nil != errPing {
 		log.Error("Database connection has gone dead!please check your database")

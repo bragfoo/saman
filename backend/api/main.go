@@ -9,6 +9,7 @@ import (
 	"github.com/bragfoo/saman/backend/api/global"
 	api "github.com/bragfoo/saman/backend/api/router"
 	"github.com/bragfoo/saman/util/config"
+	"github.com/bragfoo/saman/backend/api/task"
 )
 
 var g *global.G
@@ -34,5 +35,9 @@ func main() {
 	}
 
 	port := fmt.Sprintf(":%d", conf.Api.Port)
+
+	task.Exec()
+
 	r.Run(port)
+
 }

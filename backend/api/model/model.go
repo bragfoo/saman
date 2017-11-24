@@ -112,6 +112,30 @@ type AppStatistics struct {
 
 type DayStatistics struct {
 	Type       int
-	CreateTime int64
+	CreateTime string
 	Total      int
+}
+
+type PlayExcel struct {
+	IType      string
+	Title      string
+	Link       string
+	PlayAmount string
+	CreateTime int64
+}
+
+type SumExcel struct {
+	Type       string
+	Total      int
+	Grow       int
+	CreateDate int64
+}
+
+type FansExcel struct {
+	Increase    int
+	Cancel      int
+	NetIncrease int
+	Total       int
+	CreateTime  int64
+	Type        string
 }

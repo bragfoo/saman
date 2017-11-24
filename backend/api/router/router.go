@@ -37,6 +37,8 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.POST("/talent", controller.PostTalent(g))
 	v1.POST("/skill", controller.PostSkill(g))
 
+	v1.POST("upload", controller.Upload(g))
+
 	//PUT
 	v1.PUT("/platformFans", controller.PutPlatFans(g))
 	v1.PUT("/event", controller.PutEvent(g))
