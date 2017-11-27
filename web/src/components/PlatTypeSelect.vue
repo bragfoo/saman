@@ -29,7 +29,11 @@
           {value: '59fae313ef2d1314e0ea2a5c', label: '爱奇艺'},
           {value: '59fae32cef2d1314e0ea2a5d', label: '优酷'},
           {value: '59fae33fef2d1314e0ea2a5e', label: '斗鱼'},
-          {value: '59fae351ef2d1314e0ea2a5f', label: '人人'}
+          {value: '59fae351ef2d1314e0ea2a5f', label: '人人'},
+          {value: '5a1690eeef2d1345d21327e9', label: '空间体育'},
+          {value: '5a169130ef2d1345db33cdc6', label: '空间音乐'},
+          {value: '5a16933cef2d1346121beb0c', label: '秒拍'},
+          {value: '5a169398ef2d13461ea201a4', label: '微博'}
         ]
       }
     },
