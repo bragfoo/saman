@@ -6,6 +6,7 @@ import (
 	"github.com/bragfoo/saman/backend/api/model"
 	"time"
 	"github.com/bragfoo/saman/util/config"
+	"github.com/bragfoo/saman/util"
 )
 
 var query = "SELECT" +
@@ -14,6 +15,8 @@ var query = "SELECT" +
 	"  ids.total    AS total" +
 	"  FROM instreet_day_statistics ids" +
 	"  WHERE 1 = 1"
+
+var appData = "INSERT INTO appStatistics (ids, createTime, total, type) VALUES (?,?,?,?);"
 var dbConf = config.DbType{
 	Username: "instreet",
 	Password: "instreetCoding@1by1",
@@ -26,6 +29,8 @@ var dbConf = config.DbType{
 func GetAppStatistics() {
 
 	stm, err := db.PrepareExt(query, &dbConf)
+	stmI, err := db.Prepare(appData)
+
 	if nil != err {
 		log.Error(err)
 	} else {
@@ -36,7 +41,7 @@ func GetAppStatistics() {
 			for rows.Next() {
 				var model = model.DayStatistics{}
 				rows.Scan(&model.Type, &model.CreateTime, &model.Total)
-				log.Info(model)
+				stmI.Exec(util.GetObjectId(), model.CreateTime, model.Total, model.Type)
 			}
 		}
 	}

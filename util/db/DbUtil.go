@@ -17,10 +17,12 @@ type Db struct {
 var instance *Db
 var once sync.Once
 
+var extOnce sync.Once
+
 var extInstance *Db
 
 func GetInstanceByDbSource(dbType *config.DbType) *Db {
-	once.Do(func() {
+	extOnce.Do(func() {
 		d := Db{}
 		dbConf := initDatabaseConfig()
 		db, err := sql.Open("mysql", getDataSource(dbType))
