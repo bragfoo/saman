@@ -14,13 +14,15 @@ import (
 )
 
 var dateStr = "2006-01-02"
-var testQuery = "SELECT pF.ids AS ids,count(ids) ASt sum FROM platformFans pF WHERE 1=1 AND pF.createTime = ? GROUP BY pF.ids"
+var testQuery = "SELECT pF.ids AS ids,count(ids) AS sum FROM platformFans pF WHERE 1=1 AND pF.createTime = ? GROUP BY pF.ids"
 var insFansQuery = "INSERT INTO platformFans (ids, createTime, sum, decrease, increase, platType) VALUES (?,?,?,?,?,?)"
 var updateQuery = "UPDATE platformFans p SET p.createTime = ?, p.sum          = ?, p.decrease     = ?, p.increase     = ?, p.platType     = ? WHERE p.ids = ?;"
 
 var videoTestQuery = "SELECT ids FROM video WHERE platIds = ? AND title = ?"
-var videoInsertQuery = ""
+var videoInsertQuery = "INSERT INTO video (ids, platIds, title, link, createTime) VALUES (?, ?, ?, ?, ?)"
 var videoUpdateQuery = ""
+
+var playAmountQuery = "INSERT INTO playAmount (ids, videoIds, createTime, sum) VALUES (?,?,?,?);"
 
 func Init() {
 	xlsx, err := excelize.OpenFile("/Users/kevin1993/sheet.xlsx")
@@ -203,7 +205,8 @@ func dataSave(fans []model.FansExcel, plays []model.PlayExcel) {
 
 	stm, err := db.Prepare(videoTestQuery)
 	stmIns, err := db.Prepare(videoInsertQuery)
-	stmUpd,err:=db.Prepare(videoUpdateQuery)
+	stmUpd, err := db.Prepare(videoUpdateQuery)
+	stmPlayAMountUpd, err := db.Prepare(playAmountQuery)
 
 	for _, v := range plays {
 
@@ -225,8 +228,11 @@ func dataSave(fans []model.FansExcel, plays []model.PlayExcel) {
 			}
 			if rowLength == 0 {
 				//insert
-				stmIns.Exec(util.GetObjectId())
+				var ids string
+				ids = util.GetObjectId()
+				stmIns.Exec(ids, v.IType, v.Title, v.Link, v.CreateTime)
 				//ins to play amount
+				stmPlayAMountUpd.Exec(util.GetObjectId(), ids, v.CreateTime, v.PlayAmount)
 			}
 		}
 	}

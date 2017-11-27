@@ -15,7 +15,7 @@ const idsURL = "http://utils.instreet.cc:1273/id"
 const mongoURL = "10.31.155.86:27017"
 const remote = false
 
-func GetObjectId() (string) {
+func GetObjectId() string {
 	if remote {
 		r, _ := http.Get(idsURL)
 		defer r.Body.Close()
@@ -43,6 +43,6 @@ func getSession() *mgo.Session {
 func getID() string {
 	objectId := bson.NewObjectId()
 	objIdStr := hex.EncodeToString([]byte(objectId))
-	log.Debug(objIdStr)
+	log.Info(objIdStr)
 	return objIdStr
 }
