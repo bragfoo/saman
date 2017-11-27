@@ -1,0 +1,3 @@
+package liner
+
+var GetPlayAmountByPlatIds = ""

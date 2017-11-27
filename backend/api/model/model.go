@@ -139,3 +139,9 @@ type FansExcel struct {
 	CreateTime  int64
 	Type        string
 }
+
+type PlayAmountLiner struct {
+	Sum        int64  `json:"Sum"`
+	CreateTime int64  `json:"CreateTime"`
+	PlatIds    string `json:"PlatIds"`
+}

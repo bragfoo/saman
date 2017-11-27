@@ -49,12 +49,14 @@ func GetVideoPlayAmount(g *global.G) func(context *gin.Context) {
 						&model.Sum,
 						&model.NameChinese,
 						&model.CreateTime,
+						&model.PlatIds,
+						&model.VideoIds,
 					)
 					if nil == err {
 						result = append(result, model)
 					}
 				}
-				common.ResponseList(context,result)
+				context.JSON(http.StatusOK, result)
 			}
 		}
 	}
@@ -91,7 +93,7 @@ func PutVideoPlayAmount(g *global.G) func(context *gin.Context) {
 			log.Error(err)
 			common.StandardError(context)
 		} else {
-			_, err := stm.Exec()
+			_, err := stm.Exec(m.CreateTime, m.Sum, m.VideoIds, m.Ids)
 			if nil != err {
 				log.Error(err)
 				common.StandardError(context)

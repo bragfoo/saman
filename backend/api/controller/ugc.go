@@ -58,7 +58,7 @@ func GetUGC(g *global.G) func(context *gin.Context) {
 						result = append(result, model)
 					}
 				}
-				common.ResponseList(context, result)
+				context.JSON(http.StatusOK,result)
 			}
 		}
 	}

@@ -25,6 +25,9 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.GET("/talent", controller.GetTalent(g))
 	v1.GET("/skill", controller.GetSkill(g))
 
+	// liner
+	v1.GET("/liner/playAmount", controller.GetLinerPlayAmountByPlat(g))
+
 	// POST
 	v1.POST("/platformFans", controller.PostPlatFans(g))
 	v1.POST("/event", controller.PostEvent(g))

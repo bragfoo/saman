@@ -20,7 +20,7 @@ var getFanQuery = "SELECT" +
 	"  WHERE 1=1 "
 
 var getFanQueryByPlatIdsQuery = getFanQuery +
-	" WHERE p.ids = ?"
+	" AND p.ids = ?"
 
 var putQuery = "UPDATE saman.platformFans p " +
 	"  SET p.createTime = ?," +

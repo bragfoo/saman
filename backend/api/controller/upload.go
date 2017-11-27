@@ -10,6 +10,6 @@ func Upload(g *global.G) func(context *gin.Context) {
 	return func(c *gin.Context) {
 		uploadFile, _ := c.FormFile("file")
 		file, _ := uploadFile.Open()
-		excel.Open(file)
+		excel.OpenSpace(file)
 	}
 }

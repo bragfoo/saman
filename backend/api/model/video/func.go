@@ -47,13 +47,15 @@ var getVideoSourceQuery string = "SELECT" +
 	"  WHERE v.videoIds = ''"
 
 var GetPlayAmountQuery = "SELECT" +
-	"  v.ids          AS ids," +
+	"  pA.ids          AS ids," +
 	"  v.title        AS title," +
 	"  v.link         AS link," +
 	"  pA.createTime  AS createTime," +
 	"  pA.sum         AS sum," +
 	"  pt.nameChinese AS nameChinese," +
-	"  pA.createTime   AS createTime" +
+	"  pA.createTime   AS createTime," +
+	"  v.platIds      AS platIds," +
+	"  v.ids          AS videoIds" +
 	"  FROM saman.video v LEFT JOIN saman.platformType pt ON v.platIds = pt.ids" +
 	"  LEFT JOIN saman.playAmount pA ON pA.videoIds = v.ids " +
 	"  WHERE 1=1 "

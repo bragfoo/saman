@@ -14,7 +14,7 @@ import (
 )
 
 var dateStr = "2006-01-02"
-var testQuery = "SELECT pF.ids AS ids,count(ids) AS sum FROM platformFans pF WHERE 1=1 AND pF.createTime = ? GROUP BY pF.ids"
+var testQuery = "SELECT pF.ids AS ids,count(ids) AS sum FROM platformFans pF WHERE 1=1 AND pF.createTime = ?  AND pF.platType= ? GROUP BY pF.ids"
 var insFansQuery = "INSERT INTO platformFans (ids, createTime, sum, decrease, increase, platType) VALUES (?,?,?,?,?,?)"
 var updateQuery = "UPDATE platformFans p SET p.createTime = ?, p.sum          = ?, p.decrease     = ?, p.increase     = ?, p.platType     = ? WHERE p.ids = ?;"
 
@@ -39,12 +39,21 @@ func main() {
 	Init()
 }
 
-func Open(file multipart.File) {
+func OpenSpace(file multipart.File) {
 	xlsx, err := excelize.OpenReader(file)
 	if nil != err {
 		log.Error(err)
 	} else {
 		GetSpaceData(xlsx)
+	}
+}
+
+func OpenVideo(file multipart.File) {
+	xlsx, err := excelize.OpenReader(file)
+	if nil != err {
+		log.Error(err)
+	} else {
+		getVideoData(xlsx)
 	}
 }
 
@@ -81,7 +90,7 @@ func GetSpaceData(file *excelize.File) {
 		})
 	}
 
-	for i := 70; i < 73; i++ {
+	for i := 70; i <= 73; i++ {
 		offset := strconv.Itoa(i)
 		l = append(l, model.PlayExcel{
 			IType:      "5a16933cef2d1346121beb0c",
@@ -97,8 +106,8 @@ func GetSpaceData(file *excelize.File) {
 		l = append(l, model.PlayExcel{
 			IType:      "5a169398ef2d13461ea201a4",
 			Title:      file.GetCellValue("Sheet1", "B"+offset),
-			Link:       file.GetCellValue("Sheet1", "C"+offset),
-			PlayAmount: file.GetCellValue("Sheet1", "D"+offset),
+			Link:       "weibo",
+			PlayAmount: file.GetCellValue("Sheet1", "C"+offset),
 			CreateTime: itime.Unix(),
 		})
 	}
@@ -176,6 +185,53 @@ func GetSpaceData(file *excelize.File) {
 
 }
 
+func getUGCData(file *excelize.File)  {
+	for i:=5;i<10 ;i++  {
+
+	}
+}
+
+func getVideoData(file *excelize.File) {
+	var l []model.PlayExcel
+
+	dataTime1 := file.GetCellValue("Sheet1", "A2")
+	timeStrs := strings.Split(dataTime1, "-")
+	t := strings.Split(timeStrs[0], ".")
+	day, _ := strconv.Atoi(t[1])
+	month, _ := strconv.Atoi(t[0])
+	itime := time.Date(2017, time.Month(month), day, 0, 0, 0, 0, time.Local)
+	//播放量1
+	for i := 4; i < 7; i++ {
+		offset := strconv.Itoa(i)
+		l = append(l, model.PlayExcel{
+			IType:      "5a169130ef2d1345db33cdc6",
+			Title:      file.GetCellValue("Sheet1", "B"+offset),
+			Link:       file.GetCellValue("Sheet1", "C"+offset),
+			PlayAmount: file.GetCellValue("Sheet1", "D"+offset),
+			CreateTime: itime.Unix(),
+		})
+	}
+
+	//粉丝
+	var fans []model.FansExcel
+	for i := 22; i < 29; i++ {
+		offset := strconv.Itoa(i)
+		b, _ := strconv.Atoi(file.GetCellValue("Sheet1", "B"+offset))
+		c, _ := strconv.Atoi(file.GetCellValue("Sheet1", "C"+offset))
+		d, _ := strconv.Atoi(file.GetCellValue("Sheet1", "D"+offset))
+		e, _ := strconv.Atoi(file.GetCellValue("Sheet1", "E"+offset))
+		t, _ := time.Parse(dateStr, file.GetCellValue("Sheet1", "A"+offset))
+		fans = append(fans, model.FansExcel{
+			Increase:    b,
+			Cancel:      c,
+			NetIncrease: d,
+			Total:       e,
+			CreateTime:  t.Unix(),
+			Type:        "5a169130ef2d1345db33cdc6", //空间音乐
+		})
+	}
+}
+
 func dataSave(fans []model.FansExcel, plays []model.PlayExcel) {
 
 	stms, _ := db.Prepare(insFansQuery)
@@ -183,7 +239,7 @@ func dataSave(fans []model.FansExcel, plays []model.PlayExcel) {
 	stmu, _ := db.Prepare(updateQuery)
 
 	for _, v := range fans {
-		r, err := stm.Query(v.CreateTime)
+		r, err := stm.Query(v.CreateTime, v.Type)
 		defer r.Close()
 		if nil != err {
 			stms.Exec(util.GetObjectId(), v.CreateTime, v.Total, v.Cancel, v.Increase, v.Type)
@@ -205,7 +261,7 @@ func dataSave(fans []model.FansExcel, plays []model.PlayExcel) {
 
 	stm, err := db.Prepare(videoTestQuery)
 	stmIns, err := db.Prepare(videoInsertQuery)
-	stmUpd, err := db.Prepare(videoUpdateQuery)
+	//stmUpd, err := db.Prepare(videoUpdateQuery)
 	stmPlayAMountUpd, err := db.Prepare(playAmountQuery)
 
 	for _, v := range plays {
@@ -222,7 +278,7 @@ func dataSave(fans []model.FansExcel, plays []model.PlayExcel) {
 				err := rows.Scan(&ids)
 				if nil == err {
 					//update
-					stmUpd.Exec(v)
+					//stmUpd.Exec()
 					//ins to play amount
 				}
 			}
