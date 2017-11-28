@@ -13,3 +13,19 @@ func Upload(g *global.G) func(context *gin.Context) {
 		excel.OpenSpace(file)
 	}
 }
+
+func UploadFans(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		uploadFile, _ := c.FormFile("file")
+		file, _ := uploadFile.Open()
+		excel.OpenFans(file)
+	}
+}
+
+func UploadVideo(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		uploadFile, _ := c.FormFile("file")
+		file, _ := uploadFile.Open()
+		excel.OpenPlatformVideo(file)
+	}
+}

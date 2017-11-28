@@ -16,9 +16,9 @@ func GetLinerPlayAmountByPlat(g *global.G) func(context *gin.Context) {
 		platIds := c.Query("platIds")
 
 		var con []interface{}
-		var sql = ""
+		var sql = liner.GetPlayAmount
 		if "" != platIds {
-			sql = liner.GetPlayAmountByPlatIds
+			sql += liner.GetPlayAmountByPlatIds
 			con = append(con, platIds)
 		}
 		stm, err := db.Prepare(sql)
@@ -33,10 +33,10 @@ func GetLinerPlayAmountByPlat(g *global.G) func(context *gin.Context) {
 				log.Error(err)
 				common.StandardError(c)
 			} else {
-				var result []model.PlayAmountLiner
+				var result []model.PlatPlayAmount
 				for rows.Next() {
-					var m = model.PlayAmountLiner{}
-					err := rows.Scan(&m.Sum, &m.CreateTime, &m.PlatIds)
+					var m = model.PlatPlayAmount{}
+					err := rows.Scan(&m.Ids, &m.CreateTime, &m.PlatType, &m.Sum, &m.Grow)
 					if nil == err {
 						result = append(result, m)
 					}

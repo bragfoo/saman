@@ -40,7 +40,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.POST("/talent", controller.PostTalent(g))
 	v1.POST("/skill", controller.PostSkill(g))
 
-	v1.POST("upload", controller.Upload(g))
+	v1.POST("/upload", controller.Upload(g))
 
 	//PUT
 	v1.PUT("/platformFans", controller.PutPlatFans(g))
@@ -77,6 +77,13 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.DELETE("/appData/:ids", controller.DelAppData(g))
 	v1.DELETE("/talent/:ids", controller.DelTalent(g))
 	v1.DELETE("/skill/:ids", controller.DelSkill(g))
+
+	//upload
+	upload := v1.Group("/upload")
+	upload.POST("/fans", controller.UploadFans(g))
+	upload.POST("/video", controller.UploadVideo(g))
+	upload.POST("/newMedia", controller.Upload(g))
+
 	//test
 	test := router.Group("/test")
 	test.GET("/one", controller.GetPlatType(g))
