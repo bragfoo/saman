@@ -29,6 +29,7 @@
 <script>
   import 'echarts/lib/component/title'
   import PlatTypeSelect from '../../components/PlatTypeSelect.vue'
+  import * as util from '../../util/filters'
 
   export default {
     components: {
@@ -42,11 +43,12 @@
         platType: '59fae20cef2d1314e0ea2a55',
         videoType: '',
         chartData: {
-          columns: ['Title', 'Sum'],
+          columns: ['ShortTitle', 'Sum'],
           rows: []
         },
         chartSettings: {
           labelMap: {
+            ShortTitle: '视频',
             Title: '视频',
             Sum: '总数'
           }
@@ -74,6 +76,7 @@
             if (!newRow) {
               newRow = {
                 Title: row.Title,
+                ShortTitle: util.shortTitle(row.Title),
                 Sum: 0
               }
               this.chartData.rows.push(newRow)

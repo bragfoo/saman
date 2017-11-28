@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
-    <plat-video-data-line-chart></plat-video-data-line-chart>
     <plat-play-bar-chart></plat-play-bar-chart>
+    <plat-video-data-line-chart></plat-video-data-line-chart>
   </el-card>
 </template>
 

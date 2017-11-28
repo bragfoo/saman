@@ -34,6 +34,14 @@ function pluralize (time, label) {
   return time + label + 's'
 }
 
+export function shortTitle (val) {
+  if (val.length <= 10) {
+    return val
+  } else {
+    return val.slice(0, 10) + '...'
+  }
+}
+
 export function shortText (val) {
   if (val.length <= 30) {
     return val

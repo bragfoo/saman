@@ -19,7 +19,7 @@
         url: 'video',
         propValue: '59fad3eeef2d1314e0ea2a4e',
         options: [
-          {value: '59fad3eeef2d1314e0ea2a4e', label: '应用宝'}
+          {value: '59fad3eeef2d1314e0ea2a4e', label: 'NoVideo'}
         ]
       }
     },
