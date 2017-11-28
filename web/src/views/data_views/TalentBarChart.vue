@@ -1,27 +1,6 @@
 <template>
   <el-row>
     <ve-histogram :data="chartData" :settings="chartSettings" height="300px"></ve-histogram>
-    <el-col :span="24">
-      <el-table
-        :data="chartData.rows"
-        :height="300"
-        border
-        style="width: 100%">
-        <el-table-column
-          fixed
-          prop="SkillName"
-          label="分类">
-        </el-table-column>
-        <el-table-column
-          prop="Sub"
-          label="推荐人数">
-        </el-table-column>
-        <el-table-column
-          prop="UnSub"
-          label="未推荐人数">
-        </el-table-column>
-      </el-table>
-    </el-col>
   </el-row>
 </template>
 

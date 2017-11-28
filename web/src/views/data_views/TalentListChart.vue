@@ -2,7 +2,7 @@
   <el-row>
     <el-table
       :data="tableData"
-      height="300"
+      :height="300"
       border
       style="width: 100%">
       <el-table-column
