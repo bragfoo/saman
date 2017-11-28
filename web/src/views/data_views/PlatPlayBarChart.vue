@@ -2,6 +2,27 @@
   <el-row>
     <PlatTypeSelect v-model="platType" @change="fetchList"></PlatTypeSelect>
     <ve-histogram :data="chartData" :settings="chartSettings" height="300px"></ve-histogram>
+    <el-col :span="24">
+      <el-table
+        :data="chartData.rows"
+        heigth="300px"
+        border
+        style="width: 100%">
+        <el-table-column
+          fixed
+          label="视频">
+          <template slot-scope="scope">
+            <a :href="scope.row.Title" target="_blank">
+              <span style="margin-left: 10px">{{ scope.row.Title | shortText }}</span>
+            </a>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="Sum"
+          label="总数">
+        </el-table-column>
+      </el-table>
+    </el-col>
   </el-row>
 </template>
 

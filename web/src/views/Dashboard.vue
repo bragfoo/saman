@@ -4,6 +4,7 @@
       <div slot="header" class="clearfix">
         <span>平台数据</span>
       </div>
+      <app-u-g-c-chart></app-u-g-c-chart>
       <plat-fans-chart></plat-fans-chart>
       <plat-video-data-line-chart></plat-video-data-line-chart>
     </el-card>

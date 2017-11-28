@@ -2,6 +2,31 @@
   <el-row>
     <PlatTypeSelect v-model="playType" @change="fetchList"></PlatTypeSelect>
     <ve-line :data="chartData" :settings="chartSettings" :title="title"></ve-line>
+    <el-col :span="24">
+      <el-table
+        :data="chartData.rows"
+        heigth="300px"
+        border
+        style="width: 100%">
+        <el-table-column
+          fixed
+          prop="CreateTime"
+          label="日期">
+        </el-table-column>
+        <el-table-column
+          prop="Decrease"
+          label="减少">
+        </el-table-column>
+        <el-table-column
+          prop="Increase"
+          label="增加">
+        </el-table-column>
+        <el-table-column
+          prop="Sum"
+          label="总数">
+        </el-table-column>
+      </el-table>
+    </el-col>
   </el-row>
 </template>
 

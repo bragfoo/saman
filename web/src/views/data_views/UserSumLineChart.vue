@@ -1,6 +1,23 @@
 <template>
   <el-row>
     <ve-line :data="chartData" :settings="chartSettings" height="300px" :title="title"></ve-line>
+    <el-col :span="24">
+      <el-table
+        :data="chartData.rows"
+        heigth="300px"
+        border
+        style="width: 100%">
+        <el-table-column
+          fixed
+          prop="CreateTime"
+          label="日期">
+        </el-table-column>
+        <el-table-column
+          prop="ActiveUser"
+          label="活跃用户总数">
+        </el-table-column>
+      </el-table>
+    </el-col>
   </el-row>
 </template>
 
@@ -20,7 +37,7 @@
         chartSettings: {
           labelMap: {
             CreateTime: '时间',
-            ActiveUser: '用户总数'
+            ActiveUser: '活跃用户总数'
           }
         },
         title: {

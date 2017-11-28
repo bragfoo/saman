@@ -1,6 +1,39 @@
 <template>
   <el-row>
-    <ve-radar :data="chartData" :settings="chartSettings" :title="title"></ve-radar>
+    <ve-radar :data="chartData" :settings="chartSettings" height="300px" :title="title"></ve-radar>
+    <el-col :span="24">
+      <el-table
+        :data="chartData.rows"
+        heigth="300px"
+        border
+        style="width: 100%">
+        <el-table-column
+          fixed
+          prop="名称"
+          label="名称">
+        </el-table-column>
+        <el-table-column
+          prop="参加人数"
+          label="参加人数">
+        </el-table-column>
+        <el-table-column
+          prop="工作人数"
+          label="工作人数">
+        </el-table-column>
+        <el-table-column
+          prop="上传人数"
+          label="上传人数">
+        </el-table-column>
+        <el-table-column
+          prop="开始"
+          label="开始">
+        </el-table-column>
+        <el-table-column
+          prop="结束"
+          label="结束">
+        </el-table-column>
+      </el-table>
+    </el-col>
   </el-row>
 </template>
 

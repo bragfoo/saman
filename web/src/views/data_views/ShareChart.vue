@@ -1,6 +1,23 @@
 <template>
   <el-row>
     <ve-line :data="chartData" :settings="chartSettings"></ve-line>
+    <el-col :span="24">
+      <el-table
+        :data="chartData.rows"
+        heigth="300px"
+        border
+        style="width: 100%">
+        <el-table-column
+          fixed
+          prop="CreateTime"
+          label="日期">
+        </el-table-column>
+        <el-table-column
+          prop="ShareSum"
+          label="分享">
+        </el-table-column>
+      </el-table>
+    </el-col>
   </el-row>
 </template>
 
