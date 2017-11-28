@@ -32,7 +32,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://47.95.156.192:8233',
+        target: 'http://growing.instreet.cc/',
         changeOrigin: true
       }
     },

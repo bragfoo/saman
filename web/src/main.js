@@ -19,7 +19,7 @@ Vue.use(ElementUI)
 
 // Vue.use(VueAxios, axios)
 Vue.prototype.$http = axios.create({
-  baseURL: 'http://localhost:8081/api/v1/',
+  baseURL: '/api/v1/',
   timeout: 1000,
   headers: {'X-Custom-Header': 'foobar'}
 })
