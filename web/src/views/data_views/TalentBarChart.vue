@@ -4,7 +4,7 @@
     <el-col :span="24">
       <el-table
         :data="chartData.rows"
-        height="300px"
+        :height="300"
         border
         style="width: 100%">
         <el-table-column
