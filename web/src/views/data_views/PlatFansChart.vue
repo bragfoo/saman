@@ -41,7 +41,7 @@
       return {
         loading: false,
         url: 'platformFans',
-        playType: '59fae20cef2d1314e0ea2a55',
+        playType: '5a1690eeef2d1345d21327e9',
         chartData: {
           columns: ['CreateTime', 'Decrease', 'Increase', 'Sum'],
           rows: []

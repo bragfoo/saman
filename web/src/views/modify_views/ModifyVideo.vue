@@ -92,7 +92,7 @@
         tableData: [],
         rowData: {},
         dialogVisible: false,
-        platType: '59fae20cef2d1314e0ea2a55',
+        platType: '5a1690eeef2d1345d21327e9',
         isCreate: true,
         timeOption: {
           disabledDate (time) {
