@@ -4,6 +4,7 @@
       <div slot="header" class="clearfix">
         <span>平台数据</span>
       </div>
+      <plat-play-sum-line-chart></plat-play-sum-line-chart>
       <plat-fans-chart></plat-fans-chart>
       <plat-video-data-line-chart></plat-video-data-line-chart>
     </el-card>
@@ -33,6 +34,7 @@
   import UserSumLineChart from './data_views/UserSumLineChart.vue'
   import VideoDailyLineChart from './data_views/VideoDailyLineChart.vue'
   import VideoSumLineChart from './data_views/VideoSumLineChart.vue'
+  import PlatPlaySumLineChart from './data_views/PlatPlaySumLineChart.vue'
 
   export default {
     name: 'Dashboard',
@@ -42,6 +44,7 @@
       PicDailyLineChart,
       PicSumLineChart,
       PlatFansChart,
+      PlatPlaySumLineChart,
       PlatVideoDataLineChart,
       ShareChart,
       SocDataLineChart,
