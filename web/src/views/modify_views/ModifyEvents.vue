@@ -10,6 +10,7 @@
       <el-col :span="24">
         <el-table
           :data="tableData"
+          :height="800"
           border
           style="width: 100%">
           <el-table-column

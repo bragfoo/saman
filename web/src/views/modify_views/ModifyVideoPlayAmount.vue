@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row :style="padding: 10px;"
+    <el-row style="padding: 10px;">
       <el-col :span="24" style="padding-bottom: 15px">
         <PlatTypeSelect v-model="platType" @change="fetchList"></PlatTypeSelect>
         <VideoTypeSelect v-model="videoType" @change="fetchList" :platIds="platType"></VideoTypeSelect>
@@ -8,10 +8,11 @@
         <el-button size="mini" type="primary" plain @click="reload">刷新</el-button>
       </el-col>
     </el-row>
-    <el-row :style="padding: 10px;"
+    <el-row style="padding: 10px;">
       <el-col :span="24">
         <el-table
           :data="tableData"
+          :height="800"
           border
           style="width: 100%">
           <el-table-column

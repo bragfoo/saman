@@ -1,16 +1,17 @@
 <template>
   <div>
-    <el-row :style="padding: 10px;"
+    <el-row style="padding: 10px;">
       <el-col :span="24" style="padding-bottom: 15px">
         <PlatTypeSelect v-model="playType" @change="fetchList"></PlatTypeSelect>
         <el-button size="mini" type="primary" plain @click="createRow">添加</el-button>
         <el-button size="mini" type="primary" plain @click="reload">刷新</el-button>
       </el-col>
     </el-row>
-    <el-row :style="padding: 10px;"
+    <el-row style="padding: 10px;">
       <el-col :span="24">
         <el-table
           :data="tableData"
+          :height="800"
           border
           style="width: 100%">
           <el-table-column
