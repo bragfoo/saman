@@ -25,22 +25,22 @@
           <el-table-column
             prop="PicUpload"
             label="图片上传"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="VideoUpload"
             label="视频上传"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="TalentSum"
             label="达人总数"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="ActiveUser"
             label="活跃用户"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             fixed="right"

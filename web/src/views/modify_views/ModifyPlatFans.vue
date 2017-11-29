@@ -26,22 +26,22 @@
           <el-table-column
             prop="Increase"
             label="增加"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="Decrease"
             label="降低"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="Sum"
             label="总数"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="Type"
             label="平台"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             fixed="right"

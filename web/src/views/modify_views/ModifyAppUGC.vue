@@ -25,32 +25,32 @@
           <el-table-column
             prop="Like"
             label="赞数"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="CommentSum"
             label="评论"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="ShareSum"
             label="分享"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="PicSum"
             label="图片"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="VideoSum"
             label="视频"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="VideoStay"
             label="视频播放总时长"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             fixed="right"

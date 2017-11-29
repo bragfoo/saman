@@ -27,12 +27,12 @@
           <el-table-column
             prop="Active"
             label="活跃"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="Launch"
             label="启动"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             fixed="right"

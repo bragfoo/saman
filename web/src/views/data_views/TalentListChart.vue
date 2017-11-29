@@ -8,12 +8,12 @@
       <el-table-column
         prop="User"
         label="用户"
-        width="120">
+       >
       </el-table-column>
       <el-table-column
         prop="Submitted"
         label="状态"
-        width="120">
+       >
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
           <span style="margin-left: 10px">{{ scope.row.Submitted | talentStatus}}</span>

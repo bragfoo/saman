@@ -34,22 +34,22 @@
           <el-table-column
             prop="Name"
             label="活动名"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="TotalPeople"
             label="全部人数"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="TotalWork"
             label="全部工作人员"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             prop="UploadPeople"
             label="上传视频人数"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             fixed="right"

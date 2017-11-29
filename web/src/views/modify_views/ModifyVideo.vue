@@ -26,7 +26,7 @@
           <el-table-column
             prop="Title"
             label="名称"
-            width="120">
+           >
           </el-table-column>
           <el-table-column
             label="Url"
