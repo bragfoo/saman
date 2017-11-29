@@ -52,6 +52,7 @@ func GetDaily() {
 	model.CommentSum = getStatisticsDaily(getCommentDailyQuery, 1)
 	model.VideoSum = getStatisticsDaily(getVideoPlayDaily, 1)
 	model.VideoStay = getStatisticsDaily(getVideoStayDaily, 1)
+	model.PicSum = getStatisticsDaily(getPicTotal, 1)
 	stm, err := db.Prepare(insertDailyUGC)
 	if nil != err {
 		log.Error(err)
@@ -82,6 +83,7 @@ func GetTotal() {
 	model.CommentSum = getStatisticsTotal(getCommentTotalQuery, 0)
 	model.VideoSum = getStatisticsTotal(getVideoPlayTotal, 0)
 	model.VideoStay = getStatisticsTotal(getVideoStayTotal, 0)
+	model.PicSum = getStatisticsDaily(getPicTotal, 0)
 	stm, err := db.Prepare(insertTotalUGC)
 	if nil != err {
 		log.Error(err)
@@ -112,6 +114,7 @@ func GetDailyByOffset(offset int) {
 	model.CommentSum = getStatisticsDaily(getCommentDailyQuery, offset)
 	model.VideoSum = getStatisticsDaily(getVideoPlayDaily, offset)
 	model.VideoStay = getStatisticsDaily(getVideoStayDaily, offset)
+	model.PicSum = getStatisticsDaily(getPicDaily, offset)
 	stm, err := db.Prepare(insertDailyUGC)
 	if nil != err {
 		log.Error(err)
@@ -142,6 +145,7 @@ func GetTotalByOffset(offset int) {
 	model.CommentSum = getStatisticsTotal(getCommentTotalQuery, offset)
 	model.VideoSum = getStatisticsTotal(getVideoPlayTotal, offset)
 	model.VideoStay = getStatisticsTotal(getVideoStayTotal, offset)
+	model.PicSum = getStatisticsTotal(getPicTotal, offset)
 	stm, err := db.Prepare(insertTotalUGC)
 	if nil != err {
 		log.Error(err)
