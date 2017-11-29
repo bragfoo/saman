@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <el-row :style="padding=10">
     <ve-radar :data="chartData" :settings="chartSettings" height="300px" :title="title"></ve-radar>
     <el-col :span="24">
       <el-table

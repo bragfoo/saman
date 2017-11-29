@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <el-row :style="padding=10">
     <PlatTypeSelect v-model="platType" @change="fetchList"></PlatTypeSelect>
     <ve-line :data="chartData" :settings="chartSettings" height="300px" :title="title"></ve-line>
     <el-col :span="24">
