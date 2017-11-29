@@ -89,6 +89,12 @@
 			"revisionTime": "2017-09-25T05:49:04Z"
 		},
 		{
+			"checksumSHA1": "bOUCnFlRuGN/E633R/lFuiWVrkk=",
+			"path": "github.com/robfig/cron",
+			"revision": "2315d5715e36303a941d907f038da7f7c44c773b",
+			"revisionTime": "2017-11-01T20:10:47Z"
+		},
+		{
 			"checksumSHA1": "q9JBxHLJTmYU8qtbFcRUkVUkF2k=",
 			"path": "github.com/siddontang/go/log",
 			"revision": "cb568a3e5cc06256f91a2da5a87455f717eb33f4",

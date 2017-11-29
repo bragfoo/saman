@@ -15,6 +15,7 @@ var getQuery = "SELECT" +
 	"  a.shareSum   AS shareSum," +
 	"  a.picSum     AS picSum," +
 	"  a.videoSum   AS videoSUm" +
+	"  a.videoStay  AS videoStay" +
 	"  FROM saman.appUGC a" +
 	"  WHERE 1=1 "
 var getByIdsQuery = getQuery + " WHERE a.ids = ? "
@@ -25,8 +26,21 @@ var putQuery = "UPDATE saman.appUGC a" +
 	"  a.picSum       = ?," +
 	"  a.shareSum     = ?," +
 	"  a.commentSum   = ?," +
-	"  a.`like`       = ?" +
+	"  a.`like`       = ?," +
+	"  a.videoStay    = ?" +
 	"  WHERE a.ids = ?"
+
+var getTotalQuery = "SELECT" +
+	"  a.ids        AS ids," +
+	"  a.createTime AS createTime," +
+	"  a.`like`     AS `like`," +
+	"  a.commentSum AS commentSum," +
+	"  a.shareSum   AS shareSum," +
+	"  a.picSum     AS picSum," +
+	"  a.videoSum   AS videoSUm" +
+	"  a.videoStay  AS videoStay" +
+	"  FROM saman.appUGC a" +
+	"  WHERE 1=1 "
 
 var delQuery = "DELETE FROM appUGC WHERE ids = ?"
 var WherePeriod = "  AND a.createTime > ? AND a.createTime < ?"
@@ -39,6 +53,10 @@ func GetUGC() (*sql.Stmt, error) {
 	} else {
 		return stm, nil
 	}
+}
+
+func GetUGCTotal() (*sql.Stmt, error) {
+	return db.Prepare(getTotalQuery)
 }
 
 func GetUGCByIds() (*sql.Stmt, error) {

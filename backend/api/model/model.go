@@ -61,11 +61,12 @@ type Channel struct {
 type AppUGC struct {
 	Ids        string `json:"Ids"`
 	CreateTime int64  `json:"CreateTime"`
-	Like       int    `json:"Like"`
-	CommentSum int    `json:"CommentSum"`
-	ShareSum   int    `json:"ShareSum"`
-	PicSum     int    `json:"PicSum"`
-	VideoSum   int    `json:"VideoSum"`
+	Like       int64  `json:"Like"`
+	CommentSum int64  `json:"CommentSum"`
+	ShareSum   int64  `json:"ShareSum"`
+	PicSum     int64  `json:"PicSum"`
+	VideoSum   int64  `json:"VideoSum"`
+	VideoStay  int64  `json:"VideoStay"`
 }
 
 type Event struct {

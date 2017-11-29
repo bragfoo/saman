@@ -36,8 +36,8 @@ func main() {
 
 	port := fmt.Sprintf(":%d", conf.Api.Port)
 
-	task.Exec()
-
+	//task.Exec()
+	task.RunCrons()
 	r.Run(port)
 
 }

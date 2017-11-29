@@ -28,6 +28,7 @@ func GetUGC(g *global.G) func(context *gin.Context) {
 					&model.ShareSum,
 					&model.PicSum,
 					&model.VideoSum,
+					&model.VideoSum,
 				)
 				if nil != err {
 					log.Error(err)
@@ -53,12 +54,13 @@ func GetUGC(g *global.G) func(context *gin.Context) {
 						&model.ShareSum,
 						&model.PicSum,
 						&model.VideoSum,
+						&model.VideoStay,
 					)
 					if nil == err {
 						result = append(result, model)
 					}
 				}
-				context.JSON(http.StatusOK,result)
+				context.JSON(http.StatusOK, result)
 			}
 		}
 	}
@@ -78,7 +80,9 @@ func PostUGC(g *global.G) func(context *gin.Context) {
 				m.CommentSum,
 				m.ShareSum,
 				m.PicSum,
-				m.VideoSum)
+				m.VideoSum,
+				m.VideoStay,
+			)
 			if nil != err {
 				log.Error(err)
 				c.Status(http.StatusInternalServerError)
@@ -98,7 +102,14 @@ func PutUGC(g *global.G) func(context *gin.Context) {
 			log.Error(err)
 			common.StandardError(context)
 		} else {
-			_, err := stm.Exec()
+			_, err := stm.Exec(m.CreateTime,
+				m.Like,
+				m.CommentSum,
+				m.ShareSum,
+				m.PicSum,
+				m.VideoSum,
+				m.VideoStay,
+			)
 			if nil != err {
 				log.Error(err)
 				common.StandardError(context)

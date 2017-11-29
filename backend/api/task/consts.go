@@ -16,7 +16,7 @@ var getLikeDailyQuery = "SELECT count(1) AS `likeCount`" +
 	"  FROM instreet_item_user_like WHERE like_time > ? AND like_time < ?"
 
 var getLikeTotalQuery = "SELECT count(1) AS `likeCount`" +
-	"  FROM instreet_item_user_like WHERE AND like_time < ?"
+	"  FROM instreet_item_user_like WHERE like_time < ?"
 
 //用户分享
 var getShareDailyQuery = "SELECT count(1) AS videoCount" +
@@ -41,14 +41,21 @@ var getVideoPlayDaily = "SELECT sum(ii.click) AS videoPlaySum" +
 	"  FROM instreet_items ii" +
 	"  WHERE ii.itemtype_id = 1 AND ii.created_at > ? AND ii.created_at < ?"
 
-var getVideoPlatTotal = "SELECT sum(ii.click) AS videoPlaySum" +
+var getVideoPlayTotal = "SELECT sum(ii.click) AS videoPlaySum" +
 	"  FROM instreet_items ii" +
-	"  WHERE ii.itemtype_id = 1 ii.created_at < ?"
+	"  WHERE ii.itemtype_id = 1 AND ii.created_at < ?"
 
 //视频播放时长
 var getVideoStayTotal = "SELECT sum(ia.action_stay) AS videoStay" +
-	"  FROM instreet_actions ia WHERE ia.action_type = 6"
+	"  FROM instreet_actions ia WHERE ia.action_type = 6 AND ia.action_time < ?"
 
 var getVideoStayDaily = "SELECT sum(ia.action_stay) AS videoStay" +
 	"  FROM instreet_actions ia" +
 	"  WHERE ia.action_type = 6 AND ia.action_time > ? AND ia.action_time < ?"
+
+//插入语句
+var insertDailyUGC = "INSERT INTO appUGC (ids, createTime, `like`, commentSum, shareSum, picSum, videoSum, videoStay)" +
+	"  VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+
+var insertTotalUGC = "INSERT INTO appUGCDailyTotal (ids, createTime, `like`, commentSum, shareSum, picSum, videoSum, videoStay)" +
+	"  VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
