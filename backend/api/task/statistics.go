@@ -9,10 +9,11 @@ import (
 )
 
 func getStatisticsDaily(query string, offset int) (int64) {
+	o := offset - 1
 	log.Info(query)
 	var t int64
 	stm, _ := db.PrepareExt(query, &extDbConf)
-	rows, err := stm.Query(getTime(1), getTime(0))
+	rows, err := stm.Query(getTime(offset), getTime(o))
 	defer rows.Close()
 	if nil != err {
 		log.Error(err)
@@ -101,4 +102,35 @@ func GetTotal() {
 		}
 
 	}
+}
+
+func GetDailyByOffset(offset int) {
+	var model = model.AppUGC{}
+	o := offset - 1
+	model.Like = getStatisticsDaily(getLikeDailyQuery, offset)
+	model.ShareSum = getStatisticsDaily(getShareDailyQuery, offset)
+	model.CommentSum = getStatisticsDaily(getCommentDailyQuery, offset)
+	model.VideoSum = getStatisticsDaily(getVideoPlayDaily, offset)
+	model.VideoStay = getStatisticsDaily(getVideoStayDaily, offset)
+	stm, err := db.Prepare(insertDailyUGC)
+	if nil != err {
+		log.Error(err)
+	} else {
+		_, e := stm.Exec(
+			util.GetObjectId(),
+			getTimeInTime(o).Unix(),
+			model.Like,
+			model.CommentSum,
+			model.ShareSum,
+			model.PicSum,
+			model.VideoSum,
+			model.VideoStay,
+		)
+
+		if nil != e {
+			log.Error(e)
+		}
+
+	}
+
 }
