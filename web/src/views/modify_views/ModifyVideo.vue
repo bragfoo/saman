@@ -1,13 +1,13 @@
 <template>
   <div>
-    <el-row>
+    <el-row :style="padding: 10px;"
       <el-col :span="24" style="padding-bottom: 15px">
         <PlatTypeSelect v-model="platType" @change="fetchList"></PlatTypeSelect>
         <el-button size="mini" type="primary" plain @click="createRow">添加</el-button>
         <el-button size="mini" type="primary" plain @click="reload">刷新</el-button>
       </el-col>
     </el-row>
-    <el-row>
+    <el-row :style="padding: 10px;"
       <el-col :span="24">
         <el-table
           :data="tableData"

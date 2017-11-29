@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row :style="padding=10">
+    <el-row style="padding:10px">
       <el-col :span="24">
         <el-table
           :data="chartData.rows"
@@ -39,7 +39,7 @@
         </el-table>
       </el-col>
     </el-row>
-    <el-row :style="padding=10">
+    <el-row style="padding:10px">
       <el-col :span="8">
         <ve-line :data="chartLikeData" :settings="chartSettings" height="200px" :title="{
           text: '点赞'
@@ -56,7 +56,7 @@
         }"></ve-line>
       </el-col>
     </el-row>
-    <el-row :style="padding=10">
+    <el-row style="padding:10px">
       <el-col :span="8">
         <ve-line :data="chartPicData" :settings="chartSettings" height="200px" :title="{
           text: '图片上传'

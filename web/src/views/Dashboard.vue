@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <el-row style="padding: 10px;">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>平台数据</span>

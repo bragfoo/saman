@@ -1,5 +1,5 @@
 <template>
-  <el-row :style="padding=10">
+  <el-row style="padding:10px">
     <ve-histogram :data="chartData" :settings="chartSettings" height="300px"></ve-histogram>
   </el-row>
 </template>

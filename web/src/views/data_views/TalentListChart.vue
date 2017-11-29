@@ -1,5 +1,5 @@
 <template>
-  <el-row :style="padding=10">
+  <el-row style="padding:10px">
     <el-table
       :data="tableData"
       :height="300"

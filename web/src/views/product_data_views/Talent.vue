@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <talent-sum-line-chart></talent-sum-line-chart>
-    <el-row>
+    <el-row :style="padding: 10px;"
       <el-col :span="12">
         <talent-list-chart></talent-list-chart>
       </el-col>
