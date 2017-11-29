@@ -9,6 +9,7 @@
       <el-tab-pane label="达人" name="modify_talent"></el-tab-pane>
       <el-tab-pane label="UGC" name="modify_app_ugc"></el-tab-pane>
       <el-tab-pane label="活动" name="modify_events"></el-tab-pane>
+      <el-tab-pane label="数据上传" name="modify_upload_data"></el-tab-pane>
     </el-tabs>
     <router-view></router-view>
   </el-card>

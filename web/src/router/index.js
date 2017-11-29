@@ -46,6 +46,7 @@ import ModifyAppUGC from '@/views/modify_views/ModifyAppUGC.vue'
 import ModifyTalent from '@/views/modify_views/ModifyTalent.vue'
 import ModifyAppData from '@/views/modify_views/ModifyAppData.vue'
 import ModifyEvents from '@/views/modify_views/ModifyEvents.vue'
+import ModifyUploadData from '@/views/modify_views/ModifyUploadData.vue'
 /* eslint-enable */
 
 Vue.use(Router)
@@ -238,6 +239,10 @@ export default new Router({
           path: '/modify/app_data',
           name: 'modify_app_data',
           component: ModifyAppData
+        }, {
+          path: '/modify/upload_data',
+          name: 'modify_upload_data',
+          component: ModifyUploadData
         }
       ]
     }

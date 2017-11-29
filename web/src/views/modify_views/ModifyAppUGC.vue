@@ -47,6 +47,11 @@
             width="120">
           </el-table-column>
           <el-table-column
+            prop="VideoStay"
+            label="视频播放总时长"
+            width="120">
+          </el-table-column>
+          <el-table-column
             fixed="right"
             label="操作"
             width="100">
@@ -87,6 +92,9 @@
         </el-form-item>
         <el-form-item label="视频">
           <el-input-number v-model="rowData.VideoSum"></el-input-number>
+        </el-form-item>
+        <el-form-item label="视频播放总时长">
+          <el-input-number v-model="rowData.VideoStay"></el-input-number>
         </el-form-item>
         <el-form-item>
           <el-button @click="closeDialog">取 消</el-button>
@@ -148,7 +156,8 @@
           CommentSum: 0,
           ShareSum: 0,
           PicSum: 0,
-          VideoSum: 0
+          VideoSum: 0,
+          VideoStay: 0
         }
       },
       reload () {

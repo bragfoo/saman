@@ -32,6 +32,10 @@
             prop="VideoSum"
             label="视频">
           </el-table-column>
+          <el-table-column
+            prop="VideoStay"
+            label="视频播放总时长">
+          </el-table-column>
         </el-table>
       </el-col>
     </el-row>
@@ -53,14 +57,19 @@
       </el-col>
     </el-row>
     <el-row :style="padding=10">
-      <el-col :span="12">
+      <el-col :span="8">
         <ve-line :data="chartPicData" :settings="chartSettings" height="200px" :title="{
           text: '图片上传'
         }"></ve-line>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="8">
         <ve-line :data="chartVideoData" :settings="chartSettings" height="200px" :title="{
           text: '视频上传'
+        }"></ve-line>
+      </el-col>
+      <el-col :span="8">
+        <ve-line :data="chartVideoStayData" :settings="chartSettings" height="200px" :title="{
+          text: '视频播放总时长'
         }"></ve-line>
       </el-col>
     </el-row>
@@ -100,6 +109,10 @@
           columns: ['CreateTime', 'VideoSum'],
           rows: []
         },
+        chartVideoStayData: {
+          columns: ['CreateTime', 'VideoStay'],
+          rows: []
+        },
         chartSettings: {
           labelMap: {
             CreateTime: '时间',
@@ -107,7 +120,8 @@
             CommentSum: '评论',
             ShareSum: '分享',
             PicSum: '图片',
-            VideoSum: '视频'
+            VideoSum: '视频',
+            VideoStay: '视频播放总时长'
           }
         },
         title: {
@@ -139,6 +153,7 @@
           this.chartShareData.rows = this.chartData.rows
           this.chartPicData.rows = this.chartData.rows
           this.chartVideoData.rows = this.chartData.rows
+          this.chartVideoStayData.rows = this.chartData.rows
         }).then()
       },
       reload () {
