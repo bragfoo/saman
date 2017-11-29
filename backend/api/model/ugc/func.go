@@ -14,7 +14,7 @@ var getQuery = "SELECT" +
 	"  a.commentSum AS commentSum," +
 	"  a.shareSum   AS shareSum," +
 	"  a.picSum     AS picSum," +
-	"  a.videoSum   AS videoSUm" +
+	"  a.videoSum   AS videoSum," +
 	"  a.videoStay  AS videoStay" +
 	"  FROM saman.appUGC a" +
 	"  WHERE 1=1 "
@@ -37,7 +37,7 @@ var getTotalQuery = "SELECT" +
 	"  a.commentSum AS commentSum," +
 	"  a.shareSum   AS shareSum," +
 	"  a.picSum     AS picSum," +
-	"  a.videoSum   AS videoSUm" +
+	"  a.videoSum   AS videoSum," +
 	"  a.videoStay  AS videoStay" +
 	"  FROM saman.appUGC a" +
 	"  WHERE 1=1 "
