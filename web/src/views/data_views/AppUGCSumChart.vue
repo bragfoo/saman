@@ -30,11 +30,11 @@
           </el-table-column>
           <el-table-column
             prop="VideoSum"
-            label="视频">
+            label="视频点击">
           </el-table-column>
           <el-table-column
             prop="VideoStay"
-            label="视频播放总时长">
+            label="视频播放">
           </el-table-column>
         </el-table>
       </el-col>
