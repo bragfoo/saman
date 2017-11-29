@@ -63,7 +63,7 @@
     data () {
       return {
         loading: false,
-        url: 'appUGC',
+        url: 'appUGCTotal',
         chartLikeData: {
           columns: ['CreateTime', 'Like'],
           rows: []

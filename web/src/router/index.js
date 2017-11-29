@@ -7,6 +7,8 @@ import VideoClick from '@/views/VideoClick.vue'
 import PutPlat from '@/views/PutPlat.vue'
 // 产品数据
 import ProductData from '@/views/ProductData.vue'
+import PrdSummarySum from '@/views/product_data_views/SummarySum.vue'
+import PrdSummaryWeekly from '@/views/product_data_views/SummaryWeekly.vue'
 import PrdPicPosted from '@/views/product_data_views/PicPosted.vue'
 import PrdVideoPosted from '@/views/product_data_views/VideoPosted.vue'
 import PrdSoc from '@/views/product_data_views/Soc.vue'
@@ -82,6 +84,16 @@ export default new Router({
       component: ProductData,
       children: [
         {
+          // 一周数据分析
+          path: '/prd/prd_summary_weekly',
+          name: 'prd_summary_weekly',
+          component: PrdSummaryWeekly
+        }, {
+          // 总数据变量
+          path: '/prd/prd_summary_sum',
+          name: 'prd_summary_sum',
+          component: PrdSummarySum
+        }, {
           // 图片发布
           path: '/prd/pic_posted',
           name: 'prd_pic_posted',
