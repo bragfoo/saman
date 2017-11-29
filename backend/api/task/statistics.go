@@ -27,11 +27,11 @@ func getStatisticsDaily(query string, offset int) (int64) {
 	return t
 }
 
-func getStatisticsTotal(query string) (int64) {
+func getStatisticsTotal(query string, offset int) (int64) {
 	var t int64
 	log.Info(query)
 	stm, _ := db.PrepareExt(query, &extDbConf)
-	rows, err := stm.Query(getTime(0))
+	rows, err := stm.Query(getTime(offset))
 	defer rows.Close()
 	if nil != err {
 		log.Error(err)
@@ -52,6 +52,7 @@ func GetDaily() {
 	model.CommentSum = getStatisticsDaily(getCommentDailyQuery, 1)
 	model.VideoSum = getStatisticsDaily(getVideoPlayDaily, 1)
 	model.VideoStay = getStatisticsDaily(getVideoStayDaily, 1)
+	model.PicSum = getStatisticsDaily(getPicTotal, 1)
 	stm, err := db.Prepare(insertDailyUGC)
 	if nil != err {
 		log.Error(err)
@@ -77,11 +78,12 @@ func GetDaily() {
 
 func GetTotal() {
 	var model = model.AppUGC{}
-	model.Like = getStatisticsTotal(getLikeTotalQuery)
-	model.ShareSum = getStatisticsTotal(getShareTotalQuery)
-	model.CommentSum = getStatisticsTotal(getCommentTotalQuery)
-	model.VideoSum = getStatisticsTotal(getVideoPlayTotal)
-	model.VideoStay = getStatisticsTotal(getVideoStayTotal)
+	model.Like = getStatisticsTotal(getLikeTotalQuery, 0)
+	model.ShareSum = getStatisticsTotal(getShareTotalQuery, 0)
+	model.CommentSum = getStatisticsTotal(getCommentTotalQuery, 0)
+	model.VideoSum = getStatisticsTotal(getVideoPlayTotal, 0)
+	model.VideoStay = getStatisticsTotal(getVideoStayTotal, 0)
+	model.PicSum = getStatisticsDaily(getPicTotal, 0)
 	stm, err := db.Prepare(insertTotalUGC)
 	if nil != err {
 		log.Error(err)
@@ -112,6 +114,7 @@ func GetDailyByOffset(offset int) {
 	model.CommentSum = getStatisticsDaily(getCommentDailyQuery, offset)
 	model.VideoSum = getStatisticsDaily(getVideoPlayDaily, offset)
 	model.VideoStay = getStatisticsDaily(getVideoStayDaily, offset)
+	model.PicSum = getStatisticsDaily(getPicDaily, offset)
 	stm, err := db.Prepare(insertDailyUGC)
 	if nil != err {
 		log.Error(err)
@@ -133,4 +136,34 @@ func GetDailyByOffset(offset int) {
 
 	}
 
+}
+
+func GetTotalByOffset(offset int) {
+	var model = model.AppUGC{}
+	model.Like = getStatisticsTotal(getLikeTotalQuery, offset)
+	model.ShareSum = getStatisticsTotal(getShareTotalQuery, offset)
+	model.CommentSum = getStatisticsTotal(getCommentTotalQuery, offset)
+	model.VideoSum = getStatisticsTotal(getVideoPlayTotal, offset)
+	model.VideoStay = getStatisticsTotal(getVideoStayTotal, offset)
+	model.PicSum = getStatisticsTotal(getPicTotal, offset)
+	stm, err := db.Prepare(insertTotalUGC)
+	if nil != err {
+		log.Error(err)
+	} else {
+		_, e := stm.Exec(
+			util.GetObjectId(),
+			getTimeInTime(offset).Unix(),
+			model.Like,
+			model.CommentSum,
+			model.ShareSum,
+			model.PicSum,
+			model.VideoSum,
+			model.VideoStay,
+		)
+
+		if nil != e {
+			log.Error(e)
+		}
+
+	}
 }

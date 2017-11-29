@@ -53,6 +53,17 @@ var getVideoStayDaily = "SELECT sum(ia.action_stay) AS videoStay" +
 	"  FROM instreet_actions ia" +
 	"  WHERE ia.action_type = 6 AND ia.action_time > ? AND ia.action_time < ?"
 
+//图片
+var getPicDaily = "SELECT count(1) AS picCount" +
+	"  FROM instreet_items ii" +
+	"  WHERE ii.itemtype_id = 2" +
+	"  AND ii.published_at > ? AND ii.published_at < ?"
+
+var getPicTotal = "SELECT count(1) AS picCount" +
+	"  FROM instreet_items ii" +
+	"  WHERE ii.itemtype_id = 2 AND" +
+	"  ii.published_at < ?"
+
 //插入语句
 var insertDailyUGC = "INSERT INTO appUGC (ids, createTime, `like`, commentSum, shareSum, picSum, videoSum, videoStay)" +
 	"  VALUES (?, ?, ?, ?, ?, ?, ?, ?)"

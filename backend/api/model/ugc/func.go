@@ -39,7 +39,7 @@ var getTotalQuery = "SELECT" +
 	"  a.picSum     AS picSum," +
 	"  a.videoSum   AS videoSum," +
 	"  a.videoStay  AS videoStay" +
-	"  FROM saman.appUGC a" +
+	"  FROM saman.appUGCDailyTotal a" +
 	"  WHERE 1=1 "
 
 var delQuery = "DELETE FROM appUGC WHERE ids = ?"
