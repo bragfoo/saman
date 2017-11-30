@@ -64,24 +64,20 @@
       fetchList () {
         this.$http.get(this.url, {
           params: {
-            platIds: this.platType
+            platIds: this.playType
           }
         }).then((response) => {
-          this.$http.get(this.url, {
-            params: {
-              platIds: this.playType
-            }
-          }).then((response) => {
-            this.chartData.rows = []
-            let data = response.data === null ? response.data = [] : response.data
-            data.sort((r1, r2) => (r1.CreateTime === r2.CreateTime ? 0 : r1.CreateTime > r2.CreateTime ? 1 : -1))
-            data.forEach((row) => {
-              let time = new Date(row.CreateTime * 1000)
-              row.CreateTime = (time.getMonth() + 1) + '月' + time.getDate() + '日'
-              this.chartData.rows.push(row)
-            })
-          }).then()
-        })
+          this.chartData.rows = []
+          let data = response.data === null ? response.data = [] : response.data
+          if (data === [])
+            return
+          data.sort((r1, r2) => (r1.CreateTime === r2.CreateTime ? 0 : r1.CreateTime > r2.CreateTime ? 1 : -1))
+          data.forEach((row) => {
+            let time = new Date(row.CreateTime * 1000)
+            row.CreateTime = (time.getMonth() + 1) + '月' + time.getDate() + '日'
+            this.chartData.rows.push(row)
+          })
+        }).then()
       },
       reload () {
         this.fetchList()
