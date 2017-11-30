@@ -5,6 +5,8 @@ import (
 	"github.com/xuri/excelize"
 	"github.com/siddontang/go/log"
 	"github.com/bragfoo/saman/backend/api/model"
+	"github.com/bragfoo/saman/util/db"
+	"github.com/bragfoo/saman/util"
 )
 
 func OpenFans(file multipart.File) {
@@ -49,13 +51,42 @@ func getVideoFromFans(f *excelize.File) {
 	l = append(l, readPlatform(f, 72, "59fae294ef2d1314e0ea2a57", "Sheet2")...) //tMusic
 	l = append(l, readPlatform(f, 94, "59fae2a8ef2d1314e0ea2a58", "Sheet2")...) //tSports
 
-	platSum = append(platSum, readPlatformSum(f, "Sheet2", "B24", "59fae20cef2d1314e0ea2a55")) // toutiaoMusic
-	platSum = append(platSum, readPlatformSum(f, "Sheet2", "B49", "59fae276ef2d1314e0ea2a56")) // toutiaoSports
-	platSum = append(platSum, readPlatformSum(f, "Sheet2", "B72", "59fae294ef2d1314e0ea2a57")) // tMusic
-	platSum = append(platSum, readPlatformSum(f, "Sheet2", "B94", "59fae2a8ef2d1314e0ea2a58")) // tSports
+	platSum = append(platSum, readPlatformSum(f, "Sheet2", "B22", "59fae20cef2d1314e0ea2a55")) // toutiaoMusic
+	platSum = append(platSum, readPlatformSum(f, "Sheet2", "B47", "59fae276ef2d1314e0ea2a56")) // toutiaoSports
+	platSum = append(platSum, readPlatformSum(f, "Sheet2", "B70", "59fae294ef2d1314e0ea2a57")) // tMusic
+	platSum = append(platSum, readPlatformSum(f, "Sheet2", "B92", "59fae2a8ef2d1314e0ea2a58")) // tSports
 	saveVideoData(l, platSum)
 }
 
 func saveFans(l []model.FansExcel) {
+	for _, v := range l {
+		updateFans(v)
+	}
+}
 
+func updateFans(m model.FansExcel) {
+	stmTest, _ := db.Prepare(testFans)
+	defer stmTest.Close()
+	stmUpd, _ := db.Prepare(updFans)
+	defer stmUpd.Close()
+	stmIns, _ := db.Prepare(insFans)
+	defer stmIns.Close()
+
+	var lineSum = 0
+	rows, err := stmTest.Query(m.CreateTime, m.Type)
+	if nil != err {
+		log.Error(err)
+	} else {
+		for rows.Next() {
+			lineSum++
+			var model = model.PlatformFans{}
+			err := rows.Scan(&model.Ids)
+			if nil == err {
+				stmUpd.Exec(m.Total, model.Ids)
+			}
+		}
+	}
+	if 0 == lineSum {
+		stmIns.Exec(util.GetObjectId(), m.CreateTime, m.Total, 0, 0, m.Type)
+	}
 }

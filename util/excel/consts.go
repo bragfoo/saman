@@ -19,8 +19,16 @@ var insVideo = "INSERT INTO video (ids, platIds, title, link, createTime) VALUES
 
 var testPlayAmount = "SELECT pA.ids" +
 	"  FROM playAmount pA" +
-	"  WHERE pA.videoIds = ?AND pA.createTime = ?"
+	"  WHERE pA.videoIds = ? AND pA.createTime = ?"
 var updPlayAmount = "UPDATE playAmount pA" +
 	"  SET  pA.sum = ?" +
 	"  WHERE pA.ids = ?"
 var insPlayAMount = "INSERT INTO playAmount (ids, videoIds, createTime, sum) VALUES (?,?,?,?);"
+
+var testFans = "SELECT pF.ids" +
+	"  FROM platformFans pF" +
+	"  WHERE pF.createTime = ? AND pF.platType = ?"
+var updFans = "UPDATE platformFans pF" +
+	"  SET pF.sum = ?" +
+	"  WHERE pF.ids = ?"
+var insFans = "INSERT INTO platformFans (ids, createTime, sum, decrease, increase, platType) VALUES (?, ?, ?, ?, ?, ?)"

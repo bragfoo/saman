@@ -148,9 +148,9 @@ type PlayAmountLiner struct {
 }
 
 type PlatPlayAmount struct {
-	Ids        string
-	CreateTime int64
-	PlatType   string
-	Sum        int
-	Grow       int
+	Ids        string `json:"Ids"`
+	CreateTime int64  `json:"CreateTime"`
+	PlatType   string `json:"PlatType"`
+	Sum        int    `json:"Sum"`
+	Grow       int    `json:"Grow"`
 }

@@ -19,7 +19,12 @@ func getDate(f *excelize.File, sheet string, axis string) time.Time {
 
 func getTotalPlayAmount(f *excelize.File, sheet string, axis string) (sum int, grow int) {
 	str := f.GetCellValue(sheet, axis)
-	sumStrs := strings.Split(str, "、")
+	var sumStrs []string
+	if strings.Contains(str, "、") {
+		sumStrs = strings.Split(str, "、")
+	} else {
+		sumStrs = strings.Split(str, "，")
+	}
 	total := strings.Split(sumStrs[0], "：")[1]
 	grows := strings.Split(sumStrs[1], "：")[1]
 	return processSum(total), processSum(grows)
@@ -31,7 +36,8 @@ func processSum(sum string) int {
 		convertStr = strings.Replace(sum, ",", "", -1)
 	} else if strings.Contains(sum, "万") {
 		convertStr = strings.Replace(sum, "万", "0000", -1)
-
+	} else {
+		convertStr = sum
 	}
 	ret, _ := strconv.Atoi(convertStr)
 	return ret
