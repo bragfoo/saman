@@ -26,6 +26,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.GET("/skill", controller.GetSkill(g))
 
 	v1.GET("/appUGCTotal", controller.GetUGCTotal(g))
+	v1.GET("/platPlayAmount", controller.GetPlatPlayAmount(g))
 
 	// liner
 	v1.GET("/liner/playAmount", controller.GetLinerPlayAmountByPlat(g))

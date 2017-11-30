@@ -8,6 +8,7 @@ import (
 	"github.com/bragfoo/saman/backend/api/model"
 	"github.com/bragfoo/saman/util/db"
 	"github.com/bragfoo/saman/util"
+	"time"
 )
 
 var sheet = "Sheet1"
@@ -41,12 +42,11 @@ func getVideoPlatformData(f *excelize.File) {
 }
 
 func saveVideoData(pe []model.PlayExcel, pa []model.PlatPlayAmount) {
-	for _, v := range pa {
-		savePlatPlayAmount(v)
-	}
-
 	for _, v := range pe {
 		saveVideo(v)
+	}
+	for _, v := range pa {
+		savePlatPlayAmount(v)
 	}
 }
 
@@ -74,7 +74,13 @@ func readPlatform(file *excelize.File, start int, platType string, sheet string)
 
 func readPlatformSum(f *excelize.File, sheet string, axis string, platType string) model.PlatPlayAmount {
 	sum, grow := getTotalPlayAmount(f, sheet, axis)
-	date := getDate(f, sheet, "A2")
+	var date time.Time
+	if "Sheet2" == sheet {
+		date = getDate(f, sheet, "A22")
+	} else {
+		date = getDate(f, sheet, "A2")
+	}
+
 	return model.PlatPlayAmount{
 		CreateTime: date.Unix(),
 		PlatType:   platType,
@@ -84,6 +90,10 @@ func readPlatformSum(f *excelize.File, sheet string, axis string, platType strin
 }
 
 func savePlatPlayAmount(amount model.PlatPlayAmount) {
+	stmIns, _ := db.Prepare(insertPlatPlayAMount)
+	defer stmIns.Close()
+	stmUpd, _ := db.Prepare(updatePlatPlayAmount)
+	defer stmUpd.Close()
 	var lineSum = 0
 	rows, err := db.Query(testPlatPlayAmount, amount.PlatType, amount.CreateTime)
 	defer rows.Close()
@@ -95,12 +105,12 @@ func savePlatPlayAmount(amount model.PlatPlayAmount) {
 			var m = model.PlatPlayAmount{}
 			err := rows.Scan(&m.Ids)
 			if nil == err {
-				db.Exec(updatePlatPlayAmount, amount.Grow, amount.Sum, m.Ids)
+				stmUpd.Exec(amount.Grow, amount.Sum, m.Ids)
 			}
 		}
 	}
 	if lineSum == 0 {
-		db.Exec(insertPlatPlayAMount, util.GetObjectId(), amount.CreateTime, amount.PlatType, amount.Sum, amount.Grow)
+		stmIns.Exec(util.GetObjectId(), amount.CreateTime, amount.PlatType, amount.Sum, amount.Grow)
 	}
 }
 
@@ -126,15 +136,33 @@ func saveVideo(e model.PlayExcel) {
 }
 
 func savePlayAmount(e model.PlayExcel) {
-	ids := util.GetObjectId()
-	db.Exec(insVideo, ids, e.IType, e.Title, e.Link, e.CreateTime)
-	db.Exec(insPlayAMount, util.GetObjectId(), ids, e.CreateTime, e.PlayAmount)
-
+	var ids string
+	ids = util.GetObjectId()
+	stmInsVideo, _ := db.Prepare(insVideo)
+	defer stmInsVideo.Close()
+	stmInsPlayAmount, _ := db.Prepare(insPlayAMount)
+	defer stmInsPlayAmount.Close()
+	_, err := stmInsVideo.Exec(ids, e.IType, e.Title, e.Link, e.CreateTime)
+	if nil != err {
+		log.Error(err)
+	}
+	p, _ := strconv.Atoi(e.PlayAmount)
+	log.Info(p)
+	_, errIns := stmInsPlayAmount.Exec(util.GetObjectId(), ids, e.CreateTime, p)
+	if nil != errIns {
+		log.Error(errIns)
+	}
 }
 
 func updatePlayAmount(videoIds string, e model.PlayExcel) {
+	stmTest, _ := db.Prepare(testPlayAmount)
+	defer stmTest.Close()
+	stmUpd, _ := db.Prepare(updPlayAmount)
+	defer stmUpd.Close()
+	stmIns, _ := db.Prepare(insPlayAMount)
+	defer stmIns.Close()
 	var lineSum = 0
-	rows, err := db.Query(testPlayAmount, videoIds, e.CreateTime)
+	rows, err := stmTest.Query(videoIds, e.CreateTime)
 	defer rows.Close()
 	if nil != err {
 		log.Error(err)
@@ -144,11 +172,11 @@ func updatePlayAmount(videoIds string, e model.PlayExcel) {
 			var m = model.PlayAmount{}
 			err := rows.Scan(&m.Ids)
 			if nil == err {
-				db.Exec(updPlayAmount, e.PlayAmount, videoIds)
+				stmUpd.Exec(e.PlayAmount, videoIds)
 			}
 		}
 	}
 	if lineSum == 0 {
-		db.Exec(insPlayAMount, util.GetObjectId(), videoIds, e.CreateTime, e.PlayAmount)
+		stmIns.Exec(util.GetObjectId(), videoIds, e.CreateTime, e.PlayAmount)
 	}
 }
