@@ -85,9 +85,10 @@
               newRow.Sum = row.Sum
             }
           })
-          this.chartData.rows.sort((a, b) => {
-            return a.Sum === b.Sum ? 0 : (a.Sum < b.Sum ? 1 : -1)
-          })
+
+          if (this.chartData.rows !== []) {
+            this.chartData.rows.sort((a, b) => a.Sum === b.Sum ? 0 : (a.Sum < b.Sum ? 1 : -1))
+          }
         }).then()
       },
       reload () {

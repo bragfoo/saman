@@ -42,7 +42,9 @@
         }).then((response) => {
           this.chartData.rows = []
           let data = response.data === null ? response.data = [] : response.data
-          data.sort((r1, r2) => (r1.CreateTime === r2.CreateTime ? 0 : r1.CreateTime > r2.CreateTime ? 1 : -1))
+          if (data !== []) {
+            data.sort((r1, r2) => (r1.CreateTime === r2.CreateTime ? 0 : r1.CreateTime > r2.CreateTime ? 1 : -1))
+          }
           data.forEach((row) => {
             let newRow = this.chartData.rows.find((r) => (r.SkillName === row.SkillName))
             if (!newRow) {

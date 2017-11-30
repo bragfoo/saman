@@ -89,7 +89,9 @@
         }).then((response) => {
           this.chartData.rows = []
           let data = response.data === null ? [] : response.data
-          data.sort((r1, r2) => (r1.CreateTime === r2.CreateTime ? 0 : r1.CreateTime > r2.CreateTime ? 1 : -1))
+          if (data !== []) {
+            data.sort((r1, r2) => (r1.CreateTime === r2.CreateTime ? 0 : r1.CreateTime > r2.CreateTime ? 1 : -1))
+          }
           data.forEach((row) => {
             let time = new Date(row.StartDate * 1000)
             row.StartDate = (time.getMonth() + 1) + '月' + time.getDate() + '日'
