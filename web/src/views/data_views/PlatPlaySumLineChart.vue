@@ -64,7 +64,7 @@
       fetchList () {
         this.$http.get(this.url, {
           params: {
-            platIds: this.playType
+            platIds: this.platType
           }
         }).then((response) => {
           this.chartData.rows = []
