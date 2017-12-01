@@ -17,10 +17,10 @@
           prop="Grow"
           label="增长数">
         </el-table-column>
-        <el-table-column
-          prop="Sum"
-          label="总数">
-        </el-table-column>
+        <!--<el-table-column-->
+          <!--prop="Sum"-->
+          <!--label="总数">-->
+        <!--</el-table-column>-->
       </el-table>
     </el-col>
   </el-row>
@@ -42,13 +42,13 @@
         platType: '5a1690eeef2d1345d21327e9',
         videoType: '',
         chartData: {
-          columns: ['CreateTime', 'Sum'],
+          columns: ['CreateTime', 'Grow'],
           rows: []
         },
         chartSettings: {
           labelMap: {
             CreateTime: '日期',
-            Sum: '播放总数'
+            Grow: '增长数'
           }
         },
         title: {
