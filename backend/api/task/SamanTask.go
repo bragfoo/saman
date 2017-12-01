@@ -9,14 +9,15 @@ import (
 	"github.com/bragfoo/saman/util"
 )
 
-var query = "SELECT" +
+const query = "SELECT" +
 	"  ids.type     AS type," +
 	"  ids.day_time AS createTime," +
 	"  ids.total    AS total" +
 	"  FROM instreet_day_statistics ids" +
 	"  WHERE 1 = 1"
 
-var appData = "INSERT INTO appStatistics (ids, createTime, total, type) VALUES (?,?,?,?);"
+const appData = "INSERT INTO appStatistics (ids, createTime, total, type) VALUES (?,?,?,?);"
+
 var dbConf = config.DbType{
 	Username: "instreet",
 	Password: "instreetCoding@1by1",

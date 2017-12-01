@@ -19,7 +19,6 @@ func GetTimePeriod(query string, con []interface{}, startTime int64, endTime int
 
 func GetWeekStartTime(t time.Time) (time.Time) {
 
-
 	switch t.Weekday() {
 	case 0:
 		//sunday
