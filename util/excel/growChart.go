@@ -42,7 +42,10 @@ func getCharts(file *excelize.File) {
 func readCharts(f *excelize.File, sheet string, platIds string) []model.WeekGrow {
 	var l []model.WeekGrow
 	rows := f.GetRows(sheet)
-	for _, v := range rows {
+	for k, v := range rows {
+		if 0 == k {
+			continue
+		}
 		l = append(l, readChartsColumn(v[0], v[1], platIds))
 	}
 	return l
