@@ -37,7 +37,5 @@ func GetWeekStartTime(t time.Time) (time.Time) {
 	case 6:
 		break
 	}
-
 	return time.Now()
-
 }

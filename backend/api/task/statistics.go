@@ -52,7 +52,7 @@ func GetDaily() {
 	model.CommentSum = getStatisticsDaily(getCommentDailyQuery, 1)
 	model.VideoSum = getStatisticsDaily(getVideoPlayDaily, 1)
 	model.VideoStay = getStatisticsDaily(getVideoStayDaily, 1)
-	model.PicSum = getStatisticsDaily(getPicTotal, 1)
+	model.PicSum = getStatisticsDaily(getPicDaily, 1)
 	stm, err := db.Prepare(insertDailyUGC)
 	if nil != err {
 		log.Error(err)
