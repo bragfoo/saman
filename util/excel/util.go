@@ -17,6 +17,15 @@ func getDate(f *excelize.File, sheet string, axis string) time.Time {
 	return myTime
 }
 
+func getDateFromString(s string) time.Time {
+	timeStrs := strings.Split(s, "-")
+	t := strings.Split(timeStrs[0], ".")
+	day, _ := strconv.Atoi(t[1])
+	month, _ := strconv.Atoi(t[0])
+	myTime := time.Date(time.Now().Year(), time.Month(month), day, 0, 0, 0, 0, time.Local)
+	return myTime
+}
+
 func getTotalPlayAmount(f *excelize.File, sheet string, axis string) (sum int, grow int) {
 	str := f.GetCellValue(sheet, axis)
 	var sumStrs []string

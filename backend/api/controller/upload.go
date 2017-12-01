@@ -29,3 +29,11 @@ func UploadVideo(g *global.G) func(context *gin.Context) {
 		excel.OpenPlatformVideo(file)
 	}
 }
+
+func UploadCharts(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		uploadFile, _ := c.FormFile("file")
+		file, _ := uploadFile.Open()
+		excel.OpenCharts(file)
+	}
+}

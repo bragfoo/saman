@@ -154,3 +154,9 @@ type PlatPlayAmount struct {
 	Sum        int    `json:"Sum"`
 	Grow       int    `json:"Grow"`
 }
+type WeekGrow struct {
+	Ids        string `json:"Ids"`
+	PlatIds    string `json:"PlatIds"`
+	Grow       int    `json:"Grow"`
+	CreateTime int64  `json:"CreateTime"`
+}

@@ -86,6 +86,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	upload.POST("/fans", controller.UploadFans(g))
 	upload.POST("/video", controller.UploadVideo(g))
 	upload.POST("/newMedia", controller.Upload(g))
+	upload.POST("/charts", controller.UploadCharts(g))
 
 	//test
 	test := router.Group("/test")

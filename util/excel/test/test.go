@@ -6,10 +6,12 @@ import (
 	"strings"
 	"strconv"
 	"time"
+	"fmt"
 )
 
 func main() {
-	read()
+	//read()
+	test()
 }
 
 func read() {
@@ -45,4 +47,13 @@ func getDate(f *excelize.File, sheet string, axis string) time.Time {
 	month, _ := strconv.Atoi(t[0])
 	myTime := time.Date(time.Now().Year(), time.Month(month), day, 0, 0, 0, 0, time.Local)
 	return myTime
+}
+
+func test() {
+	f, _ := excelize.OpenFile("/Users/kevin1993/project/xlsx/videoSum.xlsx")
+	rows := f.GetRows("A图")
+	for _, v := range rows {
+		fmt.Println(v[0])
+		fmt.Println(v[1])
+	}
 }
