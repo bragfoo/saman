@@ -16,7 +16,7 @@
         </el-table-column>
         <el-table-column
           prop="Sum"
-          label="总数">
+          label="增长数">
         </el-table-column>
       </el-table>
     </el-col>
@@ -47,7 +47,7 @@
         chartSettings: {
           labelMap: {
             CreateTime: '时间',
-            Sum: '总数'
+            Sum: '增长数'
           }
         },
         title: {

@@ -64,12 +64,12 @@
       </el-col>
       <el-col :span="8">
         <ve-line :data="chartVideoData" :settings="chartSettings" height="200px" :title="{
-          text: '视频上传'
+          text: '视频点击'
         }"></ve-line>
       </el-col>
       <el-col :span="8">
         <ve-line :data="chartVideoStayData" :settings="chartSettings" height="200px" :title="{
-          text: '视频播放总时长'
+          text: '视频播放时长'
         }"></ve-line>
       </el-col>
     </el-row>

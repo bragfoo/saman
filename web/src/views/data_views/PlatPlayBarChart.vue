@@ -19,7 +19,7 @@
         </el-table-column>
         <el-table-column
           prop="Sum"
-          label="总数">
+          label="本周播放量">
         </el-table-column>
       </el-table>
     </el-col>
@@ -50,7 +50,7 @@
           labelMap: {
             ShortTitle: '视频',
             Title: '视频',
-            Sum: '总数'
+            Sum: '本周播放量'
           }
         },
         title: {

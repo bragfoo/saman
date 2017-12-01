@@ -34,7 +34,7 @@
           </el-table-column>
           <el-table-column
             prop="VideoStay"
-            label="视频播放">
+            label="视频播放时长">
           </el-table-column>
         </el-table>
       </el-col>
