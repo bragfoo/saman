@@ -83,7 +83,7 @@ func GetTotal() {
 	model.CommentSum = getStatisticsTotal(getCommentTotalQuery, 0)
 	model.VideoSum = getStatisticsTotal(getVideoPlayTotal, 0)
 	model.VideoStay = getStatisticsTotal(getVideoStayTotal, 0)
-	model.PicSum = getStatisticsDaily(getPicTotal, 0)
+	model.PicSum = getStatisticsTotal(getPicTotal, 0)
 	stm, err := db.Prepare(insertTotalUGC)
 	if nil != err {
 		log.Error(err)
