@@ -9,7 +9,7 @@ var GetQuery = "SELECT" +
 	"  a.shareSum   AS shareSum," +
 	"  a.picSum     AS picSum," +
 	"  a.videoSum   AS videoSum," +
-	"  a.videoStay  AS videoStay" +
+	"  a.videoStay  AS videoStay," +
 	"  a.videoUpload AS videoUpload " +
 	"  FROM saman.appUGC a" +
 	"  WHERE 1=1 "
@@ -33,7 +33,7 @@ var getTotalQuery = "SELECT" +
 	"  a.shareSum   AS shareSum," +
 	"  a.picSum     AS picSum," +
 	"  a.videoSum   AS videoSum," +
-	"  a.videoStay  AS videoStay" +
+	"  a.videoStay  AS videoStay," +
 	"  a.videoUpload AS videoUpload" +
 	"  FROM saman.appUGCDailyTotal a" +
 	"  WHERE 1=1 "

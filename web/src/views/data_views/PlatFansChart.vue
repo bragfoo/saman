@@ -2,6 +2,7 @@
   <el-row style="padding:10px">
     <PlatTypeSelect v-model="playType" @change="fetchList"></PlatTypeSelect>
     <ve-line :data="chartData" :settings="chartSettings" :title="title"></ve-line>
+    <ve-line :data="netIncreaseData" :settings="netIncreaseSettings" :title="title"></ve-line>
     <el-col :span="24">
       <el-table
         :data="chartData.rows"
@@ -25,6 +26,10 @@
           prop="Sum"
           label="总数">
         </el-table-column>
+        <el-table-column
+          prop="NetIncrease"
+          label="净增">
+        </el-table-column>
       </el-table>
     </el-col>
   </el-row>
@@ -43,7 +48,11 @@
         url: 'platformFans',
         playType: '5a1690eeef2d1345d21327e9',
         chartData: {
-          columns: ['CreateTime', 'Decrease', 'Increase', 'Sum'],
+          columns: ['CreateTime', 'Decrease', 'Increase', 'Sum', 'NetIncrease'],
+          rows: []
+        },
+        netIncreaseData: {
+          columns: ['CreateTime', 'NetIncrease'],
           rows: []
         },
         chartSettings: {
@@ -51,7 +60,14 @@
             CreateTime: '时间',
             Decrease: '减少',
             Increase: '增加',
+            NetIncrease: '净增',
             Sum: '总数'
+          }
+        },
+        netIncreaseSettings: {
+          labelMap: {
+            CreateTime: '时间',
+            NetIncrease: '净增'
           }
         },
         title: {
@@ -78,7 +94,9 @@
           data.forEach((row) => {
             let time = new Date(row.CreateTime * 1000)
             row.CreateTime = (time.getMonth() + 1) + '月' + time.getDate() + '日'
+            row.NetIncrease = row.Increase - row.Decrease
             this.chartData.rows.push(row)
+            this.netIncreaseData.rows.push(row)
           })
         }).then()
       },

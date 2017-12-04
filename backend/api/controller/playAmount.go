@@ -35,6 +35,10 @@ func GetVideoPlayAmount(g *global.G) func(context *gin.Context) {
 			con = c
 		}
 
+		s, c := common.GetTimePeriod(sql, con, "v")
+		sql = s
+		con = c
+
 		stm, err := db.Prepare(sql)
 		defer stm.Close()
 		if nil != err {
