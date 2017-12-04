@@ -2,7 +2,7 @@ package plat
 
 var postPlatformFansQuery string = "INSERT INTO platformFans (ids, createTime, sum, decrease, increase, platType) VALUES (?,?,?,?,?,?);"
 
-var getFanQuery = "SELECT" +
+var GetFanQuery = "SELECT" +
 	"  pF.ids        AS ids," +
 	"  pF.createTime AS createTime," +
 	"  pF.sum        AS sum," +
@@ -13,7 +13,7 @@ var getFanQuery = "SELECT" +
 	"  FROM saman.platformType p LEFT JOIN saman.platformFans pF ON pF.platType = p.ids" +
 	"  WHERE 1=1 "
 
-var getFanQueryByPlatIdsQuery = getFanQuery +
+var getFanQueryByPlatIdsQuery = GetFanQuery +
 	" AND p.ids = ?"
 
 var putQuery = "UPDATE saman.platformFans p " +

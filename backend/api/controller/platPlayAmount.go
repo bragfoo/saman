@@ -22,13 +22,14 @@ func GetPlatPlayAmount(g *global.G) func(context *gin.Context) {
 			sql += platPlayAmount.WhereByPlatIds
 			con = append(con, platIds)
 		}
-		stm, err := db.Prepare(sql)
+		s, c := common.GetTimePeriod(sql, con, "pPA")
+		stm, err := db.Prepare(s)
 		defer stm.Close()
 		if nil != err {
 			log.Error(err)
 			common.StandardError(context)
 		} else {
-			rows, err := stm.Query(con...)
+			rows, err := stm.Query(c...)
 			if nil != err {
 				log.Error(err)
 				common.StandardError(context)

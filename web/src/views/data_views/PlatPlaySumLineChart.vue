@@ -38,7 +38,7 @@
     data () {
       return {
         loading: false,
-        url: 'liner/playAmount',
+        url: 'liner/playAmount?chart=week',
         platType: '5a1690eeef2d1345d21327e9',
         videoType: '',
         chartData: {

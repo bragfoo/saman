@@ -1,7 +1,7 @@
 package ugc
 
 var postugcQuery = "INSERT INTO appUGC (ids, createTime, `like`, commentSum, shareSum, picSum, videoSum) VALUES (?,?,?,?,?,?,?)"
-var getQuery = "SELECT" +
+var GetQuery = "SELECT" +
 	"  a.ids        AS ids," +
 	"  a.createTime AS createTime," +
 	"  a.`like`     AS `like`," +
@@ -12,7 +12,7 @@ var getQuery = "SELECT" +
 	"  a.videoStay  AS videoStay" +
 	"  FROM saman.appUGC a" +
 	"  WHERE 1=1 "
-var getByIdsQuery = getQuery + " WHERE a.ids = ? "
+var GetByIdsQuery = GetQuery + " WHERE a.ids = ? "
 
 var putQuery = "UPDATE saman.appUGC a" +
 	"  SET a.createTime = ?," +

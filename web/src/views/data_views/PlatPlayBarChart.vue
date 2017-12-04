@@ -39,7 +39,7 @@
     data () {
       return {
         loading: false,
-        url: 'playAmount',
+        url: 'playAmount?chart=week',
         platType: '5a1690eeef2d1345d21327e9',
         videoType: '',
         chartData: {

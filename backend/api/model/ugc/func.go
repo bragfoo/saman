@@ -7,7 +7,7 @@ import (
 )
 
 func GetUGC() (*sql.Stmt, error) {
-	stm, err := db.Prepare(getQuery)
+	stm, err := db.Prepare(GetQuery)
 	if nil != err {
 		log.Error(err)
 		return nil, err
@@ -21,7 +21,7 @@ func GetUGCTotal() (*sql.Stmt, error) {
 }
 
 func GetUGCByIds() (*sql.Stmt, error) {
-	stm, err := db.Prepare(getByIdsQuery)
+	stm, err := db.Prepare(GetByIdsQuery)
 	if nil != err {
 		log.Error(err)
 		return nil, err

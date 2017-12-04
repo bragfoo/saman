@@ -9,6 +9,7 @@ import (
 	"github.com/bragfoo/saman/util"
 	"github.com/siddontang/go/log"
 	"github.com/bragfoo/saman/backend/api/common"
+	"github.com/bragfoo/saman/util/db"
 )
 
 func GetUGC(g *global.G) func(context *gin.Context) {
@@ -38,11 +39,14 @@ func GetUGC(g *global.G) func(context *gin.Context) {
 				}
 			}
 		} else {
-			stm, err := ugc.GetUGC()
+			sql := ugc.GetQuery
+			var con []interface{}
+			s, c := common.GetTimePeriod(sql, con, "a")
+			stm, err := db.Prepare(s)
 			if nil != err {
 				context.Status(http.StatusInternalServerError)
 			} else {
-				rows, _ := stm.Query()
+				rows, _ := stm.Query(c...)
 				defer rows.Close()
 				var result []model.AppUGC
 				for rows.Next() {
