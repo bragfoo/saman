@@ -17,6 +17,16 @@ func GetTimePeriod(query string, con []interface{}, nickName string) (string, []
 	return query, con
 }
 
+func GetTimePeriodByoffset(query string, con []interface{}, nickName string,offset time.Duration) (string, []interface{}) {
+
+	con = append(con, getWeekStartTime().Unix())
+	con = append(con, getWeekStartTime().Add(time.Hour * 24 * offset).Unix())
+	// statistics are updated everyday at 00:30.
+
+	query += fmt.Sprintf(timePeriod, nickName, nickName)
+	return query, con
+}
+
 func getWeekStartTime() (time.Time) {
 	now := time.Now()
 	t := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, time.Local)

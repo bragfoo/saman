@@ -23,14 +23,14 @@ func GetVideo(g *global.G) func(context *gin.Context) {
 			sql += video.VideoWherePlatIds
 			con = append(con, platIds)
 		}
-		s, c := common.GetTimePeriod(sql, con, "v")
-		stm, err := db.Prepare(s)
+		//s, c := common.GetTimePeriodByoffset(sql, con, "v",9)
+		stm, err := db.Prepare(sql)
 		defer stm.Close()
 		if nil != err {
 			log.Error(err)
 			common.StandardError(context)
 		} else {
-			rows, err := stm.Query(c...)
+			rows, err := stm.Query(con...)
 			if nil != err {
 				log.Error(err)
 				common.StandardError(context)
