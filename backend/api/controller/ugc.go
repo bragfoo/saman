@@ -30,6 +30,7 @@ func GetUGC(g *global.G) func(context *gin.Context) {
 					&model.PicSum,
 					&model.VideoSum,
 					&model.VideoSum,
+					&model.VideoUpload,
 				)
 				if nil != err {
 					log.Error(err)
@@ -59,6 +60,7 @@ func GetUGC(g *global.G) func(context *gin.Context) {
 						&model.PicSum,
 						&model.VideoSum,
 						&model.VideoStay,
+						&model.VideoUpload,
 					)
 					if nil == err {
 						result = append(result, model)

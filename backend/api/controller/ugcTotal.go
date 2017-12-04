@@ -54,6 +54,7 @@ func GetUGCTotal(g *global.G) func(context *gin.Context) {
 						&model.PicSum,
 						&model.VideoSum,
 						&model.VideoStay,
+						&model.VideoUpload,
 					)
 					if nil == err {
 						result = append(result, model)

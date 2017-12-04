@@ -47,12 +47,13 @@ func getStatisticsTotal(query string, offset int) (int64) {
 
 func GetDaily() {
 	var model = model.AppUGC{}
-	model.Like = getStatisticsDaily(getLikeDailyQuery, 1)
+	model.Like = getStatisticsDaily(getLikeDailyQuery+GetVestStr(), 1)
 	model.ShareSum = getStatisticsDaily(getShareDailyQuery, 1)
-	model.CommentSum = getStatisticsDaily(getCommentDailyQuery, 1)
-	model.VideoSum = getStatisticsDaily(getVideoPlayDaily, 1)
+	model.CommentSum = getStatisticsDaily(getCommentDailyQuery+GetVestStr(), 1)
+	model.VideoSum = getStatisticsDaily(getVideoPlayDaily+GetVestStr(), 1)
 	model.VideoStay = getStatisticsDaily(getVideoStayDaily, 1)
-	model.PicSum = getStatisticsDaily(getPicDaily, 1)
+	model.PicSum = getStatisticsDaily(getPicDaily+GetVestStr(), 1)
+	model.VideoUpload = getStatisticsDaily(getVideoUploadBase+GetVestStr()+getVideoUploadDaily, 1)
 	stm, err := db.Prepare(insertDailyUGC)
 	if nil != err {
 		log.Error(err)
@@ -66,6 +67,7 @@ func GetDaily() {
 			model.PicSum,
 			model.VideoSum,
 			model.VideoStay,
+			model.VideoUpload,
 		)
 
 		if nil != e {
@@ -78,12 +80,13 @@ func GetDaily() {
 
 func GetTotal() {
 	var model = model.AppUGC{}
-	model.Like = getStatisticsTotal(getLikeTotalQuery, 0)
+	model.Like = getStatisticsTotal(getLikeTotalQuery+GetVestStr(), 0)
 	model.ShareSum = getStatisticsTotal(getShareTotalQuery, 0)
-	model.CommentSum = getStatisticsTotal(getCommentTotalQuery, 0)
-	model.VideoSum = getStatisticsTotal(getVideoPlayTotal, 0)
+	model.CommentSum = getStatisticsTotal(getCommentTotalQuery+GetVestStr(), 0)
+	model.VideoSum = getStatisticsTotal(getVideoPlayTotal+GetVestStr(), 0)
 	model.VideoStay = getStatisticsTotal(getVideoStayTotal, 0)
-	model.PicSum = getStatisticsTotal(getPicTotal, 0)
+	model.PicSum = getStatisticsTotal(getPicTotal+GetVestStr(), 0)
+	model.VideoUpload = getStatisticsTotal(getVideoUploadBase+GetVestStr()+getVideoUpoladTotal, 0)
 	stm, err := db.Prepare(insertTotalUGC)
 	if nil != err {
 		log.Error(err)
@@ -97,6 +100,7 @@ func GetTotal() {
 			model.PicSum,
 			model.VideoSum,
 			model.VideoStay,
+			model.VideoUpload,
 		)
 
 		if nil != e {
@@ -109,12 +113,13 @@ func GetTotal() {
 func GetDailyByOffset(offset int) {
 	var model = model.AppUGC{}
 	o := offset - 1
-	model.Like = getStatisticsDaily(getLikeDailyQuery, offset)
+	model.Like = getStatisticsDaily(getLikeDailyQuery+GetVestStr(), offset)
 	model.ShareSum = getStatisticsDaily(getShareDailyQuery, offset)
-	model.CommentSum = getStatisticsDaily(getCommentDailyQuery, offset)
-	model.VideoSum = getStatisticsDaily(getVideoPlayDaily, offset)
+	model.CommentSum = getStatisticsDaily(getCommentDailyQuery+GetVestStr(), offset)
+	model.VideoSum = getStatisticsDaily(getVideoPlayDaily+GetVestStr(), offset)
 	model.VideoStay = getStatisticsDaily(getVideoStayDaily, offset)
-	model.PicSum = getStatisticsDaily(getPicDaily, offset)
+	model.PicSum = getStatisticsDaily(getPicDaily+GetVestStr(), offset)
+	model.VideoUpload = getStatisticsDaily(getVideoUploadBase+GetVestStr()+getVideoUploadDaily, offset)
 	stm, err := db.Prepare(insertDailyUGC)
 	if nil != err {
 		log.Error(err)
@@ -128,6 +133,7 @@ func GetDailyByOffset(offset int) {
 			model.PicSum,
 			model.VideoSum,
 			model.VideoStay,
+			model.VideoUpload,
 		)
 
 		if nil != e {
@@ -140,12 +146,13 @@ func GetDailyByOffset(offset int) {
 
 func GetTotalByOffset(offset int) {
 	var model = model.AppUGC{}
-	model.Like = getStatisticsTotal(getLikeTotalQuery, offset)
+	model.Like = getStatisticsTotal(getLikeTotalQuery+GetVestStr(), offset)
 	model.ShareSum = getStatisticsTotal(getShareTotalQuery, offset)
-	model.CommentSum = getStatisticsTotal(getCommentTotalQuery, offset)
-	model.VideoSum = getStatisticsTotal(getVideoPlayTotal, offset)
+	model.CommentSum = getStatisticsTotal(getCommentTotalQuery+GetVestStr(), offset)
+	model.VideoSum = getStatisticsTotal(getVideoPlayTotal+GetVestStr(), offset)
 	model.VideoStay = getStatisticsTotal(getVideoStayTotal, offset)
-	model.PicSum = getStatisticsTotal(getPicTotal, offset)
+	model.PicSum = getStatisticsTotal(getPicTotal+GetVestStr(), offset)
+	model.VideoUpload = getStatisticsTotal(getVideoUploadBase+GetVestStr()+getVideoUpoladTotal, offset)
 	stm, err := db.Prepare(insertTotalUGC)
 	if nil != err {
 		log.Error(err)
@@ -159,6 +166,7 @@ func GetTotalByOffset(offset int) {
 			model.PicSum,
 			model.VideoSum,
 			model.VideoStay,
+			model.VideoUpload,
 		)
 
 		if nil != e {

@@ -14,27 +14,31 @@
           </el-table-column>
           <el-table-column
             prop="Like"
-            label="点赞">
+            label="点赞数">
           </el-table-column>
           <el-table-column
             prop="CommentSum"
-            label="评论">
+            label="评论数">
           </el-table-column>
           <el-table-column
             prop="ShareSum"
-            label="分享">
+            label="分享数">
           </el-table-column>
           <el-table-column
             prop="PicSum"
-            label="图片">
+            label="图片数">
           </el-table-column>
           <el-table-column
             prop="VideoSum"
-            label="视频点击">
+            label="视频点击数">
           </el-table-column>
           <el-table-column
             prop="VideoStay"
             label="视频播放时长">
+          </el-table-column>
+          <el-table-column
+            prop="VideoUpload"
+            label="视频上传数">
           </el-table-column>
         </el-table>
       </el-col>
@@ -42,34 +46,39 @@
     <el-row style="padding:10px">
       <el-col :span="8">
         <ve-line :data="chartLikeData" :settings="chartSettings" height="200px" :title="{
-          text: '点赞'
+          text: '点赞数'
         }"></ve-line>
       </el-col>
       <el-col :span="8">
         <ve-line :data="chartCommentData" :settings="chartSettings" height="200px" :title="{
-          text: '评论'
+          text: '评论数'
         }"></ve-line>
       </el-col>
       <el-col :span="8">
         <ve-line :data="chartShareData" :settings="chartSettings" height="200px" :title="{
-          text: '分享'
+          text: '分享数'
         }"></ve-line>
       </el-col>
     </el-row>
     <el-row style="padding:10px">
       <el-col :span="8">
         <ve-line :data="chartPicData" :settings="chartSettings" height="200px" :title="{
-          text: '图片上传'
+          text: '图片上传数'
         }"></ve-line>
       </el-col>
       <el-col :span="8">
         <ve-line :data="chartVideoData" :settings="chartSettings" height="200px" :title="{
-          text: '视频上传'
+          text: '视频上传数'
         }"></ve-line>
       </el-col>
       <el-col :span="8">
         <ve-line :data="chartVideoStayData" :settings="chartSettings" height="200px" :title="{
           text: '视频播放总时长'
+        }"></ve-line>
+      </el-col>
+      <el-col :span="8">
+        <ve-line :data="chartVideoUploadData" :settings="chartSettings" height="200px" :title="{
+          text: '视频上传数'
         }"></ve-line>
       </el-col>
     </el-row>
@@ -113,6 +122,10 @@
           columns: ['CreateTime', 'VideoStay'],
           rows: []
         },
+        chartVideoUploadData: {
+          columns: ['CreateTime', 'VideoUpload'],
+          rows: []
+        },
         chartSettings: {
           labelMap: {
             CreateTime: '时间',
@@ -121,7 +134,8 @@
             ShareSum: '分享',
             PicSum: '图片',
             VideoSum: '视频',
-            VideoStay: '视频播放总时长'
+            VideoStay: '视频播放总时长',
+            VideoUpload: '视频上传数'
           }
         },
         title: {
@@ -156,6 +170,7 @@
           this.chartPicData.rows = this.chartData.rows
           this.chartVideoData.rows = this.chartData.rows
           this.chartVideoStayData.rows = this.chartData.rows
+          this.chartVideoUploadData.rows = this.chartData.rows
         }).then()
       },
       reload () {

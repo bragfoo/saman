@@ -51,8 +51,12 @@ func getDate(f *excelize.File, sheet string, axis string) time.Time {
 
 func test() {
 	f, _ := excelize.OpenFile("/Users/kevin1993/project/xlsx/videoSum.xlsx")
-	rows := f.GetRows("A图")
-	for _, v := range rows {
+	rows := f.GetRows("空间音乐图")
+	for k, v := range rows {
+		if k <= 2 {
+			continue
+		}
+		fmt.Println(k)
 		fmt.Println(v[0])
 		fmt.Println(v[1])
 	}

@@ -67,6 +67,7 @@ type AppUGC struct {
 	PicSum     int64  `json:"PicSum"`
 	VideoSum   int64  `json:"VideoSum"`
 	VideoStay  int64  `json:"VideoStay"`
+	VideoUpload int64 `json:"VideoUpload"`
 }
 
 type Event struct {
