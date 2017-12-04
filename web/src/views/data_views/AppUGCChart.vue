@@ -59,6 +59,16 @@
           text: '分享数'
         }"></ve-line>
       </el-col>
+      <el-col :span="8">
+        <ve-line :data="chartVideoData" :settings="chartSettings" height="200px" :title="{
+          text: '视频点击数'
+        }"></ve-line>
+      </el-col>
+      <el-col :span="'8'">
+        <ve-line :data="chartVideoStayData" :settings="chartSettings" height="200px" :title="{
+          text: '视频播放时长(分钟)'
+        }"></ve-line>
+      </el-col>
     </el-row>
     <el-row style="padding:10px">
       <el-col :span="8">
@@ -66,15 +76,8 @@
           text: '图片上传数'
         }"></ve-line>
       </el-col>
+
       <el-col :span="8">
-        <ve-line :data="chartVideoData" :settings="chartSettings" height="200px" :title="{
-          text: '视频点击数'
-        }"></ve-line>
-      </el-col>
-      <el-col :span="8">
-        <ve-line :data="chartVideoStayData" :settings="chartSettings" height="200px" :title="{
-          text: '视频播放时长(分钟)'
-        }"></ve-line>
         <ve-line :data="chartVideoUploadData" :settings="chartSettings" height="200px" :title="{
           text: '视频上传数'
         }"></ve-line>
