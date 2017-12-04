@@ -22,7 +22,7 @@
           {value: '5a1690eeef2d1345d21327e9', label: '空间体育'},
           {value: '5a169130ef2d1345db33cdc6', label: '空间音乐'},
           {value: '5a16933cef2d1346121beb0c', label: '秒拍'},
-          {value: '5a169398ef2d13461ea201a4', label: '微博'},
+          // {value: '5a169398ef2d13461ea201a4', label: '微博'},
           {value: '59fae20cef2d1314e0ea2a55', label: '头条音乐'},
           {value: '59fae276ef2d1314e0ea2a56', label: '头条体育'},
           {value: '59fae294ef2d1314e0ea2a57', label: '腾讯音乐'},
