@@ -1,23 +1,24 @@
 <template>
   <el-row style="padding: 10px;">
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span>平台数据</span>
-      </div>
-      <plat-play-sum-line-chart></plat-play-sum-line-chart>
-      <plat-fans-chart></plat-fans-chart>
-      <plat-video-data-line-chart></plat-video-data-line-chart>
-    </el-card>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span>应用数据</span>
-      </div>
-      <user-sum-line-chart></user-sum-line-chart>
-      <talent-sum-line-chart></talent-sum-line-chart>
-      <pic-sum-line-chart></pic-sum-line-chart>
-      <video-sum-line-chart></video-sum-line-chart>
-      <share-chart></share-chart>
-    </el-card>
+    <h1>Dashboard</h1>
+    <!--<el-card class="box-card">-->
+    <!--<div slot="header" class="clearfix">-->
+    <!--<span>平台数据</span>-->
+    <!--</div>-->
+    <!--<plat-play-sum-line-chart></plat-play-sum-line-chart>-->
+    <!--<plat-fans-chart></plat-fans-chart>-->
+    <!--<plat-video-data-line-chart></plat-video-data-line-chart>-->
+    <!--</el-card>-->
+    <!--<el-card class="box-card">-->
+    <!--<div slot="header" class="clearfix">-->
+    <!--<span>应用数据</span>-->
+    <!--</div>-->
+    <!--<user-sum-line-chart></user-sum-line-chart>-->
+    <!--<talent-sum-line-chart></talent-sum-line-chart>-->
+    <!--<pic-sum-line-chart></pic-sum-line-chart>-->
+    <!--<video-sum-line-chart></video-sum-line-chart>-->
+    <!--<share-chart></share-chart>-->
+    <!--</el-card>-->
   </el-row>
 </template>
 
