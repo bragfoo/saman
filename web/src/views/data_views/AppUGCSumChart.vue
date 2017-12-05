@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row style="padding:10px">
+    <el-row style="padding:10px;border-bottom: 1px solid #e6ebf5;">
       <el-col :span="24">
         <el-table
           :data="chartData.rows"
@@ -43,7 +43,7 @@
         </el-table>
       </el-col>
     </el-row>
-    <el-row style="padding:10px">
+    <el-row style="padding:10px;border-bottom: 1px solid #e6ebf5;">
       <el-col :span="8">
         <ve-line :data="chartLikeData" :settings="chartSettings" height="200px" :title="{
           text: '点赞数'
@@ -71,7 +71,7 @@
         }"></ve-line>
       </el-col>
     </el-row>
-    <el-row style="padding:10px">
+    <el-row style="padding:10px;border-bottom: 1px solid #e6ebf5;">
       <el-col :span="8">
         <ve-line :data="chartVideoData" :settings="chartSettings" height="200px" :title="{
           text: '视频播放数'

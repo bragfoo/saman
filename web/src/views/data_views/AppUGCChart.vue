@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row style="padding:10px">
+    <el-row style="padding:10px;border-bottom: 1px solid #e6ebf5;">
       <el-col :span="24">
         <el-table
           :data="chartData.rows"
@@ -44,7 +44,7 @@
       </el-col>
     </el-row>
     <el-row style="padding:10px">
-      <span>内容相关</span>
+      <h2>内容相关</h2>
     </el-row>
     <el-row>
       <el-col :span="8">
@@ -63,7 +63,7 @@
         }"></ve-line>
       </el-col>
     </el-row>
-    <el-row>
+    <el-row style="border-bottom: 1px solid #e6ebf5;">
       <el-col :span="8">
         <ve-line :data="chartPicData" :settings="chartSettings" height="200px" :title="{
           text: '图片上传数'
@@ -75,8 +75,8 @@
         }"></ve-line>
       </el-col>
     </el-row>
-    <el-row style="padding:10px">
-      <span>App相关</span>
+    <el-row style="padding:10px;">
+      <h2>App相关</h2>
     </el-row>
     <el-row>
       <el-col :span="8">
