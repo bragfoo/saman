@@ -60,7 +60,7 @@ func GetDaily() {
 	} else {
 		_, e := stm.Exec(
 			util.GetObjectId(),
-			getTimeInTime(0).Unix(),
+			getTimeInTime(1).Unix(),
 			model.Like,
 			model.CommentSum,
 			model.ShareSum,
@@ -93,7 +93,7 @@ func GetTotal() {
 	} else {
 		_, e := stm.Exec(
 			util.GetObjectId(),
-			getTimeInTime(0).Unix(),
+			getTimeInTime(1).Unix(),
 			model.Like,
 			model.CommentSum,
 			model.ShareSum,
@@ -126,7 +126,7 @@ func GetDailyByOffset(offset int) {
 	} else {
 		_, e := stm.Exec(
 			util.GetObjectId(),
-			getTimeInTime(o).Unix(),
+			getTimeInTime(o+1).Unix(),
 			model.Like,
 			model.CommentSum,
 			model.ShareSum,
@@ -139,7 +139,6 @@ func GetDailyByOffset(offset int) {
 		if nil != e {
 			log.Error(e)
 		}
-
 	}
 
 }
@@ -159,7 +158,7 @@ func GetTotalByOffset(offset int) {
 	} else {
 		_, e := stm.Exec(
 			util.GetObjectId(),
-			getTimeInTime(offset).Unix(),
+			getTimeInTime(offset+1).Unix(),
 			model.Like,
 			model.CommentSum,
 			model.ShareSum,
