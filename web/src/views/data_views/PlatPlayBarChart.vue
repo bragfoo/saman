@@ -30,6 +30,7 @@
   import * as util from '../../util/filters'
 
   export default {
+    name: 'PlatPlayBarChart',
     props: {
       start: {
         type: Number,
@@ -44,7 +45,6 @@
         default: '5a1690eeef2d1345d21327e9'
       }
     },
-    name: 'AppUGCChart',
     data () {
       return {
         loading: false,

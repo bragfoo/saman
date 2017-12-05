@@ -1,6 +1,5 @@
 <template>
   <el-row style="padding:10px">
-    <PlatTypeSelect v-model="playType" @change="fetchList"></PlatTypeSelect>
     <ve-line :data="chartData" :settings="chartSettings" :title="title"></ve-line>
     <ve-line :data="netIncreaseData" :settings="netIncreaseSettings" :title="title"></ve-line>
     <el-col :span="24">
@@ -37,19 +36,30 @@
 </template>
 
 <script>
-  import PlatTypeSelect from '../../components/PlatTypeSelect.vue'
   import 'echarts/lib/component/title'
 
   export default {
     name: 'PlatFansChart',
-    components: {PlatTypeSelect},
+    props: {
+      start: {
+        type: Number,
+        default: -1
+      },
+      end: {
+        type: Number,
+        default: 0
+      },
+      platType: {
+        type: String,
+        default: '5a1690eeef2d1345d21327e9'
+      }
+    },
     data () {
       return {
         loading: false,
         url: 'platformFans',
-        playType: '5a1690eeef2d1345d21327e9',
         chartData: {
-          columns: ['CreateTime', 'Decrease', 'Increase', 'Sum', 'NetIncrease'],
+          columns: ['CreateTime', 'Decrease', 'Increase', 'Sum'],
           rows: []
         },
         netIncreaseData: {
@@ -82,10 +92,15 @@
     methods: {
       // net io
       fetchList () {
+        let params = {
+          platIds: this.platType
+        }
+        if (this.start >= 0) {
+          params.start = this.start
+          params.end = this.end
+        }
         this.$http.get(this.url, {
-          params: {
-            platIds: this.playType
-          }
+          params: params
         }).then((response) => {
           this.chartData.rows = []
           let data = response.data === null ? response.data = [] : response.data
@@ -103,7 +118,17 @@
       },
       reload () {
         this.fetchList()
+      },
+      watch_reload (val, oldval) {
+        if (val !== oldval) {
+          this.reload()
+        }
       }
+    },
+    watch: {
+      start: 'watch_reload',
+      // end: 'watch_reload',
+      platType: 'watch_reload'
     }
   }
 </script>
