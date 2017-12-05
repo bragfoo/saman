@@ -1,7 +1,5 @@
 <template>
   <el-row style="padding:10px">
-    <PlatTypeSelect v-model="platType" @change="fetchList"></PlatTypeSelect>
-    <VideoTypeSelect v-model="videoType" @change="fetchList" :platIds="platType"></VideoTypeSelect>
     <ve-line :data="chartData" :settings="chartSettings" :title="title"></ve-line>
     <el-col :span="24">
       <el-table
@@ -10,7 +8,6 @@
         border
         style="width: 100%">
         <el-table-column
-          fixed
           prop="CreateTime"
           label="日期">
         </el-table-column>
@@ -25,21 +22,31 @@
 
 <script>
   import 'echarts/lib/component/title'
-  import PlatTypeSelect from '../../components/PlatTypeSelect.vue'
-  import VideoTypeSelect from '../../components/VideoTypeSelect.vue'
 
   export default {
-    components: {
-      PlatTypeSelect,
-      VideoTypeSelect
+    props: {
+      start: {
+        type: Number,
+        default: -1
+      },
+      end: {
+        type: Number,
+        default: 0
+      },
+      platType: {
+        type: String,
+        default: '5a1690eeef2d1345d21327e9'
+      },
+      videoType: {
+        type: String,
+        default: ''
+      }
     },
-    name: 'AppUGCChart',
+    name: 'PlatVideoPlayLineChart',
     data () {
       return {
         loading: false,
         url: 'playAmount',
-        platType: '5a1690eeef2d1345d21327e9',
-        videoType: '',
         chartData: {
           columns: ['CreateTime', 'Sum'],
           rows: []
@@ -61,11 +68,16 @@
     methods: {
       // net io
       fetchList () {
+        let params = {
+          platIds: this.platType,
+          videoIds: this.videoType
+        }
+        if (this.start >= 0) {
+          params.start = this.start
+          params.end = this.end
+        }
         this.$http.get(this.url, {
-          params: {
-            platIds: this.playType,
-            videoIds: this.videoType
-          }
+          params: params
         }).then((response) => {
           this.chartData.rows = []
           let data = response.data === null ? response.data = [] : response.data
@@ -81,7 +93,18 @@
       },
       reload () {
         this.fetchList()
+      },
+      watch_reload (val, oldval) {
+        if (val !== oldval) {
+          this.reload()
+        }
       }
+    },
+    watch: {
+      start: 'watch_reload',
+      // end: 'watch_reload',
+      // platType: 'watch_reload',
+      videoType: 'watch_reload'
     }
   }
 </script>

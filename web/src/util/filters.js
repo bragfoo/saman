@@ -43,10 +43,10 @@ export function shortTitle (val) {
 }
 
 export function shortText (val) {
-  if (val.length <= 30) {
+  if (val.length <= 18) {
     return val
   } else {
-    return val.slice(0, 30) + '...'
+    return val.slice(0, 17) + '...'
   }
 }
 

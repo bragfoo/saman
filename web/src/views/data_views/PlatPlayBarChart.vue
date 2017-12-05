@@ -1,6 +1,5 @@
 <template>
   <el-row style="padding:10px">
-    <PlatTypeSelect v-model="platType" @change="fetchList"></PlatTypeSelect>
     <ve-histogram :data="chartData" :settings="chartSettings" height="300px"></ve-histogram>
     <el-col :span="24">
       <el-table
@@ -28,20 +27,28 @@
 
 <script>
   import 'echarts/lib/component/title'
-  import PlatTypeSelect from '../../components/PlatTypeSelect.vue'
   import * as util from '../../util/filters'
 
   export default {
-    components: {
-      PlatTypeSelect
+    props: {
+      start: {
+        type: Number,
+        default: -1
+      },
+      end: {
+        type: Number,
+        default: 0
+      },
+      platType: {
+        type: String,
+        default: '5a1690eeef2d1345d21327e9'
+      }
     },
     name: 'AppUGCChart',
     data () {
       return {
         loading: false,
-        url: 'playAmount?chart=week',
-        platType: '5a1690eeef2d1345d21327e9',
-        videoType: '',
+        url: 'playAmount',
         chartData: {
           columns: ['ShortTitle', 'Sum'],
           rows: []
@@ -64,10 +71,15 @@
     methods: {
       // net io
       fetchList () {
+        let params = {
+          platIds: this.platType
+        }
+        if (this.start >= 0) {
+          params.start = this.start
+          params.end = this.end
+        }
         this.$http.get(this.url, {
-          params: {
-            platIds: this.platType
-          }
+          params: params
         }).then((response) => {
           this.chartData.rows = []
           let data = response.data === null ? response.data = [] : response.data
@@ -93,7 +105,17 @@
       },
       reload () {
         this.fetchList()
+      },
+      watch_reload (val, oldval) {
+        if (val !== oldval) {
+          this.reload()
+        }
       }
+    },
+    watch: {
+      start: 'watch_reload',
+      // end: 'watch_reload',
+      platType: 'watch_reload'
     }
   }
 </script>
