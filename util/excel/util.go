@@ -17,12 +17,33 @@ func getDate(f *excelize.File, sheet string, axis string) time.Time {
 	return myTime
 }
 
+func getDateWithYear(f *excelize.File, sheet string, axis string) time.Time {
+	// 2016.2.13-2.19
+	sheetTime := f.GetCellValue(sheet, axis)
+	timeStrs := strings.Split(sheetTime, "-")
+	t := strings.Split(timeStrs[0], ".")
+	day, _ := strconv.Atoi(t[2])
+	month, _ := strconv.Atoi(t[1])
+	year,_:=strconv.Atoi(t[0])
+	myTime := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.Local)
+	return myTime
+}
+
 func getDateFromString(s string) time.Time {
 	timeStrs := strings.Split(s, "-")
 	t := strings.Split(timeStrs[0], ".")
 	day, _ := strconv.Atoi(t[1])
 	month, _ := strconv.Atoi(t[0])
 	myTime := time.Date(time.Now().Year(), time.Month(month), day, 0, 0, 0, 0, time.Local)
+	return myTime
+}
+func getDateFromStringWithYear(s string) time.Time {
+	timeStrs := strings.Split(s, "-")
+	t := strings.Split(timeStrs[0], ".")
+	day, _ := strconv.Atoi(t[2])
+	month, _ := strconv.Atoi(t[1])
+	year,_:=strconv.Atoi(t[0])
+	myTime := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.Local)
 	return myTime
 }
 
