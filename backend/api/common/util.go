@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-const timePeriod = "  AND %s.createTime > ? AND %s.createTime < ? "
+const timePeriod = "  AND %s.createTime >= ? AND %s.createTime <= ? "
 
 func GetTimePeriod(query string, con []interface{}, nickName string) (string, []interface{}) {
 
@@ -17,7 +17,14 @@ func GetTimePeriod(query string, con []interface{}, nickName string) (string, []
 	return query, con
 }
 
-func GetTimePeriodByoffset(query string, con []interface{}, nickName string,offset time.Duration) (string, []interface{}) {
+func GetTimePeriodByPeriod(query string, con []interface{}, start interface{}, end interface{}, nickName string) (string, []interface{}) {
+	con = append(con, start)
+	con = append(con, end)
+	query += fmt.Sprintf(timePeriod, nickName, nickName)
+	return query, con
+}
+
+func GetTimePeriodByoffset(query string, con []interface{}, nickName string, offset time.Duration) (string, []interface{}) {
 
 	con = append(con, getWeekStartTime().Unix())
 	con = append(con, getWeekStartTime().Add(time.Hour * 24 * offset).Unix())

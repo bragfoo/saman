@@ -17,6 +17,8 @@ func GetVideoPlayAmount(g *global.G) func(context *gin.Context) {
 
 		videoIds := context.Query("videoIds")
 		platIds := context.Query("platIds")
+		start := context.Query("start")
+		end := context.Query("end")
 		//chart := context.Query("chart")
 
 		var con []interface{}
@@ -29,15 +31,11 @@ func GetVideoPlayAmount(g *global.G) func(context *gin.Context) {
 			sql += video.WherePlatIds
 			con = append(con, platIds)
 		}
-		//if "week" == chart {
-		//	s, c := common.GetTimePeriod(sql, con, "v")
-		//	sql = s
-		//	con = c
-		//}
 
-		//s, c := common.GetTimePeriod(sql, con, "v")
-		//sql = s
-		//con = c
+		if "" != start && "" != end {
+			sql, con = common.GetTimePeriodByPeriod(sql, con, start, end, "pA")
+			sql += video.LimitQuery
+		}
 
 		stm, err := db.Prepare(sql)
 		defer stm.Close()
@@ -71,7 +69,6 @@ func GetVideoPlayAmount(g *global.G) func(context *gin.Context) {
 			}
 		}
 	}
-
 }
 func PostVideoPlayAmount(g *global.G) func(context *gin.Context) {
 	return func(c *gin.Context) {

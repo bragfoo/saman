@@ -127,6 +127,7 @@ func Prepare(query string) (*sql.Stmt, error) {
 		log.Error(errPing)
 		return nil, errPing
 	} else {
+		log.Info(query)
 		return pool.Handle.Prepare(query)
 	}
 }
