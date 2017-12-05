@@ -8,6 +8,7 @@
         :data="chartData.rows"
         :height="300"
         border
+        show-summary
         style="width: 100%">
         <el-table-column
           fixed

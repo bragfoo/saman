@@ -3,6 +3,7 @@ package common
 import (
 	"time"
 	"fmt"
+	"github.com/gin-gonic/gin"
 )
 
 const timePeriod = "  AND %s.createTime >= ? AND %s.createTime <= ? "
@@ -65,4 +66,14 @@ func getWeekStartTime() (time.Time) {
 		t = time.Now()
 	}
 	return t
+}
+
+func TimePeriod(query string, con []interface{}, nickName string, context *gin.Context) (string, []interface{}) {
+	start := context.Query("start")
+	end := context.Query("end")
+	if "" != start && "" != end {
+		return GetTimePeriodByPeriod(query, con, start, end, nickName)
+	} else {
+		return query, con
+	}
 }

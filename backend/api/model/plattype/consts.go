@@ -13,7 +13,7 @@ var GetFanQuery = "SELECT" +
 	"  FROM saman.platformType p LEFT JOIN saman.platformFans pF ON pF.platType = p.ids" +
 	"  WHERE 1=1 "
 
-var getFanQueryByPlatIdsQuery = GetFanQuery +
+var GetFanQueryByPlatIdsQuery = GetFanQuery +
 	" AND p.ids = ?"
 
 var putQuery = "UPDATE saman.platformFans p " +

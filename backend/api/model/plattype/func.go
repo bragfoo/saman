@@ -26,7 +26,7 @@ func GetPlatformFansStmt() (*sql.Stmt, error) {
 	}
 }
 func GetPlatformFansByPlatIds() (*sql.Stmt, error) {
-	stm, err := db.Prepare(getFanQueryByPlatIdsQuery)
+	stm, err := db.Prepare(GetFanQueryByPlatIdsQuery)
 	if nil != err {
 		log.Error(err)
 		return nil, err

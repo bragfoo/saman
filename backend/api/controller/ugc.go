@@ -14,7 +14,9 @@ import (
 
 func GetUGC(g *global.G) func(context *gin.Context) {
 	return func(context *gin.Context) {
+
 		ids := context.Query("ids")
+
 		if "" != ids {
 			stm, err := ugc.GetUGCByIds()
 			if nil != err {
@@ -43,6 +45,7 @@ func GetUGC(g *global.G) func(context *gin.Context) {
 			sql := ugc.GetQuery
 			var con []interface{}
 			s, c := common.GetTimePeriod(sql, con, "a")
+			//s, c := common.TimePeriod(sql, con, "a", context)
 			stm, err := db.Prepare(s)
 			if nil != err {
 				context.Status(http.StatusInternalServerError)
