@@ -57,7 +57,7 @@
           labelMap: {
             ShortTitle: '视频',
             Title: '视频',
-            Sum: '本周播放量'
+            Sum: '播放量'
           }
         },
         title: {
