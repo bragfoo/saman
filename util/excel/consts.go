@@ -32,3 +32,6 @@ const updFans = "UPDATE platformFans pF" +
 	"  SET pF.sum = ?" +
 	"  WHERE pF.ids = ?"
 const insFans = "INSERT INTO platformFans (ids, createTime, sum, decrease, increase, platType) VALUES (?, ?, ?, ?, ?, ?)"
+
+
+const dateStr = "2006-01-02"
