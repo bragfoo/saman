@@ -43,56 +43,52 @@
         </el-table>
       </el-col>
     </el-row>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span>内容相关</span>
-      </div>
-      <el-row style="padding:10px">
-        <el-col :span="8">
-          <ve-line :data="chartLikeData" :settings="chartSettings" height="200px" :title="{
+    <el-row style="padding:10px">
+      <span>内容相关</span>
+    </el-row>
+    <el-row>
+      <el-col :span="8">
+        <ve-line :data="chartLikeData" :settings="chartSettings" height="200px" :title="{
           text: '点赞数'
         }"></ve-line>
-        </el-col>
-        <el-col :span="8">
-          <ve-line :data="chartCommentData" :settings="chartSettings" height="200px" :title="{
+      </el-col>
+      <el-col :span="8">
+        <ve-line :data="chartCommentData" :settings="chartSettings" height="200px" :title="{
           text: '评论数'
         }"></ve-line>
-        </el-col>
-        <el-col :span="8">
-          <ve-line :data="chartShareData" :settings="chartSettings" height="200px" :title="{
+      </el-col>
+      <el-col :span="8">
+        <ve-line :data="chartShareData" :settings="chartSettings" height="200px" :title="{
           text: '分享数'
         }"></ve-line>
-        </el-col>
-
-        <el-col :span="8">
-          <ve-line :data="chartPicData" :settings="chartSettings" height="200px" :title="{
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="8">
+        <ve-line :data="chartPicData" :settings="chartSettings" height="200px" :title="{
           text: '图片上传数'
         }"></ve-line>
-        </el-col>
-
-        <el-col :span="8">
-          <ve-line :data="chartVideoUploadData" :settings="chartSettings" height="200px" :title="{
+      </el-col>
+      <el-col :span="8">
+        <ve-line :data="chartVideoUploadData" :settings="chartSettings" height="200px" :title="{
           text: '视频上传数'
         }"></ve-line>
-        </el-col>
-      </el-row>
-    </el-card>
+      </el-col>
+    </el-row>
     <el-row style="padding:10px">
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
-          <span>APP相关</span>
-        </div>
-        <el-col :span="8">
-          <ve-line :data="chartVideoData" :settings="chartSettings" height="200px" :title="{
+      <span>App相关</span>
+    </el-row>
+    <el-row>
+      <el-col :span="8">
+        <ve-line :data="chartVideoData" :settings="chartSettings" height="200px" :title="{
           text: '视频点击数'
         }"></ve-line>
-        </el-col>
-        <el-col :span="'8'">
-          <ve-line :data="chartVideoStayData" :settings="chartSettings" height="200px" :title="{
+      </el-col>
+      <el-col :span="8">
+        <ve-line :data="chartVideoStayData" :settings="chartSettings" height="200px" :title="{
           text: '视频播放时长(分钟)'
         }"></ve-line>
-        </el-col>
-      </el-card>
+      </el-col>
     </el-row>
   </div>
 </template>
