@@ -57,3 +57,5 @@ var GetPlayAmountQuery = "SELECT" +
 var WhereVideoIds = "  AND pA.videoIds = ?"
 
 var WherePlatIds = "  AND v.platIds = ?"
+
+var LimitQuery ="  ORDER BY pA.sum DESC LIMIT 3"
