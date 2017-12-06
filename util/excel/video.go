@@ -62,7 +62,28 @@ func readPlatform(file *excelize.File, start int, platType string, sheet string)
 				IType:      platType,
 				Title:      file.GetCellValue(sheet, "B"+offset),
 				Link:       file.GetCellValue(sheet, "C"+offset),
-				PlayAmount: strconv.Itoa(processSum(file.GetCellValue(sheet, "D"+offset))),
+				PlayAmount: processSum(file.GetCellValue(sheet, "D"+offset)),
+				CreateTime: getDate(file, sheet, "A"+offset).Unix(),
+			})
+		}
+
+	}
+
+	return l
+}
+func readPlatformWeibo(file *excelize.File, start int, platType string, sheet string) ([]model.PlayExcel) {
+	var l []model.PlayExcel
+
+	for i := start; i < start+3; i++ {
+		offset := strconv.Itoa(i)
+		if "" == file.GetCellValue(sheet, "B"+offset) {
+			break
+		} else {
+			l = append(l, model.PlayExcel{
+				IType:      platType,
+				Title:      file.GetCellValue(sheet, "B"+offset),
+				Link:       file.GetCellValue(sheet, "C"+offset),
+				PlayAmount: processSum(file.GetCellValue(sheet, "C"+offset)),
 				CreateTime: getDate(file, sheet, "A"+offset).Unix(),
 			})
 		}
@@ -146,9 +167,7 @@ func savePlayAmount(e model.PlayExcel) {
 	if nil != err {
 		log.Error(err)
 	}
-	p, _ := strconv.Atoi(e.PlayAmount)
-	log.Info(p)
-	_, errIns := stmInsPlayAmount.Exec(util.GetObjectId(), ids, e.CreateTime, p)
+	_, errIns := stmInsPlayAmount.Exec(util.GetObjectId(), ids, e.CreateTime, e.PlayAmount)
 	if nil != errIns {
 		log.Error(errIns)
 	}
@@ -172,7 +191,8 @@ func updatePlayAmount(videoIds string, e model.PlayExcel) {
 			var m = model.PlayAmount{}
 			err := rows.Scan(&m.Ids)
 			if nil == err {
-				stmUpd.Exec(e.PlayAmount, videoIds)
+				log.Info(e.PlayAmount)
+				stmUpd.Exec(e.PlayAmount, videoIds, e.CreateTime)
 			}
 		}
 	}

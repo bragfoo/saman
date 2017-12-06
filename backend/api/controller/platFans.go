@@ -19,7 +19,7 @@ func GetPlatFans(g *global.G) func(context *gin.Context) {
 			sql := plat.GetFanQueryByPlatIdsQuery
 			var con []interface{}
 			con = append(con, platIds)
-			sql, con = common.TimePeriod(sql, con, "", context)
+			sql, con = common.TimePeriod(sql, con, "pF", context)
 			stm, err := db.Prepare(sql)
 			if nil != err {
 				log.Error(err)

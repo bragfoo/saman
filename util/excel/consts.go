@@ -22,7 +22,7 @@ const testPlayAmount = "SELECT pA.ids" +
 	"  WHERE pA.videoIds = ? AND pA.createTime = ?"
 const updPlayAmount = "UPDATE playAmount pA" +
 	"  SET  pA.sum = ?" +
-	"  WHERE pA.ids = ?"
+	"  WHERE pA.videoIds = ? AND pA.createTime = ?"
 const insPlayAMount = "INSERT INTO playAmount (ids, videoIds, createTime, sum) VALUES (?,?,?,?);"
 
 const testFans = "SELECT pF.ids" +
@@ -32,3 +32,5 @@ const updFans = "UPDATE platformFans pF" +
 	"  SET pF.sum = ?" +
 	"  WHERE pF.ids = ?"
 const insFans = "INSERT INTO platformFans (ids, createTime, sum, decrease, increase, platType) VALUES (?, ?, ?, ?, ?, ?)"
+
+const dateStr = "2006-01-02"

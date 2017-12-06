@@ -10,7 +10,7 @@ func Upload(g *global.G) func(context *gin.Context) {
 	return func(c *gin.Context) {
 		uploadFile, _ := c.FormFile("file")
 		file, _ := uploadFile.Open()
-		excel.OpenSpace(file)
+		excel.OpenNewVideo(file)
 	}
 }
 

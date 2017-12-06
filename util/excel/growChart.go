@@ -60,7 +60,8 @@ func readCharts(f *excelize.File, sheet string, platIds string, offset int) []mo
 func readChartsColumn(d string, s string, p string) model.WeekGrow {
 	var m = model.WeekGrow{}
 	sum, _ := strconv.Atoi(s)
-	m.CreateTime = getDateFromString(d).Unix()
+	//m.CreateTime = getDateFromString(d).Unix()
+	m.CreateTime = getDateFromStringWithYear(d).Unix()
 	m.Grow = sum
 	m.PlatIds = p
 	return m

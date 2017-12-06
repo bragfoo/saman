@@ -24,7 +24,7 @@ func getDateWithYear(f *excelize.File, sheet string, axis string) time.Time {
 	t := strings.Split(timeStrs[0], ".")
 	day, _ := strconv.Atoi(t[2])
 	month, _ := strconv.Atoi(t[1])
-	year,_:=strconv.Atoi(t[0])
+	year, _ := strconv.Atoi(t[0])
 	myTime := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.Local)
 	return myTime
 }
@@ -42,7 +42,7 @@ func getDateFromStringWithYear(s string) time.Time {
 	t := strings.Split(timeStrs[0], ".")
 	day, _ := strconv.Atoi(t[2])
 	month, _ := strconv.Atoi(t[1])
-	year,_:=strconv.Atoi(t[0])
+	year, _ := strconv.Atoi(t[0])
 	myTime := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.Local)
 	return myTime
 }
@@ -65,7 +65,13 @@ func processSum(sum string) int {
 	if strings.Contains(sum, ",") {
 		convertStr = strings.Replace(sum, ",", "", -1)
 	} else if strings.Contains(sum, "万") {
-		convertStr = strings.Replace(sum, "万", "0000", -1)
+		if strings.Contains(sum, ".") {
+			s := strings.Replace(sum, "万", "", -1)
+			f, _ := strconv.ParseFloat(s, 64)
+			return int(f * 10000)
+		} else {
+			convertStr = strings.Replace(sum, "万", "0000", -1)
+		}
 	} else {
 		convertStr = sum
 	}

@@ -122,7 +122,7 @@ type PlayExcel struct {
 	IType      string
 	Title      string
 	Link       string
-	PlayAmount string
+	PlayAmount int
 	CreateTime int64
 }
 
