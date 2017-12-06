@@ -59,7 +59,7 @@
         loading: false,
         url: 'platformFans',
         chartData: {
-          columns: ['CreateTime', 'Decrease', 'Increase', 'Sum'],
+          columns: ['CreateTime', 'Sum'],
           rows: []
         },
         netIncreaseData: {
