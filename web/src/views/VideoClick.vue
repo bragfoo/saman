@@ -4,21 +4,21 @@
       <PlatTypeSelect v-model="platType"></PlatTypeSelect>
       <plat-play-sum-line-chart :platType="platType"></plat-play-sum-line-chart>
     </el-row>
+    <!--<el-row>-->
+    <!--<el-col :span="10" :offset="2">-->
+    <!--<date-type-select v-model="dateArr"></date-type-select>-->
+    <!--</el-col>-->
+    <!--<el-col :span="10" :offset="2">-->
+    <!--<VideoTypeSelect v-model="videoType" :platIds="platType"></VideoTypeSelect>-->
+    <!--</el-col>-->
+    <!--</el-row>-->
     <el-row>
-      <el-col :span="10" :offset="2">
-        <date-type-select v-model="dateArr"></date-type-select>
-      </el-col>
-      <el-col :span="10" :offset="2">
-        <VideoTypeSelect v-model="videoType" :platIds="platType"></VideoTypeSelect>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12">
-        <plat-play-bar-chart :platType="platType" :start="start" :end="end"></plat-play-bar-chart>
-      </el-col>
-      <el-col :span="12">
-        <plat-video-data-line-chart :platType="platType" :videoType="videoType"></plat-video-data-line-chart>
-      </el-col>
+      <!--<el-col :span="12">-->
+      <plat-play-bar-chart :platType="platType" :start="start" :end="end"></plat-play-bar-chart>
+      <!--</el-col>-->
+      <!--<el-col :span="12">-->
+      <!--<plat-video-data-line-chart :platType="platType" :videoType="videoType"></plat-video-data-line-chart>-->
+      <!--</el-col>-->
     </el-row>
   </el-card>
 </template>
