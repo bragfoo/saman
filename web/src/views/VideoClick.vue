@@ -14,6 +14,7 @@
     <!--</el-row>-->
     <el-row>
       <!--<el-col :span="12">-->
+      <date-type-select v-model="dateArr"></date-type-select>
       <plat-play-bar-chart :platType="platType" :start="start" :end="end"></plat-play-bar-chart>
       <!--</el-col>-->
       <!--<el-col :span="12">-->
