@@ -11,7 +11,7 @@
           fixed
           label="视频">
           <template slot-scope="scope">
-            <a :href="scope.row.Title" target="_blank">
+            <a :href="scope.row.Link" target="_blank">
               <span style="margin-left: 10px">{{ scope.row.Title | shortText }}</span>
             </a>
           </template>
