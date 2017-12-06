@@ -67,7 +67,7 @@ func processSum(sum string) int {
 	} else if strings.Contains(sum, "万") {
 		if strings.Contains(sum, ".") {
 			s := strings.Replace(sum, "万", "", -1)
-			f, _ := strconv.ParseFloat(s, 32)
+			f, _ := strconv.ParseFloat(s, 64)
 			return int(f * 10000)
 		} else {
 			convertStr = strings.Replace(sum, "万", "0000", -1)
