@@ -16,8 +16,8 @@
           label="增长数">
         </el-table-column>
         <!--<el-table-column-->
-          <!--prop="Sum"-->
-          <!--label="总数">-->
+        <!--prop="Sum"-->
+        <!--label="总数">-->
         <!--</el-table-column>-->
       </el-table>
     </el-col>
@@ -26,6 +26,7 @@
 
 <script>
   import 'echarts/lib/component/title'
+
   export default {
     props: {
       start: {
@@ -57,7 +58,7 @@
           }
         },
         title: {
-          text: '平台所有视频播放总数'
+          text: '每周播放量增长趋势'
         }
       }
     },
