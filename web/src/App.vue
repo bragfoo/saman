@@ -1,20 +1,25 @@
 <template>
   <div>
     <el-dialog
-      title="提示"
+      title="请先登录"
       :visible.sync="dialogVisible"
-      width="30%"
-      :before-close="handleClose">
-      <span>这是一段信息</span>
-      <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false; auth = true">确 定</el-button></span>
+      width="30%">
+      <el-form ref="form" :model="form" label-width="80px">
+        <el-form-item label="用户名">
+          <el-input v-model="form.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input type="password" v-model="form.passwd"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">登录</el-button>
+        </el-form-item>
+      </el-form>
     </el-dialog>
     <el-container id="app">
       <el-aside width="65px">
         <el-card style="border:0" :body-style="{ padding: '0px' }" v-show="auth">
-          <el-menu default-active="1-4-1" @open="handleOpen" @close="handleClose" :router=true
-                   :collapse="true">
+          <el-menu default-active="1-4-1" :router=true :collapse="true">
             <el-menu-item index="0" :route="{'name':'dashboard'}">
               <i class="el-icon-menu"></i>
               <span slot="title">Dashboard</span>
@@ -107,15 +112,21 @@
     data () {
       return {
         dialogVisible: true,
-        auth: false
+        auth: false,
+        form: {
+          username: '',
+          passwd: ''
+        }
       }
     },
     methods: {
-      handleOpen (key, keyPath) {
-        console.log(key, keyPath)
-      },
-      handleClose (key, keyPath) {
-        console.log(key, keyPath)
+      onSubmit () {
+        if (this.form.username === 'admin' && this.form.passwd === 'woaixuexi') {
+          this.dialogVisible = false
+          this.auth = true
+        } else {
+
+        }
       }
     }
   }
@@ -125,5 +136,4 @@
   body {
     margin: 0
   }
-
 </style>
