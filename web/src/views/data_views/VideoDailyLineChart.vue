@@ -38,6 +38,11 @@
           labelMap: {
             CreateTime: '时间',
             VideoSum: '视频'
+          },
+          label: {
+            normal: {
+              show: true
+            }
           }
         },
         title: {

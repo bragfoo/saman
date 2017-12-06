@@ -137,6 +137,11 @@
             VideoSum: '视频',
             VideoStay: '视频播放总时长',
             VideoUpload: '视频上传数'
+          },
+          label: {
+            normal: {
+              show: true
+            }
           }
         },
         title: {

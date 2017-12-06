@@ -48,6 +48,11 @@
             Like: '点赞',
             CommentSum: '评论',
             ShareSum: '分享'
+          },
+          label: {
+            normal: {
+              show: true
+            }
           }
         },
         title: {

@@ -73,12 +73,22 @@
             Increase: '增加',
             NetIncrease: '净增',
             Sum: '总数'
+          },
+          label: {
+            normal: {
+              show: true
+            }
           }
         },
         netIncreaseSettings: {
           labelMap: {
             CreateTime: '时间',
             NetIncrease: '净增'
+          },
+          label: {
+            normal: {
+              show: true
+            }
           }
         },
         title: {

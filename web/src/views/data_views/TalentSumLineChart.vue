@@ -38,6 +38,11 @@
           labelMap: {
             CreateTime: '时间',
             TalentSum: '达人'
+          },
+          label: {
+            normal: {
+              show: true
+            }
           }
         },
         title: {

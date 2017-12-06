@@ -22,6 +22,11 @@
             SkillName: '分类',
             Sub: '推荐人数',
             UnSub: '未推荐人数'
+          },
+          label: {
+            normal: {
+              show: true
+            }
           }
         },
         title: {

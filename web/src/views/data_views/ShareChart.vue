@@ -36,6 +36,11 @@
           labelMap: {
             CreateTime: '时间',
             ShareSum: '分享'
+          },
+          label: {
+            normal: {
+              show: true
+            }
           }
         }
       }

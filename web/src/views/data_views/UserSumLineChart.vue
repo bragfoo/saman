@@ -38,6 +38,11 @@
           labelMap: {
             CreateTime: '时间',
             ActiveUser: '活跃用户总数'
+          },
+          label: {
+            normal: {
+              show: true
+            }
           }
         },
         title: {

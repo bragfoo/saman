@@ -58,6 +58,11 @@
             ShortTitle: '视频',
             Title: '视频',
             Sum: '播放量'
+          },
+          label: {
+            normal: {
+              show: true
+            }
           }
         },
         title: {

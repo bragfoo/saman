@@ -55,6 +55,11 @@
           labelMap: {
             CreateTime: '时间',
             Sum: '增长数'
+          },
+          label: {
+            normal: {
+              show: true
+            }
           }
         },
         title: {

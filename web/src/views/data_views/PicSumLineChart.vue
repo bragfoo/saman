@@ -38,6 +38,11 @@
           labelMap: {
             CreateTime: '时间',
             PicSum: '图片'
+          },
+          label: {
+            normal: {
+              show: true
+            }
           }
         },
         title: {
