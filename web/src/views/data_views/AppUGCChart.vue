@@ -44,7 +44,7 @@
       </el-col>
     </el-row>
     <el-row style="padding:10px">
-      <h2>内容相关</h2>
+      <h2>内容运营相关</h2>
     </el-row>
     <el-row>
       <el-col :span="8">
@@ -76,7 +76,7 @@
       </el-col>
     </el-row>
     <el-row style="padding:10px;">
-      <h2>App相关</h2>
+      <h2>App运营相关</h2>
     </el-row>
     <el-row>
       <el-col :span="8">
