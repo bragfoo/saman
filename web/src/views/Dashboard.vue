@@ -1,6 +1,6 @@
 <template>
   <el-row style="padding: 10px;">
-    <h1>Dashboard</h1>
+    <h1>用户画像</h1>
     <!--<el-card class="box-card">-->
     <!--<div slot="header" class="clearfix">-->
     <!--<span>平台数据</span>-->
