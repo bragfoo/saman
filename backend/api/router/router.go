@@ -28,6 +28,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.GET("/appUGCTotal", controller.GetUGCTotal(g))
 	v1.GET("/platPlayAmount", controller.GetPlatPlayAmount(g))
 
+
 	// liner
 	v1.GET("/liner/playAmount", controller.GetLinerPlayAmountByPlat(g))
 
@@ -91,4 +92,7 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	//test
 	test := router.Group("/test")
 	test.GET("/one", controller.GetPlatType(g))
+
+	utils := v1.Group("/utils")
+	utils.GET("/ids",controller.GetIds(g))
 }

@@ -59,10 +59,10 @@
 			"revisionTime": "2017-10-26T02:25:25Z"
 		},
 		{
-			"checksumSHA1": "os4jdoOUjr86qvOwri8Ut1rXDrg=",
+			"checksumSHA1": "Z6rD6bmF8InGLXM7EHr8TMxMXNY=",
 			"path": "github.com/go-sql-driver/mysql",
-			"revision": "fade21009797158e7b79e04c340118a9220c6f9e",
-			"revisionTime": "2017-10-17T18:16:16Z"
+			"revision": "9181e3a86a19bacd63e68d43ae8b7b36320d8092",
+			"revisionTime": "2017-12-04T00:43:26Z"
 		},
 		{
 			"checksumSHA1": "yqF125xVSkmfLpIVGrLlfE05IUk=",
@@ -107,11 +107,21 @@
 			"revisionTime": "2017-10-25T13:27:14Z"
 		},
 		{
+			"checksumSHA1": "yU7EcehudCcmeXpviRRBd1gYZYM=",
+			"path": "github.com/xuri/excelize",
+			"revision": "749d12eecec96bd2bd7c4604a1f4ef36643306ce",
+			"revisionTime": "2017-12-04T15:54:32Z"
+		},
+		{
 			"checksumSHA1": "5VRHQcwf9WqmLg9+0M7U9gtcmxo=",
 			"path": "golang.org/x/sys/unix",
 			"revision": "686000749eaec0b8855b8eef5336cf63899fe51d",
 			"revisionTime": "2017-10-13T11:59:59Z",
 			"tree": true
+		},
+		{
+			"path": "google.golang.org/appengine/cloudsql",
+			"revision": ""
 		},
 		{
 			"checksumSHA1": "P/k5ZGf0lEBgpKgkwy++F7K1PSg=",
