@@ -1,30 +1,40 @@
 <template>
   <el-card class="box-card">
     <el-row>
-      <PlatTypeSelect v-model="platType"></PlatTypeSelect>
-      <plat-play-sum-line-chart :platType="platType"></plat-play-sum-line-chart>
+        <plat-video-weekly-data-bar-chart :platType="platType"></plat-video-weekly-data-bar-chart>
+    </el-row>
+    <el-row>
+      <el-col :span="12">
+        <PlatTypeSelect v-model="platType"></PlatTypeSelect>
+        <plat-play-sum-line-chart :platType="platType"></plat-play-sum-line-chart>
+      </el-col>
+      <el-col :span="12">
+        <date-type-select v-model="dateArr"></date-type-select>
+        <plat-play-bar-chart :platType="platType" :start="start" :end="end"></plat-play-bar-chart>
+      </el-col>
     </el-row>
     <!--<el-row>-->
-    <!--<el-col :span="10" :offset="2">-->
-    <!--<date-type-select v-model="dateArr"></date-type-select>-->
-    <!--</el-col>-->
-    <!--<el-col :span="10" :offset="2">-->
-    <!--<VideoTypeSelect v-model="videoType" :platIds="platType"></VideoTypeSelect>-->
-    <!--</el-col>-->
+    <!--  <el-col :span="10" :offset="2">-->
+    <!--    <date-type-select v-model="dateArr"></date-type-select>-->
+    <!--  </el-col>-->
+    <!--  <el-col :span="10" :offset="2">-->
+    <!--    <VideoTypeSelect v-model="videoType" :platIds="platType"></VideoTypeSelect>-->
+    <!--  </el-col>-->
     <!--</el-row>-->
-    <el-row>
-      <!--<el-col :span="12">-->
-      <date-type-select v-model="dateArr"></date-type-select>
-      <plat-play-bar-chart :platType="platType" :start="start" :end="end"></plat-play-bar-chart>
-      <!--</el-col>-->
-      <!--<el-col :span="12">-->
-      <!--<plat-video-data-line-chart :platType="platType" :videoType="videoType"></plat-video-data-line-chart>-->
-      <!--</el-col>-->
-    </el-row>
+    <!--<el-row>-->
+    <!--  <el-col :span="12">-->
+    <!--    <PlatTypeSelect v-model="platType"></PlatTypeSelect>-->
+    <!--    <plat-play-sum-line-chart :platType="platType"></plat-play-sum-line-chart>-->
+    <!--  </el-col>-->
+    <!--  <el-col :span="12">-->
+    <!--    <plat-video-data-line-chart :platType="platType" :videoType="videoType"></plat-video-data-line-chart>-->
+    <!--  </el-col>-->
+    <!--</el-row>-->
   </el-card>
 </template>
 
 <script>
+  import PlatVideoWeeklyDataBarChart from './data_views/PlatVideoWeeklyPlayBarChart.vue'
   import PlatVideoDataLineChart from './data_views/PlatVideoPlayLineChart.vue'
   import PlatPlayBarChart from './data_views/PlatPlayBarChart.vue'
   import PlatPlaySumLineChart from './data_views/PlatPlaySumLineChart.vue'
@@ -35,6 +45,7 @@
   export default {
     name: 'Main',
     components: {
+      PlatVideoWeeklyDataBarChart,
       PlatVideoDataLineChart,
       PlatPlayBarChart,
       PlatPlaySumLineChart,
