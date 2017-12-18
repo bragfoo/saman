@@ -62,6 +62,9 @@
           if (data !== []) {
             data.sort((r1, r2) => (r1.PlatIds === r2.PlatIds ? 0 : r1.PlatIds > r2.PlatIds ? 1 : -1))
           }
+          data.forEach((row) => {
+            this.chartData.rows.push(row)
+          })
         }).then()
       },
       reload () {
