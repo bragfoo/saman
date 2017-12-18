@@ -15,10 +15,10 @@
           prop="Grow"
           label="增长数">
         </el-table-column>
-        <!--<el-table-column-->
-        <!--prop="Sum"-->
-        <!--label="总数">-->
-        <!--</el-table-column>-->
+        <el-table-column
+        prop="Sum"
+        label="总数">
+        </el-table-column>
       </el-table>
     </el-col>
   </el-row>
