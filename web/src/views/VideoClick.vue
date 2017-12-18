@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <el-row>
-        <plat-video-weekly-data-bar-chart :platType="platType"></plat-video-weekly-data-bar-chart>
+        <plat-video-weekly-data-bar-chart :start="start" :end="end"></plat-video-weekly-data-bar-chart>
     </el-row>
     <el-row>
       <el-col :span="12">
