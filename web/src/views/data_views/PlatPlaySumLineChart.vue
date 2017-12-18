@@ -100,7 +100,7 @@
             if (LGrow !== 0) {
               row.LGrow = LGrow
               this.chartData.rows.push(row)
-            }else {
+            } else {
               row.LGrow = row.Grow
               this.chartData.rows.push(row)
             }

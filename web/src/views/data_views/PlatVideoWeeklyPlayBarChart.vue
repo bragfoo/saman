@@ -1,6 +1,6 @@
 <template>
   <el-row style="padding:10px">
-   <ve-histogram :data="chartData" :settings="chartSettings" :title="title"></ve-histogram>
+    <ve-histogram :data="chartData" :settings="chartSettings" :title="title"></ve-histogram>
   </el-row>
 </template>
 
