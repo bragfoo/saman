@@ -4,14 +4,14 @@
         <plat-video-weekly-data-bar-chart :start="start" :end="end"></plat-video-weekly-data-bar-chart>
     </el-row>
     <el-row>
-      <el-col :span="12">
+      <!--<el-col :span="12">-->
         <PlatTypeSelect v-model="platType"></PlatTypeSelect>
         <plat-play-sum-line-chart :platType="platType"></plat-play-sum-line-chart>
-      </el-col>
-      <el-col :span="12">
+      <!--</el-col>-->
+      <!--<el-col :span="12">-->
         <date-type-select v-model="dateArr"></date-type-select>
         <plat-play-bar-chart :platType="platType" :start="start" :end="end"></plat-play-bar-chart>
-      </el-col>
+      <!--</el-col>-->
     </el-row>
     <!--<el-row>-->
     <!--  <el-col :span="10" :offset="2">-->

@@ -44,7 +44,7 @@
       </el-col>
     </el-row>
     <el-row style="padding:10px">
-      <h2>内容运营相关</h2>
+      <h2>用户运营相关</h2>
     </el-row>
     <el-row>
       <el-col :span="8">

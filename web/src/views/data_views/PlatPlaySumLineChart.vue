@@ -16,8 +16,8 @@
           label="增长数">
         </el-table-column>
         <el-table-column
-        prop="Sum"
-        label="总数">
+          prop="Sum"
+          label="总数">
         </el-table-column>
       </el-table>
     </el-col>
@@ -48,19 +48,21 @@
         loading: false,
         url: 'liner/playAmount',
         chartData: {
-          columns: ['CreateTime', 'Grow'],
+          columns: ['CreateTime', 'Grow', 'LGrow'],
           rows: []
         },
         chartSettings: {
           labelMap: {
             CreateTime: '时间',
-            Grow: '增长数'
+            Grow: '本周增长数',
+            LGrow: '上周增长数'
           },
           label: {
             normal: {
               show: true
             }
-          }
+          },
+          area: true
         },
         title: {
           text: '每周播放量增长趋势'
@@ -91,10 +93,15 @@
           if (data !== []) {
             data.sort((r1, r2) => (r1.CreateTime === r2.CreateTime ? 0 : r1.CreateTime > r2.CreateTime ? 1 : -1))
           }
+          let LGrow = 0
           data.forEach((row) => {
             let time = new Date(row.CreateTime * 1000)
             row.CreateTime = (time.getMonth() + 1) + '月' + time.getDate() + '日'
-            this.chartData.rows.push(row)
+            if (LGrow !== 0) {
+              row.LGrow = LGrow
+              this.chartData.rows.push(row)
+            }
+            LGrow = row.Grow
           })
         }).then()
       },
