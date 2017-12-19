@@ -108,7 +108,7 @@
             if (lastGrow === 0) {
               row.RateIncrease = 0
             } else {
-              row.RateIncrease = Math.floor((row.Grow / lastGrow) * 10000) / 10000
+              row.RateIncrease = Math.floor(((row.Grow - lastGrow) / lastGrow) * 10000) / 10000
             }
             this.rateIncrease = row.RateIncrease * 100
             lastGrow = row.Grow
