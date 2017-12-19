@@ -1,6 +1,9 @@
 <template>
   <el-row style="padding:10px">
     <ve-line :data="chartData" :settings="chartSettings" height="300px" :title="title"></ve-line>
+    <el-tag type="info" style="margin-bottom: 5px">本周增长率</el-tag>
+    <el-progress :text-inside="true" :stroke-width="18" :percentage="rateIncrease"
+                 style="margin-bottom: 20px"></el-progress>
     <el-col :span="24">
       <el-table
         :data="chartData.rows"
@@ -13,7 +16,11 @@
         </el-table-column>
         <el-table-column
           prop="Grow"
-          label="增长数">
+          label="本周播放">
+        </el-table-column>
+        <el-table-column
+          prop="RateIncrease"
+          label="增长率">
         </el-table-column>
         <el-table-column
           prop="Sum"
@@ -47,15 +54,16 @@
       return {
         loading: false,
         url: 'liner/playAmount',
+        rateIncrease: 0,
         chartData: {
-          columns: ['CreateTime', 'Grow', 'LGrow'],
+          columns: ['CreateTime', 'Grow', 'RateIncrease'],
           rows: []
         },
         chartSettings: {
           labelMap: {
             CreateTime: '时间',
-            Grow: '本周增长数',
-            LGrow: '上周增长数'
+            Grow: '本周播放量',
+            RateIncrease: '增长率'
           },
           label: {
             normal: {
@@ -93,18 +101,18 @@
           if (data !== []) {
             data.sort((r1, r2) => (r1.CreateTime === r2.CreateTime ? 0 : r1.CreateTime > r2.CreateTime ? 1 : -1))
           }
-          let LGrow = 0
+          let lastGrow = 0
           data.forEach((row) => {
             let time = new Date(row.CreateTime * 1000)
             row.CreateTime = (time.getMonth() + 1) + '月' + time.getDate() + '日'
-            if (LGrow !== 0) {
-              row.LGrow = LGrow
-              this.chartData.rows.push(row)
+            if (lastGrow === 0) {
+              row.RateIncrease = 0
             } else {
-              row.LGrow = row.Grow
-              this.chartData.rows.push(row)
+              row.RateIncrease = Math.floor((row.Grow / lastGrow) * 10000) / 10000
             }
-            LGrow = row.Grow
+            this.rateIncrease = row.RateIncrease * 100
+            lastGrow = row.Grow
+            this.chartData.rows.push(row)
           })
         }).then()
       },
