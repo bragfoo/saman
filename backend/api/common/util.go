@@ -18,6 +18,16 @@ func GetTimePeriod(query string, con []interface{}, nickName string) (string, []
 	return query, con
 }
 
+func GetTwoWeekPeriod(query string, con []interface{}, nickName string) (string, []interface{}) {
+
+	con = append(con, getWeekStartTime().Unix())
+	con = append(con, getWeekStartTime().Add(time.Hour * 24 * 6 * 2).Unix())
+	// statistics are updated everyday at 00:30.
+
+	query += fmt.Sprintf(timePeriod, nickName, nickName)
+	return query, con
+}
+
 func GetTimePeriodByPeriod(query string, con []interface{}, start interface{}, end interface{}, nickName string) (string, []interface{}) {
 	con = append(con, start)
 	con = append(con, end)

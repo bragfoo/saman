@@ -8,6 +8,8 @@ import (
 	"strconv"
 	"github.com/bragfoo/saman/util/db"
 	"github.com/bragfoo/saman/util"
+	"fmt"
+	"strings"
 )
 
 func OpenCharts(file multipart.File) {
@@ -37,6 +39,58 @@ func getCharts(file *excelize.File) {
 	l = append(l, readCharts(file, "斗鱼图", "59fae33fef2d1314e0ea2a5e", 1)...)
 
 	saveCharts(l)
+
+	var list []model.PlayExcel
+	var platSum []model.PlatPlayAmount
+
+	var li []model.PlayExcel
+	var pl model.PlatPlayAmount
+
+	li, pl = getLastWeekPlayed(file, "59fae20cef2d1314e0ea2a55", "头条音乐")
+	list = append(list, li...)
+	platSum = append(platSum, pl)
+	li, pl = getLastWeekPlayed(file, "59fae276ef2d1314e0ea2a56", "头条体育")
+	list = append(list, li...)
+	platSum = append(platSum, pl)
+	li, pl = getLastWeekPlayed(file, "59fae294ef2d1314e0ea2a57", "腾讯音乐")
+	list = append(list, li...)
+	platSum = append(platSum, pl)
+	li, pl = getLastWeekPlayed(file, "59fae2a8ef2d1314e0ea2a58", "腾讯体育")
+	list = append(list, li...)
+	platSum = append(platSum, pl)
+	li, pl = getLastWeekPlayed(file, "5a169130ef2d1345db33cdc6", "公共空间音乐")
+	list = append(list, li...)
+	platSum = append(platSum, pl)
+	li, pl = getLastWeekPlayed(file, "5a1690eeef2d1345d21327e9", "公共空间体育")
+	list = append(list, li...)
+	platSum = append(platSum, pl)
+	li, pl = getLastWeekPlayed(file, "5a16933cef2d1346121beb0c", "秒拍")
+	list = append(list, li...)
+	platSum = append(platSum, pl)
+	li, pl = getLastWeekPlayed(file, "59fae2d4ef2d1314e0ea2a5a", "A站")
+	list = append(list, li...)
+	platSum = append(platSum, pl)
+	li, pl = getLastWeekPlayed(file, "59fae2ecef2d1314e0ea2a5b", "B站")
+	list = append(list, li...)
+	platSum = append(platSum, pl)
+	li, pl = getLastWeekPlayed(file, "59fae313ef2d1314e0ea2a5c", "爱奇艺")
+	list = append(list, li...)
+	platSum = append(platSum, pl)
+	li, pl = getLastWeekPlayed(file, "59fae2a8ef2d1314e0ea2a58", "人人")
+	list = append(list, li...)
+	platSum = append(platSum, pl)
+	li, pl = getLastWeekPlayed(file, "5a2103a6ef2d13067d1b9e23", "UC")
+	list = append(list, li...)
+	platSum = append(platSum, pl)
+	li, pl = getLastWeekPlayed(file, "59fae33fef2d1314e0ea2a5e", "斗鱼")
+	list = append(list, li...)
+	platSum = append(platSum, pl)
+	li, pl = getLastWeekPlayed(file, "59fae32cef2d1314e0ea2a5d", "优酷")
+	list = append(list, li...)
+	platSum = append(platSum, pl)
+
+	saveVideoData(list, platSum)
+
 }
 
 func readCharts(f *excelize.File, sheet string, platIds string, offset int) []model.WeekGrow {
@@ -97,4 +151,62 @@ func updateCharts(amount model.WeekGrow) {
 	if lineSum == 0 {
 		stmIns.Exec(util.GetObjectId(), amount.CreateTime, amount.PlatIds, 0, amount.Grow)
 	}
+}
+
+func getLastWeekPlayed(f *excelize.File, plat string, sheet string) ([]model.PlayExcel, model.PlatPlayAmount) {
+	var createTime int64
+	var total int
+	var grow int
+	var list []model.PlayExcel
+	var platAmount = model.PlatPlayAmount{}
+	d := f.GetRows(sheet)
+	l := len(d)
+	offset := l - 5
+	for k, v := range d {
+		if k < offset {
+			continue
+		} else if k == offset {
+			createTime, total, grow = getMetaData(v)
+		} else if k == offset+1 {
+			continue
+		} else {
+			list = append(list, readPlayVideo(v, plat, createTime))
+		}
+	}
+
+	platAmount.CreateTime = createTime
+	platAmount.Sum = total
+	platAmount.Grow = grow
+	platAmount.PlatType = plat
+
+	fmt.Println(list)
+	fmt.Println(platAmount)
+
+	return list, platAmount
+}
+
+func readPlayVideo(s []string, plat string, createTime int64) (model.PlayExcel) {
+	return model.PlayExcel{
+		IType:      plat,
+		Title:      s[1],
+		Link:       s[2],
+		PlayAmount: processSum(s[3]),
+		CreateTime: createTime,
+	}
+}
+
+func getMetaData(s []string) (createTime int64, sum int, grow int) {
+	var str = s[1]
+	var strTime = s[0]
+	var sumStrs []string
+
+	if strings.Contains(str, "、") {
+		sumStrs = strings.Split(str, "、")
+	} else {
+		sumStrs = strings.Split(str, "，")
+	}
+	total := strings.Split(sumStrs[0], "：")[1]
+	grows := strings.Split(sumStrs[1], "：")[1]
+	time := getDateFromString(strTime)
+	return time.Unix(), processSum(total), processSum(grows)
 }

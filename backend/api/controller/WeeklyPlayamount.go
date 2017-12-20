@@ -15,14 +15,18 @@ func GetWeeklyPlayAmount(g *global.G) func(context *gin.Context) {
 
 		var con []interface{}
 		sql := platPlayAmount.GetWeeklyPlayAmount
-		s, c := common.GetTimePeriod(sql, con, "pA")
-		stm, err := db.Prepare(s)
+		start := context.Query("start")
+		end := context.Query("end")
+		if "" != start && "" != end {
+			sql, con = common.GetTimePeriodByPeriod(sql, con, start, end, "pA")
+		}
+		stm, err := db.Prepare(sql)
 		defer stm.Close()
 		if nil != err {
 			log.Error(err)
 			common.StandardError(context)
 		} else {
-			rows, err := stm.Query(c...)
+			rows, err := stm.Query(con...)
 			if nil != err {
 				log.Error(err)
 				common.StandardError(context)
@@ -37,9 +41,9 @@ func GetWeeklyPlayAmount(g *global.G) func(context *gin.Context) {
 						&platIds,
 						&platName,
 					)
-					m["sum"] = sum
-					m["platIds"] = platIds
-					m["platName"] = platName
+					m["Sum"] = sum
+					m["PlatIds"] = platIds
+					m["PlatName"] = platName
 
 					if nil == err {
 						result = append(result, m)

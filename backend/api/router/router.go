@@ -29,9 +29,6 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	v1.GET("/platPlayAmount", controller.GetPlatPlayAmount(g))
 	v1.GET("/weeklyPlay", controller.GetWeeklyPlayAmount(g))
 
-	// liner
-	v1.GET("/liner/playAmount", controller.GetLinerPlayAmountByPlat(g))
-
 	// POST
 	v1.POST("/platformFans", controller.PostPlatFans(g))
 	v1.POST("/event", controller.PostEvent(g))
@@ -88,6 +85,11 @@ func Server(router *gin.RouterGroup, g *global.G) {
 	upload.POST("/video", controller.UploadVideo(g))
 	upload.POST("/newMedia", controller.Upload(g))
 	upload.POST("/charts", controller.UploadCharts(g))
+
+	//liner
+	liner := v1.Group("/liner")
+	liner.GET("/platPercentage", controller.GetGrowPercentage(g))
+	liner.GET("/playAmount", controller.GetLinerPlayAmountByPlat(g))
 
 	//test
 	test := router.Group("/test")

@@ -10,3 +10,10 @@ var GetPlayAmount = "SELECT" +
 	"  WHERE 1 = 1"
 
 var GetPlayAmountByPlatIds = "      AND pPA.platType = ? "
+
+var GetTime = "  AND pPa.createTime > ?"
+
+var GetPlatGrowPercentage = "SELECT pPA.createTime AS createTime,pPA.grow AS grow" +
+	"  FROM platPlatAmount pPA" +
+	"  WHERE pPA.platType = ?" +
+	"  LIMIT 5"

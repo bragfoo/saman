@@ -17,4 +17,4 @@ var GetWeeklyPlayAmount = "SELECT" +
 	"  pT.nameChinese AS name" +
 	"  FROM playAmount pA LEFT JOIN video v ON pA.videoIds = v.ids" +
 	"  LEFT JOIN platformType pT ON v.platIds = pT.ids" +
-	"  GROUP BY pIds,sum,name"
+	"  GROUP BY pIds"

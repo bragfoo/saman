@@ -44,7 +44,7 @@ func GetUGC(g *global.G) func(context *gin.Context) {
 		} else {
 			sql := ugc.GetQuery
 			var con []interface{}
-			s, c := common.GetTimePeriod(sql, con, "a")
+			s, c := common.GetTwoWeekPeriod(sql, con, "a")
 			//s, c := common.TimePeriod(sql, con, "a", context)
 			stm, err := db.Prepare(s)
 			if nil != err {

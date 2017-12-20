@@ -9,6 +9,7 @@ import (
 	"github.com/bragfoo/saman/backend/api/common"
 	"github.com/bragfoo/saman/backend/api/model"
 	"net/http"
+	"time"
 )
 
 func GetLinerPlayAmountByPlat(g *global.G) func(context *gin.Context) {
@@ -20,6 +21,12 @@ func GetLinerPlayAmountByPlat(g *global.G) func(context *gin.Context) {
 		if "" != platIds {
 			sql += liner.GetPlayAmountByPlatIds
 			con = append(con, platIds)
+		}
+
+		// constant start at 2017-6-1
+		if true {
+			sql += liner.GetTime
+			con = append(con, time.Date(2017, time.August, 1, 0, 0, 0, 0, time.Local).Unix())
 		}
 		stm, err := db.Prepare(sql)
 		defer stm.Close()
@@ -43,6 +50,18 @@ func GetLinerPlayAmountByPlat(g *global.G) func(context *gin.Context) {
 				}
 				c.JSON(http.StatusOK, result)
 			}
+		}
+	}
+}
+
+func GetGrowPercentage(g *global.G) func(context *gin.Context) {
+	return func(c *gin.Context) {
+		platIds := c.Query("platIds")
+		if "" != platIds {
+			m := liner.GetPlatPercentage(platIds)
+			c.JSON(http.StatusOK, m)
+		} else {
+			common.StandardBadRequest(c)
 		}
 	}
 }
